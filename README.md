@@ -1,6 +1,6 @@
 # Claude Code Configuration
 
-Eleven specialized AI agents that orchestrate your entire feature development workflow - from PRD to production.
+Ten specialized AI agents that orchestrate your entire feature development workflow - from PRD to production.
 
 **Think of these agents as teammates, not replacements.** They're specialists who collaborate with you, not autopilot that flies solo. Like any great team, the quality of their output depends on the clarity of your input - garbage in, garbage out still applies, but with the right direction, these agents can 10x your velocity.
 
@@ -29,7 +29,7 @@ Eleven specialized AI agents that orchestrate your entire feature development wo
 
 Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `CLAUDE.md` (see bottom) for proactive suggestions.
 
-## The 11 Agents
+## The 10 Agents
 
 | Agent | When to Use | Model | Auto-Delegates |
 |-------|-------------|-------|----------------|
@@ -42,7 +42,6 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 | 🔎 gap-finder | "Find what's missing vs spec" | Opus | ✅ engineer/reviewer |
 | 🎨 tech-shaping-advisor | "Help me draft tech spec sections" | Opus | ❌ |
 | 📋 task-planner | "Create implementation plan" | Opus | ❌ |
-| 🛡️ project-manager | "Prevent scope creep" | Sonnet | ❌ |
 | 🔄 notion-manager | "Sync status to Notion" | Haiku | ❌ |
 
 ## Complete Workflow Example
@@ -73,19 +72,28 @@ Starting with a PRD for a new "Gift Tracking" feature (ShapeUp cycle):
 ```
 → Engineer auto-delegates through entire workflow until Notion updated
 → If gaps found or changes needed, auto-loops back to engineer
+→ notion-manager verifies PR merged in git before updating Notion status
 
 **4. Repeat for remaining branches**
 
-**5. Final documentation**
+**5. Integration testing (User-triggered when ready)**
+```bash
+/task integration-tester Test gift tracking end-to-end workflows
+```
+→ Outputs: Integration test suite, cross-service validation results
+
+**6. Final documentation (User-triggered when all complete)**
 ```bash
 /task chronicler Document the gift tracking feature
 ```
+→ chronicler verifies all branches merged in git (reads Notion for branch list, checks git status)
+→ If unmerged branches found, reports mismatch and blocks documentation
 → Outputs: API docs, usage guides
-→ notion-manager marks feature complete in Notion
+→ Auto-delegates to notion-manager to mark feature "Complete ✅"
 
 ## Optional Dependencies
 
-**Notion integration** (tech-shaping-advisor, task-planner, notion-manager, project-manager):
+**Notion integration** (tech-shaping-advisor, task-planner, notion-manager):
 - [Notion MCP](https://mcp.notion.com/): `claude mcp add -t http notion https://mcp.notion.com/mcp`
 
 **Babylist-specific** (tech-shaping-advisor, task-planner):
@@ -93,6 +101,17 @@ Starting with a PRD for a new "Gift Tracking" feature (ShapeUp cycle):
 - `.github/prompts/ai_tech_shaping.prompt.md` template
 
 Agents gracefully degrade without these - skipping Notion publishing or using generic patterns.
+
+## Merge Status Tracking (Hybrid Approach)
+
+**Notion as coordination hub, Git as source of truth:**
+
+- **notion-manager**: Verifies PR/branch merge status in git (`gh pr view` / `git branch --merged`) before updating Notion
+- **chronicler**: Reads branch list from Notion, verifies all merged in git before documenting
+- **Status flow**: "In Progress" → "Review" → "Merged ✅" (verified in git) → "Complete ✅" (all branches merged + documented)
+- **Discrepancy handling**: If Notion shows merged but git doesn't, agents report mismatch for manual resolution
+
+This ensures Notion stays synchronized with git reality while using Notion for workflow coordination.
 
 ## How Agents Work Together
 
@@ -179,7 +198,12 @@ Per branch - Smart Autonomous:
 - Feedback loops: gaps found → engineer, changes needed → engineer
 - You only trigger initial engineer, rest runs automatically
 
-### 4. Final Documentation (End of Cycle)
-- Use `/task chronicler` to document completed feature
-- notion-manager marks feature complete in Notion
+### 4. Integration Testing (When Ready)
+- You: `/task integration-tester` to test end-to-end workflows
+- Run after multiple branches merged, before final documentation
+- Tests cross-service interactions and complete user journeys
+
+### 5. Final Documentation (When All Complete)
+- You: `/task chronicler` to document completed feature
+- Auto-chain: chronicler → notion-manager (marks feature complete)
 ```

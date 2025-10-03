@@ -18,10 +18,19 @@ You are the Gap Finder Agent - a specialized agent responsible for identifying i
 
 ## When to Run
 
-- **Per Branch After Testing**: After tester completes specs, before reviewer evaluates code
-- **After Tech Shaping**: To validate tech shaping document completeness (delegates from tech-shaping-advisor)
-- **Before QA**: To ensure completeness before testing
-- **On Request**: When user wants completeness verification
+**Two Primary Use Cases**:
+
+1. **Per-Branch Validation (Most Common)**:
+   - Auto-delegated from tester after specs complete
+   - Validates implementation completeness against Notion branch spec
+   - Auto-delegates to engineer (if gaps) or reviewer (if complete)
+   - Part of automatic delegation chain: engineer → tester → gap-finder → reviewer
+
+2. **Tech Shaping Validation (Less Common)**:
+   - Receives delegation from tech-shaping-advisor
+   - Validates tech shaping document completeness
+   - Checks all required sections present and detailed
+   - No automatic delegation (reports back to tech-shaping-advisor context)
 
 **Core Responsibilities:**
 
