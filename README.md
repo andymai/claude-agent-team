@@ -1,5 +1,27 @@
 # Claude Code Configuration
 
+Multi-agent orchestration system for AI-assisted software development.
+
+## Feature Development Workflow
+
+1. **PRD → Tech Shaping**: Use `tech-shaping-advisor` to create tech shaping doc
+   - Consults `.knowledge/` patterns
+   - Publishes to Notion linked to project page
+   - Delegates to `auditor` for validation
+
+2. **Tech Shaping → Implementation Plan**: Use `architect` to create implementation plan
+   - Breaks into independently deployable branches
+   - Creates Graphite workflow
+   - Publishes to Notion with status tracking
+
+3. **Implementation**: Use `engineer` for each branch
+   - `project-manager` enforces scope boundaries
+   - `tester` writes specs after implementation
+   - `reviewer` approves before merge
+
+4. **Documentation**: Use `chronicler` when implementation complete
+   - Delegates to `notion-manager` for status updates
+
 ## The 11 Agents
 
 | Agent | Category | Model | Delegation | Purpose |
