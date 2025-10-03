@@ -28,9 +28,9 @@ This repository contains 11 specialized AI agents that work together to handle t
 | 🔍 reviewer | Core Development | Opus | ✅ engineer | Two-phase review process (critique → reflection) |
 | ⚡ optimizer | Core Development | Sonnet 3.5 | ✅ engineer | Refactors after implementation |
 | 📝 chronicler | Core Development | Sonnet 3.5 | ✅ notion-manager | Creates developer-focused docs |
-| 🔌 inspector | Testing & Quality | Sonnet 4.5 | ❌ | Tests cross-component interactions |
-| 🔎 auditor | Testing & Quality | Opus | ✅ engineer | Compares implementation to requirements |
-| 🎨 tech-shaping-advisor | Planning & Documentation | Opus | ✅ auditor | Creates tech shaping docs from PRDs, publishes to Notion |
+| 🔌 integration-tester | Testing & Quality | Sonnet 4.5 | ❌ | Tests cross-component interactions |
+| 🔎 gap-finder | Testing & Quality | Opus | ✅ engineer | Compares implementation to requirements |
+| 🎨 tech-shaping-advisor | Planning & Documentation | Opus | ✅ gap-finder | Creates tech shaping docs from PRDs, publishes to Notion |
 | 📋 task-planner | Planning & Documentation | Opus | ✅ engineer | Breaks features into independently deployable branches |
 | 🛡️ project-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Prevents scope drift during implementation |
 | 🔄 notion-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Updates Notion with implementation status |
@@ -74,11 +74,11 @@ $ /task reviewer Review the changes in this branch
 - [Claude Code](https://docs.claude.com/en/docs/claude-code) installed
 - Anthropic API key configured
 
-**For Notion-dependent agents** (tech-shaping-advisor, architect, notion-manager, project-manager):
+**For Notion-dependent agents** (tech-shaping-advisor, task-planner, notion-manager, project-manager):
 - [Notion MCP](https://mcp.notion.com/) configured: `claude mcp add -t http notion https://mcp.notion.com/mcp`
 - Notion workspace with access to project pages
 
-**For Babylist-specific features** (tech-shaping-advisor, architect):
+**For Babylist-specific features** (tech-shaping-advisor, task-planner):
 - `.knowledge/` directory with codebase patterns (see [example structure](https://github.com/babylist/web))
 - `.github/prompts/ai_tech_shaping.prompt.md` template
 
@@ -99,7 +99,7 @@ When working on new features, follow this agent orchestration workflow:
 - Use `/task tech-shaping-advisor` to create tech shaping document
 - Consults `.knowledge/` patterns for architectural guidance
 - Publishes to Notion and links to project page
-- Delegates to `auditor` for completeness validation
+- Delegates to `gap-finder` for completeness validation
 
 ### 2. Tech Shaping → Implementation Plan
 - Use `/task task-planner` to transform tech shaping into implementation plan
