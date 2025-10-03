@@ -4,6 +4,8 @@ Multi-agent orchestration system for AI-assisted software development.
 
 ## Feature Development Workflow
 
+**Add this workflow to your `CLAUDE.md` file** so Claude automatically follows it:
+
 1. **PRD → Tech Shaping**: Use `tech-shaping-advisor` to create tech shaping doc
    - Consults `.knowledge/` patterns
    - Publishes to Notion linked to project page
