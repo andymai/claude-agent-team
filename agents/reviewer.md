@@ -163,6 +163,28 @@ Based on review findings, suggest:
 - Suggested improvements
 - Recommendation for next agent (if applicable)
 
+## Checkpoint and Rollback Guidance
+
+When implementations fail or need significant rework:
+
+**Providing Rollback Guidance**:
+- Identify safe rollback points (last working commit, previous stable state)
+- List specific files/changes to revert
+- Suggest alternative approaches if current path is blocked
+- Recommend incremental changes to reduce risk
+
+**Checkpoint Strategy**:
+- After each critical issue is fixed, recommend testing before continuing
+- Suggest committing working states before major refactors
+- Identify natural breakpoints in complex changes
+- Encourage small, reviewable commits over large changes
+
+**Recovery from Failures**:
+- If scaffolder's implementation has critical flaws, provide specific rollback steps
+- If optimizer's refactoring breaks functionality, identify what to revert
+- If integration-tester finds failures, guide back to last working state
+- Use Task tool to delegate fixes to scaffolder with clear rollback context
+
 ## Error Handling
 
 When you encounter problems during review:

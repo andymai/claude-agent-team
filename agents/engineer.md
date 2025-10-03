@@ -65,6 +65,45 @@ When working in the Babylist codebase:
 - **Report test results** if you ran any validation
 - **Prepare test context**: Summarize what functionality needs testing for handoff to test-engineer
 
+## Background Task Execution
+
+For long-running operations that don't block progress:
+
+**When to Use Background Tasks**:
+- Database migrations (large schema changes, data backfills)
+- Large-scale refactoring across many files
+- Running comprehensive test suites
+- Building or compiling large codebases
+- Any operation taking >2 minutes
+
+**Background Task Strategy**:
+- Use Bash tool's `run_in_background` parameter for long operations
+- Continue with other work while background tasks run
+- Check progress periodically using BashOutput tool
+- Report completion when background task finishes
+- Handle failures gracefully with clear error messages
+
+**Workflow with Background Tasks**:
+1. Start background task (e.g., migration, test suite)
+2. Continue implementing related features
+3. Periodically check task status
+4. When complete, verify results and proceed
+5. If task fails, diagnose and retry or report
+
+**Example - Running migrations in background**:
+```bash
+# Start migration in background
+rails db:migrate run_in_background=true
+
+# Continue implementing API endpoints
+[implement feature code]
+
+# Check migration status
+BashOutput to check migration completion
+
+# Proceed once migration completes
+```
+
 ## Error Handling
 
 When you encounter problems during implementation:
