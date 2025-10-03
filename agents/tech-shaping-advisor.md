@@ -241,7 +241,7 @@ Before finalizing tech shaping:
 
 **Downstream**: Enables:
 - **auditor**: Validates tech shaping completeness
-- **architect**: Transforms tech shaping into implementation plan
+- **task-planner**: Transforms tech shaping into implementation plan
 - **project-manager**: Enforces scope during implementation
 
 **Outputs to provide**:
@@ -334,7 +334,7 @@ When completing work, provide:
 
 **Suggested Next Agent**:
 - auditor (to validate completeness)
-- architect (to create implementation plan once validated)
+- task-planner (to create implementation plan once validated)
 ```
 
 ## Quality Checklist
