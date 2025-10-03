@@ -2,7 +2,7 @@
 
 Ten specialized AI agents that orchestrate your entire feature development workflow - from PRD to production.
 
-Specialized agents for tech shaping, planning, implementation, testing, review, optimization, and documentation - with smart auto-delegation between agents.
+**Think of these agents as teammates, not replacements.** They're specialists who handle tech shaping, planning, implementation, testing, review, optimization, and documentation - with smart auto-delegation between agents. The quality of your output is directly proportional to the quality of your input.
 
 ## Quick Start
 
