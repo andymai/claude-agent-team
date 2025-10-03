@@ -31,15 +31,15 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 
 ## The 11 Agents
 
-| Agent | When to Use | Model | Delegates |
-|-------|-------------|-------|-----------|
-| 🔨 engineer | "Implement the auth service" | Sonnet | ❌ |
-| 🧪 tester | "Write specs for the new API" | Sonnet | ❌ |
-| 🔍 reviewer | "Review before merging" | Opus | ✅ engineer |
-| ⚡ optimizer | "Refactor after it works" | Sonnet | ✅ engineer |
+| Agent | When to Use | Model | Auto-Delegates |
+|-------|-------------|-------|----------------|
+| 🔨 engineer | "Implement the auth service" | Sonnet | ✅ tester |
+| 🧪 tester | "Write specs for the new API" | Sonnet | ✅ gap-finder |
+| 🔍 reviewer | "Review before merging" | Opus | ✅ engineer/optimizer/notion-manager |
+| ⚡ optimizer | "Refactor after it works" | Sonnet | ✅ reviewer |
 | 📝 chronicler | "Document the new feature" | Haiku | ✅ notion-manager |
 | 🔌 integration-tester | "Test end-to-end flows" | Sonnet | ❌ |
-| 🔎 gap-finder | "Find what's missing vs spec" | Opus | ✅ engineer |
+| 🔎 gap-finder | "Find what's missing vs spec" | Opus | ✅ engineer/reviewer |
 | 🎨 tech-shaping-advisor | "Help me draft tech spec sections" | Opus | ❌ |
 | 📋 task-planner | "Create implementation plan" | Opus | ❌ |
 | 🛡️ project-manager | "Prevent scope creep" | Sonnet | ❌ |
@@ -64,15 +64,15 @@ Starting with a PRD for a new "Gift Tracking" feature (ShapeUp cycle):
 → Outputs: Implementation plan page in Notion with branches, acceptance criteria, dependencies
 → You review and may suggest alternative approaches
 
-**3. Implementation - Per Branch (Agent-Driven)**
+**3. Implementation - Per Branch (Smart Autonomous)**
 ```bash
-# Agent reads complete spec from Notion implementation plan
+# You trigger engineer, rest runs automatically:
 /task engineer https://notion.so/implementation-plan#branch-1
-/task tester Write specs for the gift tracking models
-/task gap-finder Check implementation completeness vs spec
-/task reviewer Review before merge
+  ↓ (automatic delegation)
+  → tester → gap-finder → reviewer → optimizer → reviewer → notion-manager
 ```
-→ After merge: notion-manager updates branch status in Notion automatically
+→ Engineer auto-delegates through entire workflow until Notion updated
+→ If gaps found or changes needed, auto-loops back to engineer
 
 **4. Repeat for remaining branches**
 
@@ -102,29 +102,41 @@ graph TD
     B --> C[task-planner<br/>creates implementation plan]
     C --> D[Implementation Plan in Notion]
 
-    D --> E[engineer Branch 1]
-    D -.->|parallel| F[engineer Branch 2]
+    D --> E[You: /task engineer Branch 1]
+    D -.->|parallel| F[You: /task engineer Branch 2]
 
-    E --> G[tester]
-    F -.-> H[tester]
+    E ==>|auto| G[tester]
+    F -.->|auto| H[tester]
 
-    G --> I[gap-finder]
-    H -.-> J[gap-finder]
+    G ==>|auto| I[gap-finder]
+    H -.->|auto| J[gap-finder]
 
-    I --> K[reviewer]
-    J -.-> L[reviewer]
+    I ==>|no gaps| K[reviewer]
+    J -.->|no gaps| L[reviewer]
 
-    K -->|Approved| M[Merge Branch 1]
-    L -.->|Approved| N[Merge Branch 2]
+    I ==>|gaps found| M[engineer iterate]
+    J -.->|gaps found| N[engineer iterate]
 
-    M --> O[notion-manager<br/>update status]
-    N -.-> P[notion-manager<br/>update status]
+    M ==> G
+    N -.-> H
 
-    O --> Q[Repeat remaining branches...]
-    P -.-> Q
+    K ==>|approved| O[optimizer]
+    L -.->|approved| P[optimizer]
 
-    Q --> R[chronicler<br/>final docs]
-    R --> S[notion-manager<br/>mark complete]
+    K ==>|changes needed| M
+    L -.->|changes needed| N
+
+    O ==>|auto| Q[reviewer re-review]
+    P -.->|auto| R[reviewer re-review]
+
+    Q ==>|approved| S[notion-manager<br/>update status]
+    R -.->|approved| T[notion-manager<br/>update status]
+
+    S --> U[Repeat remaining branches...]
+    T -.-> U
+
+    U --> V[You: /task chronicler]
+    V ==>|auto| W[notion-manager<br/>mark complete]
 
     classDef human fill:#4b5563,stroke:#9ca3af,stroke-width:2px,color:#fff
     classDef collaborative fill:#7c3aed,stroke:#a78bfa,stroke-width:2px,color:#fff
@@ -133,12 +145,12 @@ graph TD
     classDef reviewing fill:#9a3412,stroke:#fb923c,stroke-width:2px,color:#fff
     classDef documenting fill:#581c87,stroke:#c084fc,stroke-width:2px,color:#fff
 
-    class A human
+    class A,E,F,U,V human
     class B collaborative
     class C,D planning
-    class E,F,G,H implementing
-    class I,J,K,L reviewing
-    class O,P,R,S documenting
+    class G,H,M,N implementing
+    class I,J,K,L,O,P,Q,R reviewing
+    class S,T,W documenting
 ```
 
 ## Workflow (Add to CLAUDE.md)
@@ -161,12 +173,11 @@ When working on new features, follow this ShapeUp workflow with AI agents:
 - Implementation plan in Notion becomes source of truth
 
 ### 3. Implementation (During Cycle)
-Per branch:
-- Use `/task engineer` with Notion link or direct instructions
-- Use `/task tester` for specs
-- Use `/task gap-finder` to validate completeness
-- Use `/task reviewer` before merge
-- notion-manager updates Notion status automatically after merge
+Per branch - Smart Autonomous:
+- You: `/task engineer` with Notion link or direct instructions
+- Auto-chain: engineer → tester → gap-finder → reviewer → optimizer → reviewer → notion-manager
+- Feedback loops: gaps found → engineer, changes needed → engineer
+- You only trigger initial engineer, rest runs automatically
 
 ### 4. Final Documentation (End of Cycle)
 - Use `/task chronicler` to document completed feature

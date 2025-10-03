@@ -126,18 +126,24 @@ When you encounter problems during testing:
 
 ## Agent Coordination
 
-**Upstream**: Typically receives work from:
-- **engineer**: Provides implementation that needs testing (per-branch flow)
-- **optimizer**: May provide refactored code needing test updates
+**Upstream**: Receives work from:
+- **engineer**: Auto-delegated when implementation complete
+- **optimizer**: May receive refactored code needing test updates
 
 **Expected inputs**:
 - Implementation summary with files modified
 - Key business logic to test
 - Edge cases and error handling implemented
+- Link to Notion branch spec for context
 
-**Downstream**: Hands off to:
-- **gap-finder**: For completeness verification before review (per-branch flow)
-- **integration-tester**: If integration tests are also needed
+**Downstream**: Automatically delegates to:
+- **gap-finder**: Auto-triggers completeness validation when tests complete (uses Task tool)
+
+**What to delegate**:
+- Test files created
+- Implementation summary from engineer
+- Link to Notion branch spec
+- Coverage summary
 
 **Outputs to provide**:
 - Test files created

@@ -139,24 +139,26 @@ Based on review findings, suggest:
 
 ## Agent Coordination
 
-**Upstream**: Typically receives work from:
-- **gap-finder**: Gap analysis report before review (per-branch flow)
-- **engineer**: Implementation to review (if gap-finder finds no issues)
-- **tester**: Tests to review alongside implementation
-- **optimizer**: Refactored code to review
+**Upstream**: Receives work from:
+- **gap-finder**: Auto-delegated when no gaps found (per-branch flow)
+- **optimizer**: Auto-delegated for re-review after optimizations
+- **User**: May request manual review
 
 **Expected inputs**:
-- Gap analysis report from gap-finder
+- Gap analysis report (completeness confirmation)
 - Implementation summary with files modified
 - Test results and coverage summary
-- Requirements/specification document
+- Link to Notion branch spec
 
-**Downstream**: Hands off to:
-- **notion-manager**: To update branch status in Notion (if approved, per-branch flow)
-- **engineer**: If changes needed (feedback loop)
-- **optimizer**: If technical debt needs addressing (optional)
-- **integration-tester**: If cross-service testing needed
-- **scaffolder**: Via Task tool if changes requested
+**Downstream**: Automatically delegates to:
+- **engineer**: If changes needed, auto-triggers iteration (uses Task tool)
+- **optimizer**: If approved, auto-triggers refactoring improvements (uses Task tool)
+- **notion-manager**: After optimizer completes and re-review approves (uses Task tool)
+
+**Delegation Logic**:
+1. Review code → if changes needed → delegate to engineer
+2. If approved → delegate to optimizer for improvements
+3. After optimizer → re-review → if approved → delegate to notion-manager
 
 **Outputs to provide**:
 - Review decision (Approve/Approve with Comments/Request Changes)

@@ -86,20 +86,24 @@ For each suggestion:
 
 ## Agent Coordination
 
-**Upstream**: Typically receives work from:
-- **reviewer**: Identified technical debt or optimization opportunities
-- **Direct request**: For legacy code refactoring
+**Upstream**: Receives work from:
+- **reviewer**: Auto-delegated after initial approval for refactoring improvements
+- **User**: May request manual optimization of legacy code
 
 **Expected inputs**:
-- Code to optimize (files or modules)
-- Existing tests for the code
-- Context about why optimization is needed
-- Performance concerns (if applicable)
+- Approved implementation files
+- Existing tests
+- Review feedback suggesting improvements
+- Link to Notion branch spec for context
 
-**Downstream**: Hands off to:
-- **test-engineer**: If tests need updating after refactoring
-- **reviewer**: For review of optimization changes
-- **scaffolder**: If optimization requires new implementation
+**Downstream**: Automatically delegates to:
+- **reviewer**: Auto-triggers re-review after optimizations complete (uses Task tool)
+
+**What to delegate**:
+- Optimization summary with files modified
+- Before/after comparison
+- Test results showing no breakage
+- Performance improvements (if measured)
 
 **Outputs to provide**:
 - Files modified with optimizations
