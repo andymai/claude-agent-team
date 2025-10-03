@@ -99,10 +99,10 @@ graph TD
     J --> K[chronicler]
     K --> L[notion-manager]
 
-    classDef planning fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
-    classDef implementing fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
-    classDef reviewing fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    classDef documenting fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef planning fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#fff
+    classDef implementing fill:#166534,stroke:#4ade80,stroke-width:2px,color:#fff
+    classDef reviewing fill:#9a3412,stroke:#fb923c,stroke-width:2px,color:#fff
+    classDef documenting fill:#581c87,stroke:#c084fc,stroke-width:2px,color:#fff
 
     class B,C,D planning
     class F,G implementing
