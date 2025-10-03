@@ -4,6 +4,17 @@ Eleven specialized AI agents that orchestrate your entire feature development wo
 
 **Think of these agents as teammates, not replacements.** They're specialists who collaborate with you, not autopilot that flies solo. Like any great team, the quality of their output depends on the clarity of your input - garbage in, garbage out still applies, but with the right direction, these agents can 10x your velocity.
 
+## Why Multi-Agent?
+
+**Single-agent AI** (like base Claude Code) is a generalist - good at everything, great at nothing. It treats tech shaping, implementation, and review as the same task.
+
+**Multi-agent orchestration** gives you specialists:
+- **Opus for critical thinking** (reviewer, gap-finder, tech-shaping-advisor) - catches design flaws
+- **Sonnet 3.5 for implementation** (engineer, tester) - fast, pattern-aware coding
+- **Sonnet 4.5 for coordination** (project-manager, integration-tester) - prevents drift
+
+**Result:** Better code, fewer rewrites, faster shipping.
+
 ## Quick Start
 
 1. **Install**: [Claude Code](https://docs.claude.com/en/docs/claude-code) + Anthropic API key
@@ -14,52 +25,53 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 
 ## The 11 Agents
 
-| Agent | Category | Model | Delegation | Purpose |
-|-------|----------|-------|------------|---------|
-| 🔨 engineer | Core Development | Sonnet 3.5 | ❌ | Writes code following existing patterns |
-| 🧪 tester | Core Development | Sonnet 3.5 | ❌ | Writes Rails specs for new functionality |
-| 🔍 reviewer | Core Development | Opus | ✅ engineer | Two-phase review process (critique → reflection) |
-| ⚡ optimizer | Core Development | Sonnet 3.5 | ✅ engineer | Refactors after implementation |
-| 📝 chronicler | Core Development | Sonnet 3.5 | ✅ notion-manager | Creates developer-focused docs |
-| 🔌 integration-tester | Testing & Quality | Sonnet 4.5 | ❌ | Tests cross-component interactions |
-| 🔎 gap-finder | Testing & Quality | Opus | ✅ engineer | Compares implementation to requirements |
-| 🎨 tech-shaping-advisor | Planning & Documentation | Opus | ✅ gap-finder | Creates tech shaping docs from PRDs, publishes to Notion |
-| 📋 task-planner | Planning & Documentation | Opus | ✅ engineer | Breaks features into independently deployable branches |
-| 🛡️ project-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Prevents scope drift during implementation |
-| 🔄 notion-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Updates Notion with implementation status |
+| Agent | When to Use | Model | Delegates |
+|-------|-------------|-------|-----------|
+| 🔨 engineer | "Implement the auth service" | Sonnet 3.5 | ❌ |
+| 🧪 tester | "Write specs for the new API" | Sonnet 3.5 | ❌ |
+| 🔍 reviewer | "Review before merging" | Opus | ✅ engineer |
+| ⚡ optimizer | "Refactor after it works" | Sonnet 3.5 | ✅ engineer |
+| 📝 chronicler | "Document the new feature" | Sonnet 3.5 | ✅ notion-manager |
+| 🔌 integration-tester | "Test end-to-end flows" | Sonnet 4.5 | ❌ |
+| 🔎 gap-finder | "Find what's missing vs spec" | Opus | ✅ engineer |
+| 🎨 tech-shaping-advisor | "Turn PRD into tech spec" | Opus | ✅ gap-finder |
+| 📋 task-planner | "Break into deployable chunks" | Opus | ✅ engineer |
+| 🛡️ project-manager | "Prevent scope creep" | Sonnet 4.5 | ❌ |
+| 🔄 notion-manager | "Sync status to Notion" | Sonnet 4.5 | ❌ |
 
-## Example Usage
+## Complete Workflow Example
 
-### Creating an implementation plan from tech shaping:
+Starting with a PRD for a new "Gift Tracking" feature:
+
+**1. Tech Shaping (5 min)**
 ```bash
-$ /task task-planner Read the tech shaping doc at https://notion.so/project/tech-shaping and create an implementation plan
+/task tech-shaping-advisor Create tech shaping from https://notion.so/gift-tracking-prd
 ```
+→ Outputs: Notion doc with architecture, data model, API contracts, risks
 
-**Output:**
-- Notion implementation plan with branch-by-branch breakdown
-- Graphite workflow for stacked PRs
-- Mermaid dependency diagrams
-- Status tracking per branch
-
-### Implementing a feature branch:
+**2. Planning (3 min)**
 ```bash
-$ /task engineer Implement Branch 1 from the implementation plan: Core Service
+/task task-planner Create implementation plan from https://notion.so/gift-tracking-tech-shaping
 ```
+→ Outputs: 4 branches in Notion, Graphite stack structure, dependency diagram
 
-**Output:**
-- Files created/modified following codebase patterns
-- Consults `.knowledge/` for conventions
-- Ready for review
-
-### Reviewing before merge:
+**3. Implementation - Branch 1 (20 min)**
 ```bash
-$ /task reviewer Review the changes in this branch
+/task engineer Implement Branch 1: Database schema and models
+/task tester Write specs for the gift tracking models
+/task reviewer Review before merge
 ```
+→ Outputs: PR ready with models, migrations, specs, all reviewed
 
-**Output:**
-- Two-phase review (critique → reflection)
-- Specific file:line references
-- Approve/Request Changes decision
+**4. Repeat for remaining branches** (Branch 2-4)
+
+**5. Final documentation**
+```bash
+/task chronicler Document the gift tracking feature
+```
+→ Outputs: API docs, usage guides, Notion status updated
+
+**Total time:** ~2 hours of agent work vs ~2 days solo
 
 ## Optional Dependencies
 
@@ -72,9 +84,42 @@ $ /task reviewer Review the changes in this branch
 
 Agents gracefully degrade without these - skipping Notion publishing or using generic patterns.
 
+## Troubleshooting
+
+**Agent doesn't exist when I run `/task`**
+→ Check: `ls ~/.claude/agents/` - agents must be in this directory
+
+**Agent ignores my instructions**
+→ Be specific: Try "Implement X following pattern in file Y" instead of "add X"
+
+**Agent creates files instead of editing**
+→ Expected: Agents prefer editing. If creating, likely no existing pattern found
+
+**Notion integration not working**
+→ Check: `claude mcp list` to verify Notion MCP is installed
+
+**Agent output doesn't match codebase style**
+→ Check: Do you have `.knowledge/` files? Agents reference these for patterns
+
 ## Workflow (Add to CLAUDE.md)
 
 Add this to your `CLAUDE.md` so Claude proactively suggests the right agent at the right time:
+
+```mermaid
+graph TD
+    A[PRD] --> B[tech-shaping-advisor]
+    B --> C[gap-finder validates]
+    C --> D[task-planner]
+    D --> E[Implementation Plan]
+    E --> F[engineer Branch 1]
+    F --> G[tester writes specs]
+    G --> H[reviewer]
+    H -->|Changes needed| F
+    H -->|Approved| I[Merge]
+    I --> J[Repeat for Branch 2-N]
+    J --> K[chronicler]
+    K --> L[notion-manager]
+```
 
 ```markdown
 ## Agent Workflow
