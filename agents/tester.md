@@ -76,6 +76,22 @@ When tests persistently fail:
 - Use clear, descriptive test names that explain the behavior
 - Keep test setup minimal and focused on the unit being tested
 
+## Background Task Strategy
+Use background tasks for comprehensive test suites:
+
+**Always Background:**
+- Full test suite execution (rspec spec/)
+- Integration test suites (>50 tests)
+- Tests taking >2 minutes
+
+**Always Foreground:**
+- Writing test files (must complete before delegation)
+- Single spec verification (quick validation)
+- Test setup and fixtures
+
+**Delegation Rule:**
+Complete all test writing first. Run comprehensive test suites in background if needed, verify they pass, then delegate to gap-finder with test results.
+
 ## Output
 - **Test files only** - Focus on the actual test code
 - **Brief summary** - One line about what you tested

@@ -84,6 +84,22 @@ For each suggestion:
 4. Provide before/after comparison (if performance-related)
 5. Note any test updates required
 
+## Background Task Strategy
+Use background tasks for benchmarks and large test suites:
+
+**Always Background:**
+- Performance benchmarks (>30 seconds)
+- Full test suite execution after refactoring
+- Load testing scripts
+
+**Always Foreground:**
+- Code refactoring (must complete before testing)
+- Test updates (must complete before re-running)
+- Small test suite verification (<2 minutes)
+
+**Delegation Rule:**
+Complete all optimizations and verify tests pass before delegating to reviewer. Run large test suites in background if needed, wait for completion and success.
+
 ## Agent Coordination
 
 **Upstream**: Receives work from:
