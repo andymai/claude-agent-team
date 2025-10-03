@@ -9,9 +9,9 @@ Eleven specialized AI agents that orchestrate your entire feature development wo
 **Single-agent AI** (like base Claude Code) is a generalist - good at everything, great at nothing. It treats tech shaping, implementation, and review as the same task.
 
 **Multi-agent orchestration** gives you specialists:
-- **Opus for critical thinking** (reviewer, gap-finder, tech-shaping-advisor) - catches design flaws
-- **Sonnet 3.5 for implementation** (engineer, tester) - fast, pattern-aware coding
-- **Sonnet 4.5 for coordination** (project-manager, integration-tester) - prevents drift
+- **Opus for critical thinking** (reviewer, gap-finder, tech-shaping-advisor, task-planner) - catches design flaws
+- **Sonnet 3.5 for implementation** (engineer, tester, optimizer, chronicler) - fast, proven patterns
+- **Sonnet 4.5 for coordination** (project-manager, integration-tester, notion-manager) - prevents drift
 
 **New capabilities based on [Claude Code autonomy features](https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously):**
 - **Parallel execution** - task-planner identifies independent branches that can be developed simultaneously
