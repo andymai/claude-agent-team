@@ -18,30 +18,36 @@ Multi-agent orchestration system for AI-assisted software development.
 | 🛡️ project-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Prevents scope drift during implementation |
 | 🔄 notion-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Updates Notion with implementation status |
 
-## Setup
+## Setup (Optional)
 
-**Add this workflow to your `CLAUDE.md` file** so Claude automatically follows it:
+Agents are automatically discovered from `~/.claude/agents/` based on their frontmatter configuration.
+
+**Optionally add this workflow to your `CLAUDE.md`** to guide Claude on when to proactively suggest each agent:
 
 ```markdown
-### Feature Development Workflow
+## Agent Workflow
 
-Follow this agent workflow for new features:
+When working on new features, follow this agent orchestration workflow:
 
-1. **PRD → Tech Shaping**: Use `tech-shaping-advisor` to create tech shaping doc
-   - Consults `.knowledge/` patterns
-   - Publishes to Notion linked to project page
-   - Delegates to `auditor` for validation
+### 1. PRD → Tech Shaping
+- Use `/task tech-shaping-advisor` to create tech shaping document
+- Consults `.knowledge/` patterns for architectural guidance
+- Publishes to Notion and links to project page
+- Delegates to `auditor` for completeness validation
 
-2. **Tech Shaping → Implementation Plan**: Use `architect` to create implementation plan
-   - Breaks into independently deployable branches
-   - Creates Graphite workflow
-   - Publishes to Notion with status tracking
+### 2. Tech Shaping → Implementation Plan
+- Use `/task architect` to transform tech shaping into implementation plan
+- Breaks feature into independently deployable branches
+- Creates Graphite stacked PR workflow
+- Publishes to Notion with status tracking
 
-3. **Implementation**: Use `engineer` for each branch
-   - `project-manager` enforces scope boundaries
-   - `tester` writes specs after implementation
-   - `reviewer` approves before merge
+### 3. Implementation
+- Use `/task engineer` for each branch following the plan
+- Use `/task project-manager` to enforce scope boundaries during implementation
+- Use `/task tester` to write specs after implementation
+- Use `/task reviewer` to approve code before merge
 
-4. **Documentation**: Use `chronicler` when implementation complete
-   - Delegates to `notion-manager` for status updates
+### 4. Documentation
+- Use `/task chronicler` when implementation is complete
+- Automatically delegates to `notion-manager` for status updates
 ```
