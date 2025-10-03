@@ -55,7 +55,7 @@ Starting with a PRD for a new "Gift Tracking" feature (ShapeUp cycle):
 /task tech-shaping-advisor Help me draft technical approach for gift tracking
 ```
 → You drive the process, AI assists with pattern research and section drafting
-→ You publish completed tech shaping doc to Notion
+→ AI publishes completed tech shaping doc to Notion
 
 **2. Planning (Mostly Autonomous)**
 ```bash
@@ -98,34 +98,33 @@ Agents gracefully degrade without these - skipping Notion publishing or using ge
 
 ```mermaid
 graph TD
-    A[You: Read PRD] --> B[You + tech-shaping-advisor<br/>draft tech shaping]
-    B --> C[You: Publish to Notion]
-    C --> D[task-planner<br/>creates implementation plan]
-    D --> E[Implementation Plan in Notion]
+    A[You: Read PRD] --> B[You + tech-shaping-advisor<br/>draft & publish to Notion]
+    B --> C[task-planner<br/>creates implementation plan]
+    C --> D[Implementation Plan in Notion]
 
-    E --> F[engineer Branch 1]
-    E -.->|parallel| G[engineer Branch 2]
+    D --> E[engineer Branch 1]
+    D -.->|parallel| F[engineer Branch 2]
 
-    F --> H[tester]
-    G -.-> I[tester]
+    E --> G[tester]
+    F -.-> H[tester]
 
-    H --> J[gap-finder]
-    I -.-> K[gap-finder]
+    G --> I[gap-finder]
+    H -.-> J[gap-finder]
 
-    J --> L[reviewer]
-    K -.-> M[reviewer]
+    I --> K[reviewer]
+    J -.-> L[reviewer]
 
-    L -->|Approved| N[Merge Branch 1]
-    M -.->|Approved| O[Merge Branch 2]
+    K -->|Approved| M[Merge Branch 1]
+    L -.->|Approved| N[Merge Branch 2]
 
-    N --> P[notion-manager<br/>update status]
-    O -.-> Q[notion-manager<br/>update status]
+    M --> O[notion-manager<br/>update status]
+    N -.-> P[notion-manager<br/>update status]
 
-    P --> R[Repeat remaining branches...]
-    Q -.-> R
+    O --> Q[Repeat remaining branches...]
+    P -.-> Q
 
-    R --> S[chronicler<br/>final docs]
-    S --> T[notion-manager<br/>mark complete]
+    Q --> R[chronicler<br/>final docs]
+    R --> S[notion-manager<br/>mark complete]
 
     classDef human fill:#4b5563,stroke:#9ca3af,stroke-width:2px,color:#fff
     classDef collaborative fill:#7c3aed,stroke:#a78bfa,stroke-width:2px,color:#fff
@@ -134,12 +133,12 @@ graph TD
     classDef reviewing fill:#9a3412,stroke:#fb923c,stroke-width:2px,color:#fff
     classDef documenting fill:#581c87,stroke:#c084fc,stroke-width:2px,color:#fff
 
-    class A,C human
+    class A human
     class B collaborative
-    class D,E planning
-    class F,G,H,I implementing
-    class J,K,L,M reviewing
-    class P,Q,S,T documenting
+    class C,D planning
+    class E,F,G,H implementing
+    class I,J,K,L reviewing
+    class O,P,R,S documenting
 ```
 
 ## Workflow (Add to CLAUDE.md)
@@ -154,7 +153,7 @@ When working on new features, follow this ShapeUp workflow with AI agents:
 ### 1. PRD → Tech Shaping (Before Cycle)
 - You read PRD and use `/task tech-shaping-advisor` to help draft sections
 - You drive the process, AI assists with pattern research and drafting
-- You publish completed tech shaping doc to Notion
+- AI publishes completed tech shaping doc to Notion
 
 ### 2. Tech Shaping → Implementation Plan (Before Cycle)
 - Use `/task task-planner` to create implementation plan from tech shaping doc
