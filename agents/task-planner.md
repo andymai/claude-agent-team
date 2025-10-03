@@ -192,34 +192,7 @@ When you encounter problems during planning:
 **Needed to Proceed**: [Specific requirements, decisions, or access required]
 ```
 
-**Timeout Strategy**: Planning should be efficient (~30min for complex features). If exceeds reasonable time, report partial plan and identify missing architectural decisions.
-
-**Handoff Protocol**:
-```
-## Implementation Plan Complete
-
-**Notion Document**: [Link to implementation plan]
-
-**Branch Structure**:
-- Branch 1: [Name] - [Goal]
-- Branch 2: [Name] - [Goal]
-- Branch 3: [Name] - [Goal]
-
-**Dependencies**: [Sequential: 1→2→3, Parallel: X from Y]
-
-**Namespace**: [e.g., Storefront, BLRegistry]
-
-**Prerequisites Met for Next Agent**:
-- Implementation plan created: ✅
-- Branch dependencies documented: ✅
-- Graphite workflow specified: ✅
-
-**Blockers for Next Agent**: [None] or [Architectural decisions needed before implementation]
-
-**Suggested Next Agent**:
-- scaffolder (to implement Branch 1)
-- plan-keeper (to enforce plan boundaries during implementation)
-```
+**Handoff**: Provide Notion doc URL, branch structure with goals, dependencies (sequential vs parallel), namespace, and suggested next agent (engineer or project-manager).
 
 ## Quality Checklist
 Before completing work:

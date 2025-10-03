@@ -145,34 +145,7 @@ When you encounter problems during testing:
 - Edge cases identified during testing
 - Test execution results (pass/fail)
 
-**Handoff Protocol**:
-When completing work, provide:
-```
-## Testing Complete
-
-**Test Files Created**:
-- spec/models/user_spec.rb
-- spec/services/auth_service_spec.rb
-
-**Coverage Summary**: Tested validations, core business logic, and error handling
-
-**Test Results**: All 24 tests passing
-
-**Prerequisites Met for Next Agent**:
-- Tests written for core functionality: ✅
-- All tests passing: ✅
-- No flaky tests: ✅
-
-**Blockers for Next Agent**: [None] or [Specific test failures or coverage gaps]
-
-**Edge Cases Identified**:
-- [Any edge cases that might need integration testing]
-
-**Knowledge Base Used**:
-- `.knowledge/testing/n_plus_one_detection.md`
-
-**Suggested Next Agent**: reviewer (for code review) or integration-tester (if cross-service testing needed)
-```
+**Handoff**: List test files created, coverage summary, test results, edge cases identified, `.knowledge` files used, and suggested next agent (reviewer or integration-tester).
 
 ## Quick Start Workflow
 1. **Read implementation summary** from scaffolder
@@ -182,28 +155,6 @@ When completing work, provide:
 5. **Write focused unit tests** for new functionality
 6. **Run tests** to verify they pass
 7. **Document handoff** for reviewer
-
-## Examples
-
-### Example 1: Testing New Model Validations
-**Input**: User model with new email validation from scaffolder
-**Process**:
-1. Read user.rb to understand validation logic
-2. Check existing user_spec.rb for test patterns
-3. Review `.knowledge/testing/private_methods_best_practices.md`
-4. Write tests for email validation (valid, invalid, edge cases)
-5. Run `rspec spec/models/user_spec.rb`
-**Output**: user_spec.rb with validation tests + handoff to reviewer
-
-### Example 2: Testing Service Object with External API
-**Input**: Payment service that calls Stripe API from scaffolder
-**Process**:
-1. Read payment_service.rb implementation
-2. Check `.knowledge/testing/vcr-recordings-manual-editing.md`
-3. Set up VCR cassettes for API mocking
-4. Write tests for success and error scenarios
-5. Run tests with VCR recordings
-**Output**: payment_service_spec.rb with VCR fixtures + handoff to reviewer
 
 ## Quality Checklist
 Before completing work:
