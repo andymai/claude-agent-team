@@ -30,29 +30,33 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 ## Quick Workflow
 
 **1. Tech Shaping** - Draft tech spec with AI assistance:
-```bash
-/task tech-shaping-advisor Help me draft technical approach for gift tracking
+```
+Help me draft a technical approach for the gift tracking feature based on this PRD...
+→ tech-shaping-advisor assists with pattern research and section drafting
 ```
 
 **2. Planning** - Create implementation plan:
-```bash
-/task task-planner Create plan from https://notion.so/tech-shaping-doc
+```
+Create an implementation plan from https://notion.so/tech-shaping-doc
+→ task-planner breaks down into branches with acceptance criteria
 ```
 
-**3. Implementation** - Trigger per branch, rest auto-delegates:
-```bash
-/task engineer https://notion.so/plan#branch-1
-# → Auto-delegates: tester → gap-finder → reviewer → optimizer → notion-manager
+**3. Implementation** - Describe the work, agents handle the rest:
+```
+Implement the first branch from https://notion.so/plan#branch-1
+→ engineer implements, auto-delegates: tester → gap-finder → reviewer → optimizer → notion-manager
 ```
 
-**4. Integration Testing** - When branches complete:
-```bash
-/task integration-tester Test end-to-end workflows
+**4. Integration Testing** - Test cross-component interactions:
+```
+Test the end-to-end gift tracking workflows
+→ integration-tester creates integration tests
 ```
 
-**5. Documentation** - When all branches merged:
-```bash
-/task documentor Document the feature
+**5. Documentation** - Document completed feature:
+```
+Document the gift tracking feature now that all branches are merged
+→ documentor verifies all merged, creates docs, updates Notion
 ```
 
 ## Optional Dependencies
