@@ -44,52 +44,33 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 | 📋 task-planner | "Create implementation plan" | Opus | ❌ |
 | 🔄 notion-manager | "Sync status to Notion" | Haiku | ❌ |
 
-## Complete Workflow Example
+## Quick Workflow
 
-Starting with a PRD for a new "Gift Tracking" feature (ShapeUp cycle):
-
-**1. Tech Shaping (You + AI)**
+**1. Tech Shaping** - Draft tech spec with AI assistance:
 ```bash
-# You read PRD, use tech-shaping-advisor to help draft sections
 /task tech-shaping-advisor Help me draft technical approach for gift tracking
 ```
-→ You drive the process, AI assists with pattern research and section drafting
-→ AI publishes completed tech shaping doc to Notion
 
-**2. Planning (Mostly Autonomous)**
+**2. Planning** - Create implementation plan:
 ```bash
-/task task-planner Create implementation plan from https://notion.so/gift-tracking-tech-shaping
+/task task-planner Create plan from https://notion.so/tech-shaping-doc
 ```
-→ Outputs: Implementation plan page in Notion with branches, acceptance criteria, dependencies
-→ You review and may suggest alternative approaches
 
-**3. Implementation - Per Branch (Smart Autonomous)**
+**3. Implementation** - Trigger per branch, rest auto-delegates:
 ```bash
-# You trigger engineer, rest runs automatically:
-/task engineer https://notion.so/implementation-plan#branch-1
-  ↓ (automatic delegation)
-  → tester → gap-finder → reviewer → optimizer → reviewer → notion-manager
+/task engineer https://notion.so/plan#branch-1
+# → Auto-delegates: tester → gap-finder → reviewer → optimizer → notion-manager
 ```
-→ Engineer auto-delegates through entire workflow until Notion updated
-→ If gaps found or changes needed, auto-loops back to engineer
-→ notion-manager verifies PR merged in git before updating Notion status
 
-**4. Repeat for remaining branches**
-
-**5. Integration testing (User-triggered when ready)**
+**4. Integration Testing** - When branches complete:
 ```bash
-/task integration-tester Test gift tracking end-to-end workflows
+/task integration-tester Test end-to-end workflows
 ```
-→ Outputs: Integration test suite, cross-service validation results
 
-**6. Final documentation (User-triggered when all complete)**
+**5. Documentation** - When all branches merged:
 ```bash
-/task documentor Document the gift tracking feature
+/task documentor Document the feature
 ```
-→ documentor verifies all branches merged in git (reads Notion for branch list, checks git status)
-→ If unmerged branches found, reports mismatch and blocks documentation
-→ Outputs: API docs, usage guides
-→ Auto-delegates to notion-manager to mark feature "Complete ✅"
 
 ## Optional Dependencies
 
