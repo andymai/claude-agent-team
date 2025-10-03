@@ -43,19 +43,19 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 
 Starting with a PRD for a new "Gift Tracking" feature:
 
-**1. Tech Shaping (5 min)**
+**1. Tech Shaping**
 ```bash
 /task tech-shaping-advisor Create tech shaping from https://notion.so/gift-tracking-prd
 ```
 → Outputs: Notion doc with architecture, data model, API contracts, risks
 
-**2. Planning (3 min)**
+**2. Planning**
 ```bash
 /task task-planner Create implementation plan from https://notion.so/gift-tracking-tech-shaping
 ```
 → Outputs: 4 branches in Notion, Graphite stack structure, dependency diagram
 
-**3. Implementation - Branch 1 (20 min)**
+**3. Implementation - Branch 1**
 ```bash
 /task engineer Implement Branch 1: Database schema and models
 /task tester Write specs for the gift tracking models
@@ -70,8 +70,6 @@ Starting with a PRD for a new "Gift Tracking" feature:
 /task chronicler Document the gift tracking feature
 ```
 → Outputs: API docs, usage guides, Notion status updated
-
-**Total time:** ~2 hours of agent work vs ~2 days solo
 
 ## Optional Dependencies
 
