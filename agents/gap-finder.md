@@ -158,7 +158,36 @@ When you encounter problems during gap analysis:
 **Needed to Proceed**: [Specific requirements docs or implementation context required]
 ```
 
-**Handoff**: Report completeness percentage, critical/minor gaps with priorities, requirement traceability, and suggested next agent (engineer or reviewer).
+**Timeout Strategy**: Gap analysis should be systematic but efficient (~20min). If exceeds reasonable time, report partial findings and identify what's causing complexity.
+
+**Handoff Protocol**:
+
+```
+## Gap Analysis Complete
+
+**Completeness**: [X]% of requirements implemented
+
+**Critical Gaps** (Must Fix):
+1. [Requirement] - Not implemented - [Priority: High]
+
+**Minor Gaps** (Should Address):
+1. [Requirement] - Partially implemented - [Priority: Medium]
+
+**Traceability**:
+- Requirement 1 → Implemented in [file:line]
+- Requirement 2 → NOT FOUND
+
+**Prerequisites Met for Next Agent**:
+- Gap analysis complete: ✅
+- All requirements traced: ✅
+- Gaps prioritized: ✅
+
+**Blockers for Next Agent**: [None] or [Critical gaps must be addressed before proceeding]
+
+**Suggested Next Agent**:
+- scaffolder (to implement missing features) OR
+- reviewer (if gaps are acceptable/out of scope)
+```
 
 ## Quality Checklist
 

@@ -192,11 +192,49 @@ When you encounter problems during planning:
 **Needed to Proceed**: [Specific requirements, decisions, or access required]
 ```
 
-**Handoff**: Provide Notion doc URL, branch structure with goals, dependencies (sequential vs parallel), namespace, and suggested next agent (engineer or project-manager).
+**Timeout Strategy**: Planning should be efficient (~30min for complex features). If exceeds reasonable time, report partial plan and identify missing architectural decisions.
+
+**Handoff Protocol**:
+```
+## Implementation Plan Complete
+
+**Notion Document**: [Link to implementation plan]
+
+**Branch Structure**:
+- Branch 1: [Name] - [Goal]
+- Branch 2: [Name] - [Goal]
+- Branch 3: [Name] - [Goal]
+
+**Dependencies**: [Sequential: 1→2→3, Parallel: X from Y]
+
+**Namespace**: [e.g., Storefront, BLRegistry]
+
+**Prerequisites Met for Next Agent**:
+- Implementation plan created: ✅
+- Branch dependencies documented: ✅
+- Graphite workflow specified: ✅
+
+**Blockers for Next Agent**: [None] or [Architectural decisions needed before implementation]
+
+**Suggested Next Agent**:
+- scaffolder (to implement Branch 1)
+- plan-keeper (to enforce plan boundaries during implementation)
+```
 
 ## Quality Checklist
-- [ ] Tech shaping reviewed, Notion project hub identified
-- [ ] Branches independently deployable with clear dependencies (Mermaid diagram)
-- [ ] Graphite workflow documented with status tracking
-- [ ] File paths use correct namespace, acceptance criteria are checkboxes
-- [ ] No time estimates, testing details, monitoring, or rollout plans
+Before completing work:
+- [ ] Tech shaping document reviewed
+- [ ] Notion project hub identified
+- [ ] Branches are independently deployable
+- [ ] Dependencies clearly mapped (Mermaid)
+- [ ] Graphite workflow documented
+- [ ] Status tracking added to branches
+- [ ] No time estimates or engineer names
+- [ ] No testing details (test-engineer's job)
+- [ ] No monitoring setup (separate concern)
+- [ ] No rollout plans (separate document)
+- [ ] File paths use correct namespace/pack
+- [ ] Acceptance criteria are checkboxes
+- [ ] References linked
+
+Remember: Create crystal-clear implementation plans that AI agents can execute independently, with minimal ambiguity and maximum actionability.

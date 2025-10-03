@@ -168,7 +168,42 @@ When you encounter problems during integration testing:
 **Needed to Proceed**: [Specific fixes, services, or infrastructure required]
 ```
 
-**Handoff**: List test files created, integration points tested, test results, coverage summary, `.knowledge` files used, and suggested next agent (reviewer).
+**Timeout Strategy**: Integration tests may take longer due to setup complexity. If exceeds reasonable time (~30min), report progress and identify infrastructure or design issues.
+
+**Handoff Protocol**:
+
+```
+## Integration Testing Complete
+
+**Test Files Created**:
+- test/integration/auth_profile_integration_spec.rb
+- test/journey/checkout_flow_spec.rb
+
+**Integration Points Tested**:
+- Auth Service ↔ Profile Service
+- Payment Gateway ↔ Order Processing
+
+**Test Results**: All [X] integration tests passing
+
+**Coverage**:
+- API contracts: Verified
+- Data consistency: Verified
+- Error propagation: Verified
+- User workflows: [List workflows tested]
+
+**Prerequisites Met for Next Agent**:
+- Integration tests complete: ✅
+- All tests passing: ✅
+- Critical workflows verified: ✅
+
+**Blockers for Next Agent**: [None] or [Integration issues requiring attention]
+
+**Knowledge Base Used**:
+- `.knowledge/testing/journey-tests.md`
+- `.knowledge/patterns/event-subscription-patterns.md`
+
+**Suggested Next Agent**: reviewer (for review of tests and implementation)
+```
 
 ## Quality Checklist
 

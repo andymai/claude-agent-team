@@ -158,7 +158,31 @@ When you encounter problems during implementation:
 - Key business logic that needs testing
 - Any edge cases or error handling implemented
 
-**Handoff**: List files modified, implementation summary, key functionality for testing, `.knowledge` files used, and suggested next agent (tester or integration-tester).
+**Handoff Protocol**:
+When completing work, provide:
+```
+## Implementation Complete
+
+**Files Modified**:
+- path/to/file1.rb
+- path/to/file2.js
+
+**Summary**: [Brief description of what was implemented]
+
+**Key Functionality**: [Core business logic for testing]
+
+**Prerequisites Met for Next Agent**:
+- Implementation complete: ✅
+- Existing tests passing: ✅
+- No syntax errors: ✅
+
+**Blockers for Next Agent**: [None] or [Specific issues that might affect testing]
+
+**Knowledge Base Used**:
+- `.knowledge/path/to/pattern.md`
+
+**Suggested Next Agent**: test-engineer (for unit tests) or integration-tester (for cross-service tests)
+```
 
 ## Quick Start Workflow
 1. **Read all context files** provided in the task
@@ -167,6 +191,28 @@ When you encounter problems during implementation:
 4. **Implement incrementally**, testing as you go
 5. **Run tests** to verify no regressions
 6. **Document handoff** for next agent
+
+## Examples
+
+### Example 1: Implementing New API Endpoint
+**Input**: Specification for new user authentication endpoint
+**Process**:
+1. Search `.knowledge` for route placement and URL helper conventions
+2. Find existing authentication patterns in codebase
+3. Implement controller action following existing patterns
+4. Add route in correct location
+5. Run related tests
+**Output**: Working endpoint + handoff summary for test-engineer
+
+### Example 2: Adding Database Migration
+**Input**: Requirements to add new columns to users table
+**Process**:
+1. Check `.knowledge/database/migration-schema-management.md`
+2. Create migration following naming conventions
+3. Update schema.rb
+4. Run migration in development
+5. Verify with existing tests
+**Output**: Migration files + note for test-engineer about model validations to test
 
 ## Quality Checklist
 Before completing work:
