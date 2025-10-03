@@ -10,8 +10,8 @@ Eleven specialized AI agents that orchestrate your entire feature development wo
 
 **Multi-agent orchestration** gives you specialists:
 - **Opus for critical thinking** (reviewer, gap-finder, tech-shaping-advisor, task-planner) - catches design flaws
-- **Sonnet 3.5 for implementation** (engineer, tester, optimizer, chronicler) - fast, proven patterns
-- **Sonnet 4.5 for coordination** (project-manager, integration-tester, notion-manager) - prevents drift
+- **Sonnet for implementation** (engineer, tester, optimizer, integration-tester, project-manager) - fast, proven patterns
+- **Haiku for quick tasks** (chronicler, notion-manager) - rapid documentation and status updates
 
 **New capabilities based on [Claude Code autonomy features](https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously):**
 - **Parallel execution** - task-planner identifies independent branches that can be developed simultaneously
@@ -33,17 +33,17 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 
 | Agent | When to Use | Model | Delegates |
 |-------|-------------|-------|-----------|
-| 🔨 engineer | "Implement the auth service" | Sonnet 3.5 | ❌ |
-| 🧪 tester | "Write specs for the new API" | Sonnet 3.5 | ❌ |
+| 🔨 engineer | "Implement the auth service" | Sonnet | ❌ |
+| 🧪 tester | "Write specs for the new API" | Sonnet | ❌ |
 | 🔍 reviewer | "Review before merging" | Opus | ✅ engineer |
-| ⚡ optimizer | "Refactor after it works" | Sonnet 3.5 | ✅ engineer |
-| 📝 chronicler | "Document the new feature" | Sonnet 3.5 | ✅ notion-manager |
-| 🔌 integration-tester | "Test end-to-end flows" | Sonnet 4.5 | ❌ |
+| ⚡ optimizer | "Refactor after it works" | Sonnet | ✅ engineer |
+| 📝 chronicler | "Document the new feature" | Haiku | ✅ notion-manager |
+| 🔌 integration-tester | "Test end-to-end flows" | Sonnet | ❌ |
 | 🔎 gap-finder | "Find what's missing vs spec" | Opus | ✅ engineer |
 | 🎨 tech-shaping-advisor | "Turn PRD into tech spec" | Opus | ✅ gap-finder |
 | 📋 task-planner | "Break into deployable chunks" | Opus | ✅ engineer |
-| 🛡️ project-manager | "Prevent scope creep" | Sonnet 4.5 | ❌ |
-| 🔄 notion-manager | "Sync status to Notion" | Sonnet 4.5 | ❌ |
+| 🛡️ project-manager | "Prevent scope creep" | Sonnet | ❌ |
+| 🔄 notion-manager | "Sync status to Notion" | Haiku | ❌ |
 
 ## Complete Workflow Example
 
