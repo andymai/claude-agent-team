@@ -42,24 +42,30 @@ You are the Gap Finder Agent - a specialized agent responsible for identifying i
 
 ## Agent Coordination
 
-**Upstream**: Typically receives work from:
+**Upstream**: Receives work from:
 
-- **tester**: After specs complete, verify implementation completeness per branch
-- **tech-shaping-advisor**: Validate tech shaping document (delegates to gap-finder)
-- **reviewer**: If completeness is uncertain
+- **tester**: Auto-delegated when tests complete (per-branch flow)
+- **tech-shaping-advisor**: May receive tech shaping validation request
+- **reviewer**: May request completeness check
 
 **Expected inputs**:
 
-- Specifications/requirements document (tech shaping or branch spec)
-- Implementation files
-- Test specs (if validating per-branch implementation)
-- Acceptance criteria
+- Implementation summary from engineer
+- Test files from tester
+- Link to Notion branch spec (contains requirements and acceptance criteria)
+- Coverage summary
 
-**Downstream**: Reports to:
+**Downstream**: Automatically delegates to:
 
-- **reviewer**: Gaps report informs review (per-branch flow)
-- **tech-shaping-advisor**: Validation results (tech shaping validation)
-- **engineer**: To implement missing pieces if gaps found
+- **engineer**: If gaps found, auto-triggers iteration to address gaps (uses Task tool)
+- **reviewer**: If no gaps found, auto-triggers review (uses Task tool)
+
+**What to delegate**:
+- Gap analysis report (if gaps found, send to engineer)
+- Completeness confirmation (if no gaps, send to reviewer)
+- Implementation summary
+- Test results
+- Link to Notion branch spec
 
 **Outputs to provide**:
 

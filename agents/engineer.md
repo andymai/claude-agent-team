@@ -147,10 +147,14 @@ When you encounter problems during implementation:
 - If Notion provided: Read complete branch spec (goal, files, structure, business rules, criteria, patterns)
 - Notion is source of truth when provided, otherwise follow user instructions
 
-**Downstream**: Hands off to:
-- **tester**: For unit test creation (per-branch flow)
-- **integration-tester**: For integration test creation (if multiple services involved)
-- **gap-finder**: Via tester, for completeness verification
+**Downstream**: Automatically delegates to:
+- **tester**: Auto-triggers test creation when implementation complete (uses Task tool)
+
+**What to delegate**:
+- Implementation summary with files modified
+- Key business logic that needs testing
+- Edge cases and error handling implemented
+- Link to Notion branch spec for context
 
 **Outputs to provide**:
 - Files created/modified

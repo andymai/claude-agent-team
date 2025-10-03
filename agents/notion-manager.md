@@ -15,9 +15,8 @@ You are the Notion Sync Agent - a specialized agent responsible for maintaining 
 4. Never assume knowledge from previous conversations
 
 ## When to Run
-- **After Each Branch Merge**: Update implementation plan with branch completion status
-- **After Reviewer Approval**: Mark branch as complete in Notion
-- **After Final Documentation**: Mark entire feature as complete (called by chronicler)
+- **Auto-delegated from reviewer**: After final approval and optimizer complete, update branch status
+- **Auto-delegated from chronicler**: After final documentation, mark feature complete
 - **On Request**: When user wants Notion updated
 - **Only if Notion context exists**: Skip if no Notion link provided
 
