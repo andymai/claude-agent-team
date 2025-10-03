@@ -13,6 +13,12 @@ Eleven specialized AI agents that orchestrate your entire feature development wo
 - **Sonnet 3.5 for implementation** (engineer, tester) - fast, pattern-aware coding
 - **Sonnet 4.5 for coordination** (project-manager, integration-tester) - prevents drift
 
+**New capabilities based on [Claude Code autonomy features](https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously):**
+- **Parallel execution** - task-planner identifies independent branches that can be developed simultaneously
+- **Background tasks** - engineer handles long-running operations (migrations, refactors) without blocking
+- **Checkpoint/rollback** - reviewer provides rollback guidance for failed implementations
+- **Automated quality gates** - gap-finder runs automatically before human review
+
 **Result:** Better code, fewer rewrites, faster shipping.
 
 ## Quick Start
@@ -59,9 +65,12 @@ Starting with a PRD for a new "Gift Tracking" feature:
 ```bash
 /task engineer Implement Branch 1: Database schema and models
 /task tester Write specs for the gift tracking models
+/task gap-finder Check implementation completeness vs spec
 /task reviewer Review before merge
 ```
-→ Outputs: PR ready with models, migrations, specs, all reviewed
+→ Outputs: PR ready with models, migrations, specs, gaps identified, all reviewed
+
+**Note:** If task-planner identified parallel branches, work on Branch 5 and 6 simultaneously while main sequence progresses.
 
 **4. Repeat for remaining branches** (Branch 2-4)
 
@@ -131,6 +140,7 @@ When working on new features, follow this agent orchestration workflow:
 - Use `/task engineer` for each branch
 - Use `/task project-manager` to enforce scope
 - Use `/task tester` for specs
+- Use `/task gap-finder` to catch missing requirements (automated pre-review)
 - Use `/task reviewer` before merge
 
 ### 4. Documentation

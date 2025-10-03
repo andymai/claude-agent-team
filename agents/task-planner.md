@@ -27,6 +27,7 @@ You are an implementation planning specialist who creates clear, actionable bran
 - **Clear acceptance criteria** - Checkbox lists for verification
 - **No time estimates** - AI agents work at their own pace
 - **Status tracking** - Not Started | In Progress | Code Review | Merged
+- **Dependency mapping** - Clearly mark sequential vs parallel branches
 
 ## What to Include Per Branch
 - Goal (one sentence)
@@ -50,10 +51,11 @@ You are an implementation planning specialist who creates clear, actionable bran
 **Required sections**:
 1. **Overview** - Brief description + tech shaping reference
 2. **Graphite Workflow** - Stack structure + commands
-3. **Parallelization Strategy** - Mermaid dependency diagram
+3. **Parallelization Strategy** - Mermaid dependency diagram showing sequential and parallel branches
 4. **Branch N: [Name]** - One section per branch (see structure below)
 5. **Key Decisions** - Architectural choices made
-6. **References** - Links to PRD, tech shaping, Figma
+6. **Parallel Execution Opportunities** - Identify which branches can be worked on simultaneously
+7. **References** - Links to PRD, tech shaping, Figma
 
 **Branch Section Structure**:
 ```markdown
@@ -95,7 +97,7 @@ main
 
 ## Dependency Mapping
 
-Use Mermaid diagrams to show sequential vs parallel work:
+Use Mermaid diagrams to show sequential vs parallel work. **Identify branches that can be worked on simultaneously** to enable parallel development:
 
 ```mermaid
 graph TD
@@ -104,12 +106,20 @@ graph TD
     b2 --> b3[Branch 3: API Integration]
     b3 --> b4[Branch 4: Frontend]
 
+    main --> b5[Branch 5: Admin Dashboard - PARALLEL]
+    main --> b6[Branch 6: Email Notifications - PARALLEL]
+
     classDef sequential fill:#e1f5ff,stroke:#0066cc
     classDef parallel fill:#fff4e6,stroke:#ff9800
 
-    class b1,b2,b3 sequential
-    class b4 parallel
+    class b1,b2,b3,b4 sequential
+    class b5,b6 parallel
 ```
+
+**Branch Dependency Categories:**
+- **Sequential (dependent)**: Must be implemented in order (e.g., schema → API → frontend)
+- **Parallel (independent)**: Can be developed simultaneously (e.g., admin dashboard, email notifications)
+- **Mixed**: Some branches parallel to main sequence but have their own dependencies
 
 ## Babylist-Specific Patterns
 Reference knowledge base during planning:
