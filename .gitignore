@@ -3,3 +3,11 @@ config.json
 file-history/
 todos/
 CLAUDE.md
+projects/
+history.jsonl
+ide/
+settings.json
+settings.local.json
+shell-snapshots/
+statsig/
+statusline.sh
