@@ -77,31 +77,41 @@ For long-running operations that don't block progress:
 - Any operation taking >2 minutes
 
 **Background Task Strategy**:
-- Use Bash tool's `run_in_background` parameter for long operations
-- Continue with other work while background tasks run
-- Check progress periodically using BashOutput tool
-- Report completion when background task finishes
-- Handle failures gracefully with clear error messages
+Use background tasks automatically for long-running operations:
 
-**Workflow with Background Tasks**:
-1. Start background task (e.g., migration, test suite)
-2. Continue implementing related features
-3. Periodically check task status
-4. When complete, verify results and proceed
-5. If task fails, diagnose and retry or report
+**Always Background (non-blocking):**
+- Database migrations (rails db:migrate)
+- Asset compilation (npm run build, webpack)
+- Large batch operations (data backfill scripts)
+- Performance benchmarks
 
-**Example - Running migrations in background**:
+**Always Foreground (must complete before delegation):**
+- Unit test execution (needed for tester)
+- Code generation (needed for implementation)
+- Dependency installation (npm install, bundle install)
+
+**How to Use Background Tasks:**
+1. Start task with `run_in_background=true`
+2. Continue with other implementation work
+3. Before delegating to tester, verify all critical background tasks complete
+4. Use BashOutput tool to check task status
+5. If task fails, fix and retry before delegation
+
+**Delegation Rule:**
+Do not delegate to tester until all migrations and builds complete successfully. Background tasks must finish and pass before auto-delegation triggers.
+
+**Example:**
 ```bash
 # Start migration in background
-rails db:migrate run_in_background=true
+bash: rails db:migrate (run_in_background=true)
 
-# Continue implementing API endpoints
+# Continue implementing while migration runs
 [implement feature code]
 
-# Check migration status
-BashOutput to check migration completion
-
-# Proceed once migration completes
+# Before delegating to tester, verify migration completed
+BashOutput: check migration status
+→ Success: proceed with delegation
+→ Failure: fix migration, retry, then delegate
 ```
 
 ## Error Handling
