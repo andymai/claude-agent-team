@@ -6,6 +6,8 @@ A multi-agent orchestration system for AI-assisted software development with Cla
 
 This repository contains 11 specialized AI agents that work together to handle the complete software development lifecycle - from PRD to tech shaping, implementation planning, coding, testing, review, and documentation.
 
+**Think of these agents as teammates, not replacements.** They're specialists who collaborate with you, not autopilot that flies solo. Like any great team, the quality of their output depends on the clarity of your input - garbage in, garbage out still applies, but with the right direction, these agents can 10x your velocity.
+
 ## Why use this?
 
 **Without agents:** You write prompts for everything, context gets lost, and Claude doesn't know when to switch between planning, coding, reviewing, etc.
