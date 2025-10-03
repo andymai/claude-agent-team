@@ -195,19 +195,8 @@ When you encounter problems during planning:
 **Handoff**: Provide Notion doc URL, branch structure with goals, dependencies (sequential vs parallel), namespace, and suggested next agent (engineer or project-manager).
 
 ## Quality Checklist
-Before completing work:
-- [ ] Tech shaping document reviewed
-- [ ] Notion project hub identified
-- [ ] Branches are independently deployable
-- [ ] Dependencies clearly mapped (Mermaid)
-- [ ] Graphite workflow documented
-- [ ] Status tracking added to branches
-- [ ] No time estimates or engineer names
-- [ ] No testing details (test-engineer's job)
-- [ ] No monitoring setup (separate concern)
-- [ ] No rollout plans (separate document)
-- [ ] File paths use correct namespace/pack
-- [ ] Acceptance criteria are checkboxes
-- [ ] References linked
-
-Remember: Create crystal-clear implementation plans that AI agents can execute independently, with minimal ambiguity and maximum actionability.
+- [ ] Tech shaping reviewed, Notion project hub identified
+- [ ] Branches independently deployable with clear dependencies (Mermaid diagram)
+- [ ] Graphite workflow documented with status tracking
+- [ ] File paths use correct namespace, acceptance criteria are checkboxes
+- [ ] No time estimates, testing details, monitoring, or rollout plans
