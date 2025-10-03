@@ -17,7 +17,7 @@ Eleven specialized AI agents that orchestrate your entire feature development wo
 - **Parallel execution** - task-planner identifies independent branches that can be developed simultaneously
 - **Background tasks** - engineer handles long-running operations (migrations, refactors) without blocking
 - **Checkpoint/rollback** - reviewer provides rollback guidance for failed implementations
-- **Automated quality gates** - gap-finder runs automatically before human review
+- **Quality gates** - gap-finder validates completeness before reviewer evaluates code
 
 **Result:** Better code, fewer rewrites, faster shipping.
 
@@ -40,8 +40,8 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 | 📝 chronicler | "Document the new feature" | Haiku | ✅ notion-manager |
 | 🔌 integration-tester | "Test end-to-end flows" | Sonnet | ❌ |
 | 🔎 gap-finder | "Find what's missing vs spec" | Opus | ✅ engineer |
-| 🎨 tech-shaping-advisor | "Turn PRD into tech spec" | Opus | ✅ gap-finder |
-| 📋 task-planner | "Break into deployable chunks" | Opus | ✅ engineer |
+| 🎨 tech-shaping-advisor | "Help me draft tech spec sections" | Opus | ❌ |
+| 📋 task-planner | "Create implementation plan" | Opus | ❌ |
 | 🛡️ project-manager | "Prevent scope creep" | Sonnet | ❌ |
 | 🔄 notion-manager | "Sync status to Notion" | Haiku | ❌ |
 
@@ -61,7 +61,7 @@ Starting with a PRD for a new "Gift Tracking" feature (ShapeUp cycle):
 ```bash
 /task task-planner Create implementation plan from https://notion.so/gift-tracking-tech-shaping
 ```
-→ Outputs: Implementation plan in Notion with 4 branches, dependencies, Graphite workflow
+→ Outputs: Implementation plan page in Notion with branches, acceptance criteria, dependencies
 → You review and may suggest alternative approaches
 
 **3. Implementation - Per Branch (Agent-Driven)**
@@ -149,24 +149,27 @@ Add this to your `CLAUDE.md` so Claude proactively suggests the right agent at t
 ```markdown
 ## Agent Workflow
 
-When working on new features, follow this agent orchestration workflow:
+When working on new features, follow this ShapeUp workflow with AI agents:
 
-### 1. PRD → Tech Shaping
-- Use `/task tech-shaping-advisor` to create tech shaping document
-- Delegates to `gap-finder` for validation
+### 1. PRD → Tech Shaping (Before Cycle)
+- You read PRD and use `/task tech-shaping-advisor` to help draft sections
+- You drive the process, AI assists with pattern research and drafting
+- You publish completed tech shaping doc to Notion
 
-### 2. Tech Shaping → Implementation Plan
-- Use `/task task-planner` to break into deployable branches
-- Creates Graphite workflow + Notion tracking
+### 2. Tech Shaping → Implementation Plan (Before Cycle)
+- Use `/task task-planner` to create implementation plan from tech shaping doc
+- Agent creates plan autonomously, you review and suggest alternatives
+- Implementation plan in Notion becomes source of truth
 
-### 3. Implementation
-- Use `/task engineer` for each branch
-- Use `/task project-manager` to enforce scope
+### 3. Implementation (During Cycle)
+Per branch:
+- Use `/task engineer` with Notion link or direct instructions
 - Use `/task tester` for specs
-- Use `/task gap-finder` to catch missing requirements (automated pre-review)
+- Use `/task gap-finder` to validate completeness
 - Use `/task reviewer` before merge
+- notion-manager updates Notion status automatically after merge
 
-### 4. Documentation
-- Use `/task chronicler` when complete
-- Delegates to `notion-manager` for updates
+### 4. Final Documentation (End of Cycle)
+- Use `/task chronicler` to document completed feature
+- notion-manager marks feature complete in Notion
 ```
