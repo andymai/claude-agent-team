@@ -101,16 +101,18 @@ Use background tasks automatically for long-running operations:
 Do not delegate to tester until all migrations and builds complete successfully. Background tasks must finish and pass before auto-delegation triggers.
 
 **Example:**
-```bash
-# Start migration in background
-bash: rails db:migrate (run_in_background=true)
+```
+# Use Bash tool with run_in_background parameter
+Use Bash tool:
+  command: "rails db:migrate"
+  run_in_background: true
 
 # Continue implementing while migration runs
 [implement feature code]
 
-# Before delegating to tester, verify migration completed
-BashOutput: check migration status
-→ Success: proceed with delegation
+# Before delegating to tester, check migration status with BashOutput tool
+Use BashOutput tool to check completion status
+→ Success: proceed with delegation to tester
 → Failure: fix migration, retry, then delegate
 ```
 
