@@ -99,14 +99,39 @@ graph TD
     B --> C[gap-finder validates]
     C --> D[task-planner]
     D --> E[Implementation Plan]
-    E --> F[engineer Branch 1]
-    F --> G[tester writes specs]
-    G --> H[reviewer]
-    H -->|Changes needed| F
-    H -->|Approved| I[Merge]
-    I --> J[Repeat for Branch 2-N]
-    J --> K[chronicler]
-    K --> L[notion-manager]
+
+    E --> F1[engineer Branch 1<br/>Database Models]
+    E -.->|parallel| F2[engineer Branch 5<br/>Background Jobs]
+    E -.->|parallel| F3[engineer Branch 6<br/>Email Templates]
+
+    F1 --> G1[tester]
+    F2 -.-> G2[tester]
+    F3 -.-> G3[tester]
+
+    G1 --> H1[reviewer]
+    G2 -.-> H2[reviewer]
+    G3 -.-> H3[reviewer]
+
+    H1 -->|Changes needed| F1
+    H2 -.->|Changes needed| F2
+    H3 -.->|Changes needed| F3
+
+    H1 -->|Approved| I1[Merge Branch 1]
+    H2 -.->|Approved| I2[Merge Branch 5]
+    H3 -.->|Approved| I3[Merge Branch 6]
+
+    I1 --> J[Branch 2: API Layer]
+    I1 --> K[Branch 3: Frontend]
+    I1 --> M[Branch 4: Integration]
+
+    J --> N[...]
+    K --> N
+    M --> N
+    I2 -.-> N
+    I3 -.-> N
+
+    N --> O[chronicler]
+    O --> P[notion-manager]
 
     classDef planning fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#fff
     classDef implementing fill:#166534,stroke:#4ade80,stroke-width:2px,color:#fff
@@ -114,9 +139,9 @@ graph TD
     classDef documenting fill:#581c87,stroke:#c084fc,stroke-width:2px,color:#fff
 
     class B,C,D planning
-    class F,G implementing
-    class H reviewing
-    class K,L documenting
+    class F1,F2,F3,G1,G2,G3 implementing
+    class H1,H2,H3 reviewing
+    class O,P documenting
 ```
 
 ## Workflow (Add to CLAUDE.md)
