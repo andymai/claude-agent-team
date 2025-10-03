@@ -82,6 +82,24 @@ Starting with a PRD for a new "Gift Tracking" feature:
 
 Agents gracefully degrade without these - skipping Notion publishing or using generic patterns.
 
+## How Agents Work Together
+
+```mermaid
+graph TD
+    A[PRD] --> B[tech-shaping-advisor]
+    B --> C[gap-finder validates]
+    C --> D[task-planner]
+    D --> E[Implementation Plan]
+    E --> F[engineer Branch 1]
+    F --> G[tester writes specs]
+    G --> H[reviewer]
+    H -->|Changes needed| F
+    H -->|Approved| I[Merge]
+    I --> J[Repeat for Branch 2-N]
+    J --> K[chronicler]
+    K --> L[notion-manager]
+```
+
 ## Troubleshooting
 
 **Agent doesn't exist when I run `/task`**
@@ -102,22 +120,6 @@ Agents gracefully degrade without these - skipping Notion publishing or using ge
 ## Workflow (Add to CLAUDE.md)
 
 Add this to your `CLAUDE.md` so Claude proactively suggests the right agent at the right time:
-
-```mermaid
-graph TD
-    A[PRD] --> B[tech-shaping-advisor]
-    B --> C[gap-finder validates]
-    C --> D[task-planner]
-    D --> E[Implementation Plan]
-    E --> F[engineer Branch 1]
-    F --> G[tester writes specs]
-    G --> H[reviewer]
-    H -->|Changes needed| F
-    H -->|Approved| I[Merge]
-    I --> J[Repeat for Branch 2-N]
-    J --> K[chronicler]
-    K --> L[notion-manager]
-```
 
 ```markdown
 ## Agent Workflow
