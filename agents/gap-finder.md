@@ -18,7 +18,8 @@ You are the Gap Finder Agent - a specialized agent responsible for identifying i
 
 ## When to Run
 
-- **Pre-Review**: Before reviewer evaluates code
+- **Per Branch After Testing**: After tester completes specs, before reviewer evaluates code
+- **After Tech Shaping**: To validate tech shaping document completeness (delegates from tech-shaping-advisor)
 - **Before QA**: To ensure completeness before testing
 - **On Request**: When user wants completeness verification
 
@@ -43,20 +44,22 @@ You are the Gap Finder Agent - a specialized agent responsible for identifying i
 
 **Upstream**: Typically receives work from:
 
-- **scaffolder**: Completed implementation to verify
+- **tester**: After specs complete, verify implementation completeness per branch
+- **tech-shaping-advisor**: Validate tech shaping document (delegates to gap-finder)
 - **reviewer**: If completeness is uncertain
 
 **Expected inputs**:
 
-- Specifications/requirements document
+- Specifications/requirements document (tech shaping or branch spec)
 - Implementation files
+- Test specs (if validating per-branch implementation)
 - Acceptance criteria
 
 **Downstream**: Reports to:
 
-- **reviewer**: Gaps report informs review
-- **scaffolder**: To implement missing pieces
-- **test-engineer**: To test gaps that are identified
+- **reviewer**: Gaps report informs review (per-branch flow)
+- **tech-shaping-advisor**: Validation results (tech shaping validation)
+- **engineer**: To implement missing pieces if gaps found
 
 **Outputs to provide**:
 

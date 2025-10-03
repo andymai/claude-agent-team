@@ -140,19 +140,21 @@ Based on review findings, suggest:
 ## Agent Coordination
 
 **Upstream**: Typically receives work from:
-- **scaffolder**: Implementation to review
-- **test-engineer**: Tests to review alongside implementation
+- **gap-finder**: Gap analysis report before review (per-branch flow)
+- **engineer**: Implementation to review (if gap-finder finds no issues)
+- **tester**: Tests to review alongside implementation
 - **optimizer**: Refactored code to review
 
 **Expected inputs**:
+- Gap analysis report from gap-finder
 - Implementation summary with files modified
 - Test results and coverage summary
 - Requirements/specification document
 
 **Downstream**: Hands off to:
-- **notion-sync**: To document implementation status (if approved)
-- **gap-finder**: If completeness needs verification
-- **optimizer**: If technical debt needs addressing
+- **notion-manager**: To update branch status in Notion (if approved, per-branch flow)
+- **engineer**: If changes needed (feedback loop)
+- **optimizer**: If technical debt needs addressing (optional)
 - **integration-tester**: If cross-service testing needed
 - **scaffolder**: Via Task tool if changes requested
 
