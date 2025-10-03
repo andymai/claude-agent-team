@@ -98,7 +98,7 @@ graph TD
     A[PRD] --> B[tech-shaping-advisor]
     B --> C[gap-finder validates]
     C --> D[task-planner]
-    D --> E[Implementation Plan]
+    D --> E[Implementation Plan in Notion]
 
     E --> F[engineer Branch 1]
     E -.->|parallel| G[engineer Branch 2]
@@ -109,12 +109,17 @@ graph TD
     H --> J[reviewer]
     I -.-> K[reviewer]
 
-    J -->|Approved| L[Merge]
-    K -.->|Approved| L
+    J -->|Approved| L[Merge Branch 1]
+    K -.->|Approved| M[Merge Branch 2]
 
-    L --> M[Repeat for remaining branches]
-    M --> N[chronicler]
-    N --> O[notion-manager]
+    L --> N[notion-manager<br/>update Branch 1 status]
+    M -.-> O[notion-manager<br/>update Branch 2 status]
+
+    N --> P[Repeat for remaining branches...]
+    O -.-> P
+
+    P --> Q[chronicler<br/>final documentation]
+    Q --> R[notion-manager<br/>mark complete]
 
     classDef planning fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#fff
     classDef implementing fill:#166534,stroke:#4ade80,stroke-width:2px,color:#fff
@@ -124,7 +129,7 @@ graph TD
     class B,C,D planning
     class F,G,H,I implementing
     class J,K reviewing
-    class N,O documenting
+    class N,O,Q,R documenting
 ```
 
 ## Workflow (Add to CLAUDE.md)
