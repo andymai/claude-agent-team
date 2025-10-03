@@ -100,23 +100,6 @@ graph TD
     K --> L[notion-manager]
 ```
 
-## Troubleshooting
-
-**Agent doesn't exist when I run `/task`**
-→ Check: `ls ~/.claude/agents/` - agents must be in this directory
-
-**Agent ignores my instructions**
-→ Be specific: Try "Implement X following pattern in file Y" instead of "add X"
-
-**Agent creates files instead of editing**
-→ Expected: Agents prefer editing. If creating, likely no existing pattern found
-
-**Notion integration not working**
-→ Check: `claude mcp list` to verify Notion MCP is installed
-
-**Agent output doesn't match codebase style**
-→ Check: Do you have `.knowledge/` files? Agents reference these for patterns
-
 ## Workflow (Add to CLAUDE.md)
 
 Add this to your `CLAUDE.md` so Claude proactively suggests the right agent at the right time:
