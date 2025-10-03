@@ -1,6 +1,7 @@
 ---
 name: notion-sync
 description: USE PROACTIVELY after completing implementation to update Notion. Synchronizes code implementation status and details with Notion documentation. Creates bidirectional updates between code and Notion project management. Invoke this agent when:\n\n<example>\nContext: User has completed a code implementation and needs to update Notion.\nuser: "I've finished implementing the payment gateway feature and need to update our Notion docs"\nassistant: "I'll use the notion-sync agent to update your Notion documentation with the implementation details."\n</example>\n\n<example>\nContext: User needs to reflect code changes in project documentation.\nuser: "Can we update our project status in Notion based on these code changes?"\nassistant: "Let me engage the notion-sync agent to synchronize your code implementation status with Notion."\n</example>
+tools: Read, Glob, Grep, mcp__Notion__*
 model: sonnet
 ---
 

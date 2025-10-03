@@ -1,6 +1,7 @@
 ---
 name: plan-keeper
 description: USE PROACTIVELY when implementing against a Notion plan. Enforces implementation plan boundaries for AI coding tasks. Ensures code implementations adhere to agreed specifications and technical designs from Notion. Invoke this agent when:\n\n<example>\nContext: User is implementing a feature with specific requirements defined in Notion.\nuser: "I need to implement this user authentication feature according to our plan"\nassistant: "Let me use the plan-keeper agent to ensure we stay within the implementation boundaries defined in your Notion plan."\n</example>\n\n<example>\nContext: User is concerned about scope creep or deviation from plans.\nuser: "I want to make sure we're following the technical spec exactly"\nassistant: "I'll engage the plan-keeper agent to validate our implementation against the specifications in Notion."\n</example>
+tools: Read, Glob, Grep, mcp__Notion__*
 model: sonnet
 ---
 

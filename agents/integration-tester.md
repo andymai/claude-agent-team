@@ -1,6 +1,7 @@
 ---
 name: integration-tester
 description: USE PROACTIVELY for multi-component features. Creates and manages integration tests that verify system components work together correctly. Specializes in API integration, cross-service testing, and end-to-end scenarios. Invoke this agent when:\n\n<example>\nContext: User needs to test how multiple components interact.\nuser: "I need to test how the authentication service interacts with the user profile service"\nassistant: "Let me use the integration-tester agent to create comprehensive integration tests for these interacting services."\n</example>\n\n<example>\nContext: User wants to ensure a complete workflow functions correctly.\nuser: "We need end-to-end tests for the entire checkout process"\nassistant: "I'll engage the integration-tester agent to design end-to-end tests that verify the complete checkout workflow."\n</example>
+tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
 ---
 
