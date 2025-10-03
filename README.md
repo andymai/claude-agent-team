@@ -1,25 +1,16 @@
 # Claude Code Configuration
 
-A multi-agent orchestration system for AI-assisted software development with Claude Code.
-
-## What is this?
-
-This repository contains 11 specialized AI agents that work together to handle the complete software development lifecycle - from PRD to tech shaping, implementation planning, coding, testing, review, and documentation.
+Eleven specialized AI agents that orchestrate your entire feature development workflow - from PRD to production.
 
 **Think of these agents as teammates, not replacements.** They're specialists who collaborate with you, not autopilot that flies solo. Like any great team, the quality of their output depends on the clarity of your input - garbage in, garbage out still applies, but with the right direction, these agents can 10x your velocity.
 
-## Why use this?
-
-**Without agents:** You write prompts for everything, context gets lost, and Claude doesn't know when to switch between planning, coding, reviewing, etc.
-
-**With agents:** Each agent has specialized knowledge and tools. They delegate to each other automatically, maintaining context throughout your feature development workflow.
-
 ## Quick Start
 
-1. **Install Claude Code**: Follow [installation instructions](https://docs.claude.com/en/docs/claude-code)
-2. **Copy agent configs**: `cp -r agents ~/.claude/agents/`
-3. **Optional**: Add the workflow to your `CLAUDE.md` (see Setup section below)
-4. **Start using**: `/task task-planner https://notion.so/your-tech-shaping-doc`
+1. **Install**: [Claude Code](https://docs.claude.com/en/docs/claude-code) + Anthropic API key
+2. **Copy**: `cp -r agents ~/.claude/agents/`
+3. **Use**: `/task task-planner https://notion.so/your-tech-shaping-doc`
+
+Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `CLAUDE.md` (see bottom) for proactive suggestions.
 
 ## The 11 Agents
 
@@ -70,27 +61,20 @@ $ /task reviewer Review the changes in this branch
 - Specific file:line references
 - Approve/Request Changes decision
 
-## Prerequisites
+## Optional Dependencies
 
-**Required:**
-- [Claude Code](https://docs.claude.com/en/docs/claude-code) installed
-- Anthropic API key configured
+**Notion integration** (tech-shaping-advisor, task-planner, notion-manager, project-manager):
+- [Notion MCP](https://mcp.notion.com/): `claude mcp add -t http notion https://mcp.notion.com/mcp`
 
-**For Notion-dependent agents** (tech-shaping-advisor, task-planner, notion-manager, project-manager):
-- [Notion MCP](https://mcp.notion.com/) configured: `claude mcp add -t http notion https://mcp.notion.com/mcp`
-- Notion workspace with access to project pages
-
-**For Babylist-specific features** (tech-shaping-advisor, task-planner):
-- `.knowledge/` directory with codebase patterns (see [example structure](https://github.com/babylist/web))
+**Babylist-specific** (tech-shaping-advisor, task-planner):
+- `.knowledge/` directory with codebase patterns
 - `.github/prompts/ai_tech_shaping.prompt.md` template
 
-**Note:** Agents gracefully degrade if optional dependencies are missing - they'll skip Notion publishing or use generic patterns instead of codebase-specific ones.
+Agents gracefully degrade without these - skipping Notion publishing or using generic patterns.
 
-## Setup (Optional)
+## Workflow (Add to CLAUDE.md)
 
-Agents are automatically discovered from `~/.claude/agents/` based on their frontmatter configuration.
-
-**Optionally add this workflow to your `CLAUDE.md`** to guide Claude on when to proactively suggest each agent:
+Add this to your `CLAUDE.md` so Claude proactively suggests the right agent at the right time:
 
 ```markdown
 ## Agent Workflow
@@ -99,23 +83,19 @@ When working on new features, follow this agent orchestration workflow:
 
 ### 1. PRD → Tech Shaping
 - Use `/task tech-shaping-advisor` to create tech shaping document
-- Consults `.knowledge/` patterns for architectural guidance
-- Publishes to Notion and links to project page
-- Delegates to `gap-finder` for completeness validation
+- Delegates to `gap-finder` for validation
 
 ### 2. Tech Shaping → Implementation Plan
-- Use `/task task-planner` to transform tech shaping into implementation plan
-- Breaks feature into independently deployable branches
-- Creates Graphite stacked PR workflow
-- Publishes to Notion with status tracking
+- Use `/task task-planner` to break into deployable branches
+- Creates Graphite workflow + Notion tracking
 
 ### 3. Implementation
-- Use `/task engineer` for each branch following the plan
-- Use `/task project-manager` to enforce scope boundaries during implementation
-- Use `/task tester` to write specs after implementation
-- Use `/task reviewer` to approve code before merge
+- Use `/task engineer` for each branch
+- Use `/task project-manager` to enforce scope
+- Use `/task tester` for specs
+- Use `/task reviewer` before merge
 
 ### 4. Documentation
-- Use `/task chronicler` when implementation is complete
-- Automatically delegates to `notion-manager` for status updates
+- Use `/task chronicler` when complete
+- Delegates to `notion-manager` for updates
 ```
