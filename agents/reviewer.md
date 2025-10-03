@@ -223,40 +223,7 @@ When you encounter problems during review:
 **Needed to Proceed**: [Specific files or context required]
 ```
 
-**Timeout Strategy**: Reviews should complete within reasonable time (~15min for standard features). If review is taking longer, report partial findings and identify what's causing complexity.
-
-**Handoff Protocol**:
-When completing review, provide:
-```
-## Code Review Complete
-
-**Decision**: ✅ Approve / ⚠️ Approve with Comments / 🔄 Request Changes
-
-**Critical Issues**: [Count] - [Brief summary]
-
-**Important Issues**: [Count] - [Brief summary]
-
-**Files Reviewed**:
-- path/to/file1.rb
-- path/to/file2.js
-- spec/path/to/test_spec.rb
-
-**Prerequisites Met for Next Agent**:
-- Code review complete: ✅
-- Critical issues: [None/Addressed/Documented]
-- Tests reviewed: ✅
-
-**Blockers for Next Agent**: [None] or [Issues that must be fixed before proceeding]
-
-**Knowledge Base Violations**:
-- [Any patterns from `.knowledge` that weren't followed]
-
-**Suggested Next Agent**:
-- notion-sync (to document completion) OR
-- gap-finder (to verify completeness) OR
-- optimizer (to address technical debt) OR
-- scaffolder (to fix critical issues via Task tool)
-```
+**Handoff**: Provide decision (Approve/Approve with Comments/Request Changes), critical/important issue count, files reviewed, and suggested next agent.
 
 ## Quick Start Workflow
 1. **Verify prerequisites** - Check that implementation and tests are complete
@@ -267,29 +234,6 @@ When completing review, provide:
 6. **Identify issues** - Categorize as critical/important/advisory
 7. **Make decision** - Approve, approve with comments, or request changes
 8. **Recommend next agent** - Suggest downstream agent if needed
-
-## Examples
-
-### Example 1: Reviewing New Feature Implementation
-**Input**: Implementation + tests for new user authentication endpoint
-**Process**:
-1. Read scaffolder's implementation summary
-2. Read test-engineer's test summary
-3. Review controller code for correctness
-4. Check `.knowledge/conventions/route-placement.md` compliance
-5. Verify tests cover edge cases
-6. Identify any security concerns
-**Output**: Review with decision + recommendation for notion-sync
-
-### Example 2: Reviewing Refactored Code
-**Input**: Optimizer's refactored service class + updated tests
-**Process**:
-1. Read optimizer's summary of changes
-2. Verify `.knowledge/patterns/service-class-consolidation.md` followed
-3. Check that existing functionality preserved
-4. Review test updates
-5. Assess maintainability improvements
-**Output**: Review with decision + recommendation for integration-tester
 
 ## Quality Checklist
 Before completing review:

@@ -139,39 +139,7 @@ When you encounter problems during optimization:
 **Needed to Proceed**: [Specific fixes or architectural decisions required]
 ```
 
-**Timeout Strategy**: Optimizations should be quick wins. If optimization exceeds reasonable time (~20min), report what was completed and identify complexity blockers.
-
-**Handoff Protocol**:
-When completing work, provide:
-```
-## Optimization Complete
-
-**Files Modified**:
-- path/to/optimized_file.rb
-
-**Changes Summary**:
-- [Brief description of optimizations made]
-
-**Test Results**:
-- Before: [test results]
-- After: [test results]
-
-**Performance Impact** (if measured):
-- Before: [metrics]
-- After: [metrics]
-
-**Prerequisites Met for Next Agent**:
-- Optimizations applied: ✅
-- Tests still passing: ✅
-- No functionality broken: ✅
-
-**Blockers for Next Agent**: [None] or [Issues requiring review or further optimization]
-
-**Knowledge Base Used**:
-- `.knowledge/patterns/service-class-consolidation.md`
-
-**Suggested Next Agent**: test-engineer (if tests need updating) or reviewer (for final review)
-```
+**Handoff**: List files modified, changes summary, test results before/after, performance impact (if measured), `.knowledge` files used, and suggested next agent (tester or reviewer).
 
 ## Quick Start Workflow
 1. **Read context** about what needs optimization
@@ -181,28 +149,6 @@ When completing work, provide:
 5. **Run tests after each change** to verify safety
 6. **Measure performance** if optimization was performance-related
 7. **Document changes** for handoff
-
-## Examples
-
-### Example 1: Fixing N+1 Query Issue
-**Input**: Service class with N+1 query performance issue
-**Process**:
-1. Run tests to establish baseline behavior
-2. Check `.knowledge/testing/n_plus_one_detection.md`
-3. Add eager loading to eliminate N+1
-4. Run tests to verify behavior unchanged
-5. Measure query count reduction
-**Output**: Optimized service + test results + performance comparison
-
-### Example 2: Consolidating Service Methods
-**Input**: Service class with many similar methods
-**Process**:
-1. Read `.knowledge/patterns/service-class-consolidation.md`
-2. Run existing tests
-3. Consolidate similar methods into parameterized version
-4. Update tests if needed
-5. Verify all tests pass
-**Output**: Consolidated service + updated tests + handoff to reviewer
 
 ## Quality Checklist
 Before completing work:
