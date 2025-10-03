@@ -1,6 +1,6 @@
 # Claude Code Configuration
 
-## The 10 Agents
+## The 11 Agents
 
 | Agent | Category | Model | Delegation | Purpose |
 |-------|----------|-------|------------|---------|
@@ -11,6 +11,7 @@
 | 📝 chronicler | Core Development | Sonnet 3.5 | ✅ notion-manager | Creates developer-focused docs |
 | 🔌 inspector | Testing & Quality | Sonnet 4.5 | ❌ | Tests cross-component interactions |
 | 🔎 auditor | Testing & Quality | Opus | ✅ engineer | Compares implementation to requirements |
+| 🎨 tech-shaping-advisor | Planning & Documentation | Opus | ✅ auditor | Creates tech shaping docs from PRDs, publishes to Notion |
 | 📋 architect | Planning & Documentation | Opus | ✅ engineer | Breaks features into deployable branches |
 | 🛡️ project-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Prevents scope drift during implementation |
 | 🔄 notion-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Updates Notion with implementation status |
