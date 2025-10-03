@@ -1,6 +1,23 @@
 # Claude Code Configuration
 
-Multi-agent orchestration system for AI-assisted software development.
+A multi-agent orchestration system for AI-assisted software development with Claude Code.
+
+## What is this?
+
+This repository contains 11 specialized AI agents that work together to handle the complete software development lifecycle - from PRD to tech shaping, implementation planning, coding, testing, review, and documentation.
+
+## Why use this?
+
+**Without agents:** You write prompts for everything, context gets lost, and Claude doesn't know when to switch between planning, coding, reviewing, etc.
+
+**With agents:** Each agent has specialized knowledge and tools. They delegate to each other automatically, maintaining context throughout your feature development workflow.
+
+## Quick Start
+
+1. **Install Claude Code**: Follow [installation instructions](https://docs.claude.com/en/docs/claude-code)
+2. **Copy agent configs**: `cp -r agents ~/.claude/agents/`
+3. **Optional**: Add the workflow to your `CLAUDE.md` (see Setup section below)
+4. **Start using**: `/task architect https://notion.so/your-tech-shaping-doc`
 
 ## The 11 Agents
 
@@ -17,6 +34,55 @@ Multi-agent orchestration system for AI-assisted software development.
 | 📋 architect | Planning & Documentation | Opus | ✅ engineer | Breaks features into deployable branches |
 | 🛡️ project-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Prevents scope drift during implementation |
 | 🔄 notion-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Updates Notion with implementation status |
+
+## Example Usage
+
+### Creating an implementation plan from tech shaping:
+```bash
+$ /task architect Read the tech shaping doc at https://notion.so/project/tech-shaping and create an implementation plan
+```
+
+**Output:**
+- Notion implementation plan with branch-by-branch breakdown
+- Graphite workflow for stacked PRs
+- Mermaid dependency diagrams
+- Status tracking per branch
+
+### Implementing a feature branch:
+```bash
+$ /task engineer Implement Branch 1 from the implementation plan: Core Service
+```
+
+**Output:**
+- Files created/modified following codebase patterns
+- Consults `.knowledge/` for conventions
+- Ready for review
+
+### Reviewing before merge:
+```bash
+$ /task reviewer Review the changes in this branch
+```
+
+**Output:**
+- Two-phase review (critique → reflection)
+- Specific file:line references
+- Approve/Request Changes decision
+
+## Prerequisites
+
+**Required:**
+- [Claude Code](https://docs.claude.com/en/docs/claude-code) installed
+- Anthropic API key configured
+
+**For Notion-dependent agents** (tech-shaping-advisor, architect, notion-manager, project-manager):
+- [Notion MCP](https://mcp.notion.com/) configured: `claude mcp add -t http notion https://mcp.notion.com/mcp`
+- Notion workspace with access to project pages
+
+**For Babylist-specific features** (tech-shaping-advisor, architect):
+- `.knowledge/` directory with codebase patterns (see [example structure](https://github.com/babylist/web))
+- `.github/prompts/ai_tech_shaping.prompt.md` template
+
+**Note:** Agents gracefully degrade if optional dependencies are missing - they'll skip Notion publishing or use generic patterns instead of codebase-specific ones.
 
 ## Setup (Optional)
 
