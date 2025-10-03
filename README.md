@@ -11,7 +11,7 @@ Ten specialized AI agents that orchestrate your entire feature development workf
 **Multi-agent orchestration** gives you specialists:
 - **Opus for critical thinking** (reviewer, gap-finder, tech-shaping-advisor, task-planner) - catches design flaws
 - **Sonnet for implementation** (engineer, tester, optimizer, integration-tester, project-manager) - fast, proven patterns
-- **Haiku for quick tasks** (chronicler, notion-manager) - rapid documentation and status updates
+- **Haiku for quick tasks** (documentor, notion-manager) - rapid documentation and status updates
 
 **New capabilities based on [Claude Code autonomy features](https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously):**
 - **Parallel execution** - task-planner identifies independent branches that can be developed simultaneously
@@ -37,7 +37,7 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 | 🧪 tester | "Write specs for the new API" | Sonnet | ✅ gap-finder |
 | 🔍 reviewer | "Review before merging" | Opus | ✅ engineer/optimizer/notion-manager |
 | ⚡ optimizer | "Refactor after it works" | Sonnet | ✅ reviewer |
-| 📝 chronicler | "Document the new feature" | Haiku | ✅ notion-manager |
+| 📝 documentor | "Document the new feature" | Haiku | ✅ notion-manager |
 | 🔌 integration-tester | "Test end-to-end flows" | Sonnet | ❌ |
 | 🔎 gap-finder | "Find what's missing vs spec" | Opus | ✅ engineer/reviewer |
 | 🎨 tech-shaping-advisor | "Help me draft tech spec sections" | Opus | ❌ |
@@ -84,9 +84,9 @@ Starting with a PRD for a new "Gift Tracking" feature (ShapeUp cycle):
 
 **6. Final documentation (User-triggered when all complete)**
 ```bash
-/task chronicler Document the gift tracking feature
+/task documentor Document the gift tracking feature
 ```
-→ chronicler verifies all branches merged in git (reads Notion for branch list, checks git status)
+→ documentor verifies all branches merged in git (reads Notion for branch list, checks git status)
 → If unmerged branches found, reports mismatch and blocks documentation
 → Outputs: API docs, usage guides
 → Auto-delegates to notion-manager to mark feature "Complete ✅"
@@ -107,7 +107,7 @@ Agents gracefully degrade without these - skipping Notion publishing or using ge
 **Notion as coordination hub, Git as source of truth:**
 
 - **notion-manager**: Verifies PR/branch merge status in git (`gh pr view` / `git branch --merged`) before updating Notion
-- **chronicler**: Reads branch list from Notion, verifies all merged in git before documenting
+- **documentor**: Reads branch list from Notion, verifies all merged in git before documenting
 - **Status flow**: "In Progress" → "Review" → "Merged ✅" (verified in git) → "Complete ✅" (all branches merged + documented)
 - **Discrepancy handling**: If Notion shows merged but git doesn't, agents report mismatch for manual resolution
 
@@ -154,7 +154,7 @@ graph TD
     S --> U[Repeat remaining branches...]
     T -.-> U
 
-    U --> V[You: /task chronicler]
+    U --> V[You: /task documentor]
     V ==>|auto| W[notion-manager<br/>mark complete]
 
     classDef human fill:#4b5563,stroke:#9ca3af,stroke-width:2px,color:#fff
@@ -204,6 +204,6 @@ Per branch - Smart Autonomous:
 - Tests cross-service interactions and complete user journeys
 
 ### 5. Final Documentation (When All Complete)
-- You: `/task chronicler` to document completed feature
-- Auto-chain: chronicler → notion-manager (marks feature complete)
+- You: `/task documentor` to document completed feature
+- Auto-chain: documentor → notion-manager (marks feature complete)
 ```

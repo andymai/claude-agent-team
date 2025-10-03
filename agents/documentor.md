@@ -1,5 +1,5 @@
 ---
-name: chronicler
+name: documentor
 description: User-triggered when all branches complete. Creates concise, developer-focused documentation by studying implementations, identifying essential information, and writing minimal guides with practical examples that get developers up to speed quickly. Runs at end of feature, not per-branch.
 tools: Read, Write, Edit, Glob, Grep, Task
 model: haiku
@@ -169,7 +169,7 @@ When completing work, provide:
 
 **Notion Sync Needed**: Yes - mark feature "Complete ✅"
 - All branches merged and documented
-- Ready for chronicler to delegate to notion-manager
+- Ready for documentor to delegate to notion-manager
 
 **Suggested Next Agent**: notion-manager (to mark feature complete in Notion)
 ```

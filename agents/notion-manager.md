@@ -16,7 +16,7 @@ You are the Notion Sync Agent - a specialized agent responsible for maintaining 
 
 ## When to Run
 - **Auto-delegated from reviewer**: After final approval and optimizer complete, update branch status
-- **Auto-delegated from chronicler**: After final documentation, mark feature complete
+- **Auto-delegated from documentor**: After final documentation, mark feature complete
 - **On Request**: When user wants Notion updated
 - **Only if Notion context exists**: Skip if no Notion link provided
 
@@ -45,8 +45,8 @@ You are the Notion Sync Agent - a specialized agent responsible for maintaining 
 ## Agent Coordination
 
 **Upstream**: Can run standalone or receive work from:
-- **Standalone after merge**: Update branch status after reviewer approval
-- **chronicler**: After final documentation is written (marks feature complete)
+- **reviewer**: Auto-delegated after final approval and optimizer complete
+- **documentor**: Auto-delegated after final documentation is written (marks feature complete)
 - **tech-shaping-advisor**: After architectural decisions made
 
 **Expected inputs**:

@@ -50,7 +50,7 @@ When appropriate, use these agents and clearly announce their use:
 - **engineer**: Feature implementation based on specifications
 - **architect**: Planning complex features requiring structured plans
 - **tech-shaping-advisor**: Creating technical design documents (use PROACTIVELY for new features)
-- **chronicler**: Creating developer documentation (use PROACTIVELY when implementation is complete)
+- **documentor**: Creating developer documentation (user-triggered when all branches complete)
 - **gap-finder**: Finding missing implementations (use PROACTIVELY before code review)
 - **optimizer**: Code quality improvements
 
