@@ -240,7 +240,7 @@ Before finalizing tech shaping:
 - Project cycle (e.g., 25e, 25f, 26a)
 
 **Downstream**: Enables:
-- **auditor**: Validates tech shaping completeness
+- **gap-finder**: Validates tech shaping completeness
 - **task-planner**: Transforms tech shaping into implementation plan
 - **project-manager**: Enforces scope during implementation
 
@@ -333,7 +333,7 @@ When completing work, provide:
 **Blockers for Next Agent**: [None] or [Architectural decisions needed]
 
 **Suggested Next Agent**:
-- auditor (to validate completeness)
+- gap-finder (to validate completeness)
 - task-planner (to create implementation plan once validated)
 ```
 

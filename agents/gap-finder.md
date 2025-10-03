@@ -1,5 +1,5 @@
 ---
-name: auditor
+name: gap-finder
 description: USE PROACTIVELY before code review. Identifies implementation gaps by comparing code to plans and requirements. Specializes in finding missing features, incomplete implementations, and unaddressed requirements. Invoke this agent when:\n\n<example>\nContext: User wants to ensure their implementation is complete before review.\nuser: "I think I've implemented everything in the spec, but want to make sure I didn't miss anything"\nassistant: "Let me use the gap-finder agent to systematically compare your implementation against the requirements to identify any missing elements."\n</example>\n\n<example>\nContext: User is preparing for a code review or QA process.\nuser: "Can you check if there are any gaps between our implementation and what was specified?"\nassistant: "I'll engage the gap-finder agent to perform a comprehensive gap analysis between your code and specifications."\n</example>
 tools: Read, Glob, Grep, mcp__Notion__*, Task
 model: opus
