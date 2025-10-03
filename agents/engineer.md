@@ -139,18 +139,19 @@ When you encounter problems during implementation:
 ## Agent Coordination
 
 **Upstream**: Typically receives work from:
-- **implementation-planner**: Technical design and branch plans
-- **plan-keeper**: Ensures implementation stays within agreed boundaries
+- **task-planner**: Branch implementation plan from Notion
+- **project-manager**: Ensures implementation stays within agreed boundaries
+- **reviewer**: If changes requested (feedback loop)
 
 **Expected inputs**:
-- Implementation specification or requirements
+- Branch specification from implementation plan
 - Technical constraints and architectural guidelines
 - Existing code patterns to follow
 
 **Downstream**: Hands off to:
-- **test-engineer**: For unit test creation
+- **tester**: For unit test creation (per-branch flow)
 - **integration-tester**: For integration test creation (if multiple services involved)
-- **reviewer**: For code review
+- **gap-finder**: Via tester, for completeness verification
 
 **Outputs to provide**:
 - Files created/modified

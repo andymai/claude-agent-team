@@ -106,20 +106,23 @@ graph TD
     F --> H[tester]
     G -.-> I[tester]
 
-    H --> J[reviewer]
-    I -.-> K[reviewer]
+    H --> J[gap-finder]
+    I -.-> K[gap-finder]
 
-    J -->|Approved| L[Merge Branch 1]
-    K -.->|Approved| M[Merge Branch 2]
+    J --> L[reviewer]
+    K -.-> M[reviewer]
 
-    L --> N[notion-manager<br/>update Branch 1 status]
-    M -.-> O[notion-manager<br/>update Branch 2 status]
+    L -->|Approved| N[Merge Branch 1]
+    M -.->|Approved| O[Merge Branch 2]
 
-    N --> P[Repeat for remaining branches...]
-    O -.-> P
+    N --> P[notion-manager<br/>update status]
+    O -.-> Q[notion-manager<br/>update status]
 
-    P --> Q[chronicler<br/>final documentation]
-    Q --> R[notion-manager<br/>mark complete]
+    P --> R[Repeat for remaining branches...]
+    Q -.-> R
+
+    R --> S[chronicler<br/>final documentation]
+    S --> T[notion-manager<br/>mark complete]
 
     classDef planning fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#fff
     classDef implementing fill:#166534,stroke:#4ade80,stroke-width:2px,color:#fff
@@ -128,8 +131,8 @@ graph TD
 
     class B,C,D planning
     class F,G,H,I implementing
-    class J,K reviewing
-    class N,O,Q,R documenting
+    class J,K,L,M reviewing
+    class P,Q,S,T documenting
 ```
 
 ## Workflow (Add to CLAUDE.md)

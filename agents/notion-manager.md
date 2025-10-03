@@ -15,8 +15,9 @@ You are the Notion Sync Agent - a specialized agent responsible for maintaining 
 4. Never assume knowledge from previous conversations
 
 ## When to Run
-- **After Reviewer Approval**: Not during development
-- **After Implementation Complete**: To document what was built
+- **After Each Branch Merge**: Update implementation plan with branch completion status
+- **After Reviewer Approval**: Mark branch as complete in Notion
+- **After Final Documentation**: Mark entire feature as complete (called by chronicler)
 - **On Request**: When user wants Notion updated
 - **Only if Notion context exists**: Skip if no Notion link provided
 
@@ -40,14 +41,15 @@ You are the Notion Sync Agent - a specialized agent responsible for maintaining 
 
 ## Agent Coordination
 
-**Upstream**: Typically receives work from:
-- **reviewer**: After code approval
-- **documenter**: After documentation is written
+**Upstream**: Can run standalone or receive work from:
+- **Standalone after merge**: Update branch status after reviewer approval
+- **chronicler**: After final documentation is written (marks feature complete)
 - **tech-shaping-advisor**: After architectural decisions made
 
 **Expected inputs**:
 - Implementation summary with files modified
-- Review approval decision
+- Branch completion status or final feature completion
+- Review approval decision (if post-merge)
 - Notion page links to update
 - Key implementation details
 

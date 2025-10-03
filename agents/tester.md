@@ -127,7 +127,7 @@ When you encounter problems during testing:
 ## Agent Coordination
 
 **Upstream**: Typically receives work from:
-- **scaffolder**: Provides implementation that needs testing
+- **engineer**: Provides implementation that needs testing (per-branch flow)
 - **optimizer**: May provide refactored code needing test updates
 
 **Expected inputs**:
@@ -136,7 +136,7 @@ When you encounter problems during testing:
 - Edge cases and error handling implemented
 
 **Downstream**: Hands off to:
-- **reviewer**: For code review of implementation + tests
+- **gap-finder**: For completeness verification before review (per-branch flow)
 - **integration-tester**: If integration tests are also needed
 
 **Outputs to provide**:
