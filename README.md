@@ -1,6 +1,6 @@
 # Claude Agent Team
 
-Ten specialized AI agents that orchestrate your entire feature development workflow - from PRD to production.
+Specialized AI agents that orchestrate your entire feature development workflow - from PRD to production.
 
 **Think of these agents as teammates, not replacements.** They're specialists who handle tech shaping, planning, implementation, testing, review, optimization, and documentation - with smart auto-delegation between agents. The quality of your output is directly proportional to the quality of your input.
 
@@ -12,7 +12,7 @@ Ten specialized AI agents that orchestrate your entire feature development workf
 
 Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `CLAUDE.md` (see bottom) for proactive suggestions.
 
-## The 10 Agents
+## Available Agents
 
 | Agent | When to Use | Model | Auto-Delegates |
 |-------|-------------|-------|----------------|
