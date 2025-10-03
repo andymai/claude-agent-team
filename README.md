@@ -47,38 +47,41 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 
 ## Complete Workflow Example
 
-Starting with a PRD for a new "Gift Tracking" feature:
+Starting with a PRD for a new "Gift Tracking" feature (ShapeUp cycle):
 
-**1. Tech Shaping**
+**1. Tech Shaping (You + AI)**
 ```bash
-/task tech-shaping-advisor Create tech shaping from https://notion.so/gift-tracking-prd
+# You read PRD, use tech-shaping-advisor to help draft sections
+/task tech-shaping-advisor Help me draft technical approach for gift tracking
 ```
-→ Outputs: Notion doc with architecture, data model, API contracts, risks
+→ You drive the process, AI assists with pattern research and section drafting
+→ You publish completed tech shaping doc to Notion
 
-**2. Planning**
+**2. Planning (Mostly Autonomous)**
 ```bash
 /task task-planner Create implementation plan from https://notion.so/gift-tracking-tech-shaping
 ```
-→ Outputs: 4 branches in Notion, Graphite stack structure, dependency diagram
+→ Outputs: Implementation plan in Notion with 4 branches, dependencies, Graphite workflow
+→ You review and may suggest alternative approaches
 
-**3. Implementation - Branch 1**
+**3. Implementation - Per Branch (Agent-Driven)**
 ```bash
-/task engineer Implement Branch 1: Database schema and models
+# Agent reads complete spec from Notion implementation plan
+/task engineer https://notion.so/implementation-plan#branch-1
 /task tester Write specs for the gift tracking models
 /task gap-finder Check implementation completeness vs spec
 /task reviewer Review before merge
 ```
-→ Outputs: PR ready with models, migrations, specs, gaps identified, all reviewed
+→ After merge: notion-manager updates branch status in Notion automatically
 
-**Note:** If task-planner identified parallel branches, work on Branch 5 and 6 simultaneously while main sequence progresses.
-
-**4. Repeat for remaining branches** (Branch 2-4)
+**4. Repeat for remaining branches**
 
 **5. Final documentation**
 ```bash
 /task chronicler Document the gift tracking feature
 ```
-→ Outputs: API docs, usage guides, Notion status updated
+→ Outputs: API docs, usage guides
+→ notion-manager marks feature complete in Notion
 
 ## Optional Dependencies
 
@@ -95,9 +98,9 @@ Agents gracefully degrade without these - skipping Notion publishing or using ge
 
 ```mermaid
 graph TD
-    A[PRD] --> B[tech-shaping-advisor]
-    B --> C[gap-finder validates]
-    C --> D[task-planner]
+    A[You: Read PRD] --> B[You + tech-shaping-advisor<br/>draft tech shaping]
+    B --> C[You: Publish to Notion]
+    C --> D[task-planner<br/>creates implementation plan]
     D --> E[Implementation Plan in Notion]
 
     E --> F[engineer Branch 1]
@@ -118,18 +121,22 @@ graph TD
     N --> P[notion-manager<br/>update status]
     O -.-> Q[notion-manager<br/>update status]
 
-    P --> R[Repeat for remaining branches...]
+    P --> R[Repeat remaining branches...]
     Q -.-> R
 
-    R --> S[chronicler<br/>final documentation]
+    R --> S[chronicler<br/>final docs]
     S --> T[notion-manager<br/>mark complete]
 
+    classDef human fill:#4b5563,stroke:#9ca3af,stroke-width:2px,color:#fff
+    classDef collaborative fill:#7c3aed,stroke:#a78bfa,stroke-width:2px,color:#fff
     classDef planning fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#fff
     classDef implementing fill:#166534,stroke:#4ade80,stroke-width:2px,color:#fff
     classDef reviewing fill:#9a3412,stroke:#fb923c,stroke-width:2px,color:#fff
     classDef documenting fill:#581c87,stroke:#c084fc,stroke-width:2px,color:#fff
 
-    class B,C,D planning
+    class A,C human
+    class B collaborative
+    class D,E planning
     class F,G,H,I implementing
     class J,K,L,M reviewing
     class P,Q,S,T documenting

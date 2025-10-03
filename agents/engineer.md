@@ -138,15 +138,14 @@ When you encounter problems during implementation:
 
 ## Agent Coordination
 
-**Upstream**: Typically receives work from:
-- **task-planner**: Branch implementation plan from Notion
-- **project-manager**: Ensures implementation stays within agreed boundaries
-- **reviewer**: If changes requested (feedback loop)
+**Upstream**: Receives work from:
+- **User**: Task specification via Notion link or direct instructions
+- **reviewer**: Changes requested (feedback loop)
 
 **Expected inputs**:
-- Branch specification from implementation plan
-- Technical constraints and architectural guidelines
-- Existing code patterns to follow
+- Task specification (Notion implementation plan link OR user instructions)
+- If Notion provided: Read complete branch spec (goal, files, structure, business rules, criteria, patterns)
+- Notion is source of truth when provided, otherwise follow user instructions
 
 **Downstream**: Hands off to:
 - **tester**: For unit test creation (per-branch flow)
