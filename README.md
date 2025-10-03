@@ -1,4 +1,4 @@
-# Claude Code Configuration
+# Claude Agent Team
 
 Ten specialized AI agents that orchestrate your entire feature development workflow - from PRD to production.
 
