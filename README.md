@@ -17,7 +17,7 @@ This repository contains 11 specialized AI agents that work together to handle t
 1. **Install Claude Code**: Follow [installation instructions](https://docs.claude.com/en/docs/claude-code)
 2. **Copy agent configs**: `cp -r agents ~/.claude/agents/`
 3. **Optional**: Add the workflow to your `CLAUDE.md` (see Setup section below)
-4. **Start using**: `/task architect https://notion.so/your-tech-shaping-doc`
+4. **Start using**: `/task task-planner https://notion.so/your-tech-shaping-doc`
 
 ## The 11 Agents
 
@@ -31,7 +31,7 @@ This repository contains 11 specialized AI agents that work together to handle t
 | 🔌 inspector | Testing & Quality | Sonnet 4.5 | ❌ | Tests cross-component interactions |
 | 🔎 auditor | Testing & Quality | Opus | ✅ engineer | Compares implementation to requirements |
 | 🎨 tech-shaping-advisor | Planning & Documentation | Opus | ✅ auditor | Creates tech shaping docs from PRDs, publishes to Notion |
-| 📋 architect | Planning & Documentation | Opus | ✅ engineer | Breaks features into deployable branches |
+| 📋 task-planner | Planning & Documentation | Opus | ✅ engineer | Breaks features into independently deployable branches |
 | 🛡️ project-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Prevents scope drift during implementation |
 | 🔄 notion-manager | Planning & Documentation | Sonnet 4.5 | ❌ | Updates Notion with implementation status |
 
@@ -39,7 +39,7 @@ This repository contains 11 specialized AI agents that work together to handle t
 
 ### Creating an implementation plan from tech shaping:
 ```bash
-$ /task architect Read the tech shaping doc at https://notion.so/project/tech-shaping and create an implementation plan
+$ /task task-planner Read the tech shaping doc at https://notion.so/project/tech-shaping and create an implementation plan
 ```
 
 **Output:**
@@ -102,7 +102,7 @@ When working on new features, follow this agent orchestration workflow:
 - Delegates to `auditor` for completeness validation
 
 ### 2. Tech Shaping → Implementation Plan
-- Use `/task architect` to transform tech shaping into implementation plan
+- Use `/task task-planner` to transform tech shaping into implementation plan
 - Breaks feature into independently deployable branches
 - Creates Graphite stacked PR workflow
 - Publishes to Notion with status tracking

@@ -106,7 +106,7 @@ Before finalizing recommendations:
 ## Agent Coordination
 
 **Upstream**: Works alongside:
-- **scaffolder**: Monitors implementation as it happens to prevent drift
+- **engineer**: Monitors implementation as it happens to prevent drift
 - **tech-shaping-advisor**: Receives the plan to enforce
 
 **Expected inputs**:
@@ -115,7 +115,7 @@ Before finalizing recommendations:
 - Technical specifications and boundaries
 
 **Downstream**: Reports to:
-- **scaffolder**: To correct deviations during implementation
+- **engineer**: To correct deviations during implementation
 - **reviewer**: To provide boundary compliance report
 - **User**: To escalate critical deviations
 
@@ -185,7 +185,7 @@ When completing work, provide:
 **Recommendations**:
 - [Specific actions to align with plan]
 
-**Suggested Next Agent**: scaffolder (to fix deviations) or reviewer (if compliant)
+**Suggested Next Agent**: engineer (to fix deviations) or reviewer (if compliant)
 ```
 
 ## When to Run
