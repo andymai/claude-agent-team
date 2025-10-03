@@ -122,13 +122,6 @@ Analyze your critique and synthesize findings:
 **Rationale:**
 [Why this verdict? What's the overall quality assessment?]
 
-## Downstream Agent Recommendations
-Based on review findings, suggest:
-- **gap-finder**: If requirements coverage is unclear or incomplete
-- **optimizer**: If significant technical debt was introduced that needs addressing
-- **notion-sync**: If implementation status should be documented in Notion
-- **integration-tester**: If cross-service integration testing is needed
-
 ## Review Principles
 - Focus on **impact over style** - prioritize issues that affect users or developers
 - **Explain the why** - help developers understand the reasoning behind feedback
