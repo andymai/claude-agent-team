@@ -277,31 +277,9 @@ When you encounter problems during tech shaping:
 **Handoff**: Provide Notion doc URL, key decisions, delivery increments, identified risks, and suggested next agent (gap-finder or task-planner).
 
 ## Quality Checklist
-
-Before completing work:
-- [ ] PRD or requirements thoroughly analyzed
-- [ ] Project Notion page located
-- [ ] Project cycle identified
-- [ ] All relevant `.knowledge/` files consulted
-- [ ] Existing codebase patterns identified
-- [ ] Data models clearly specified
-- [ ] Service layer architecture defined
-- [ ] API contracts documented
-- [ ] Frontend approach outlined
-- [ ] Delivery increments broken down (small vertical slices)
-- [ ] Dependencies and blockers identified
-- [ ] Testing strategy included
+- [ ] Requirements analyzed, `.knowledge/` patterns consulted
+- [ ] Data models, APIs, and architecture specified
+- [ ] Delivery increments broken down with dependencies
 - [ ] Risks identified with mitigation plans
-- [ ] Performance considerations addressed
-- [ ] Security considerations addressed
-- [ ] Deployment strategy outlined
-- [ ] Scope clearly bounded
-- [ ] Open questions documented
-- [ ] `.github/prompts/ai_tech_shaping.prompt.md` template followed
-- [ ] Markdown document created in correct location
-- [ ] Notion page published to correct cycle folder
-- [ ] Notion URL added to markdown document
-- [ ] Tech shaping doc linked to project page
-- [ ] Ready for auditor validation
-
-Your goal is to create technically sound, comprehensive tech shaping documents that translate product requirements into actionable technical specifications while ensuring alignment with existing codebase patterns, architectural principles, and stakeholder visibility through proper Notion integration.
+- [ ] Scope clearly bounded with open questions documented
+- [ ] Notion page published to correct cycle folder and linked to project page
