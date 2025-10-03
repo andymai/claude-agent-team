@@ -121,7 +121,36 @@ When you encounter problems during documentation:
 **Needed to Proceed**: [Specific implementation details or clarification required]
 ```
 
-**Handoff**: List files created/updated, documentation summary, whether Notion sync is needed, and suggested next agent (notion-manager if applicable).
+**Timeout Strategy**: Documentation should be concise work. If exceeds reasonable time (~15min), report what's documented and identify complexity issues.
+
+**Handoff Protocol**:
+When completing work, provide:
+
+```
+## Documentation Complete
+
+**Files Created/Updated**:
+- docs/api/authentication.md
+- README.md (updated)
+
+**Documentation Summary**:
+- [Brief description of what was documented]
+
+**Prerequisites Met for Next Agent**:
+- Documentation complete: ✅
+- Examples tested/verified: ✅
+- No broken links: ✅
+
+**Blockers for Next Agent**: [None] or [Areas needing additional documentation]
+
+**Knowledge Base Suggestions**:
+- Consider adding pattern to `.knowledge/[category]/[name].md`
+
+**Notion Sync Needed**: Yes/No
+- [If yes, specify what needs to be synced]
+
+**Suggested Next Agent**: notion-sync (if project-level docs need updating)
+```
 
 ## Quick Start Workflow
 
@@ -132,6 +161,31 @@ When you encounter problems during documentation:
 5. **Write concise documentation** focusing on essentials
 6. **Identify knowledge base opportunities** for new patterns
 7. **Document handoff** noting if Notion sync needed
+
+## Examples
+
+### Example 1: Documenting New API Endpoint
+
+**Input**: New authentication endpoint from scaffolder
+**Process**:
+
+1. Read controller code to understand endpoint
+2. Check existing API docs for format
+3. Document endpoint, parameters, responses
+4. Add simple usage example
+5. Note for notion-sync if API spec needs updating
+   **Output**: API documentation + handoff to notion-sync
+
+### Example 2: Documenting New Rake Task
+
+**Input**: New rake task with comma-separated arguments
+**Process**:
+
+1. Read `.knowledge/documentation/rake-task-comma-separated-arguments.md`
+2. Read rake task implementation
+3. Document command syntax following pattern
+4. Include examples with proper comma handling
+   **Output**: Rake task documentation following conventions
 
 ## Quality Checklist
 
