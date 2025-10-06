@@ -32,41 +32,18 @@ Agents auto-discover from `~/.claude/agents/`. The `CLAUDE.md` file guides Claud
 
 ## Quick Workflow
 
-**1. Tech Shaping**
 ```
-You: "Help me draft a technical approach for the gift tracking feature based on this PRD..."
-Claude Code: [invokes tech-shaping-advisor to research patterns and draft sections]
-```
+"Help me draft a technical approach for this feature"
+→ tech-shaping-advisor drafts the approach
 
-**2. Planning**
-```
-You: "Create an implementation plan from this tech shaping doc"
-Claude Code: [invokes task-planner to break down into branches with acceptance criteria]
-```
+"Create an implementation plan"
+→ task-planner breaks down into branches
 
-**3. Implementation**
-```
-You: "Implement the first branch and make sure it's tested and reviewed"
-Claude Code: [invokes engineer]
-             [engineer returns implementation]
-             [invokes tester based on CLAUDE.md guidance]
-             [tester returns test results]
-             [invokes gap-finder]
-             [gap-finder returns completeness check]
-             [invokes reviewer]
-             [reviewer returns approval/changes needed]
-```
+"Implement the first branch and make sure it's tested and reviewed"
+→ engineer implements → tester tests → gap-finder verifies → reviewer reviews
 
-**4. Integration Testing**
-```
-You: "Test the end-to-end gift tracking workflows"
-Claude Code: [invokes integration-tester to create and run integration tests]
-```
-
-**5. Documentation**
-```
-You: "Document the gift tracking feature now that all branches are merged"
-Claude Code: [invokes documentor to verify merges, write docs, and suggest Notion sync]
+"Document the completed feature"
+→ documentor creates docs
 ```
 
 ## Optional Dependencies
