@@ -107,29 +107,13 @@ When you say "Implement the auth feature and make sure it's tested and reviewed"
 
 1. Invoke **engineer** to implement
 2. Receive implementation results from engineer
-3. Decide to invoke **tester** (based on "make sure it's tested" + CLAUDE.md guidance)
+3. Decide to invoke **tester** (based on "make sure it's tested")
 4. Receive test results from tester
 5. Decide to invoke **gap-finder** to verify completeness
 6. Receive completeness analysis from gap-finder
-7. Decide to invoke **reviewer** (based on "reviewed" + CLAUDE.md guidance)
+7. Decide to invoke **reviewer** (based on "reviewed")
 8. Receive review decision from reviewer
 9. Report final status to you
 
-Each agent works autonomously and returns comprehensive results. Claude Code makes sequential decisions about which agent to invoke next based on your request, agent descriptions, CLAUDE.md guidance, and the results received so far.
+Each agent works autonomously and returns comprehensive results. Claude Code makes sequential decisions about which agent to invoke next based on your request, agent descriptions, and the results received so far.
 
-## Tips for Maximum Agent Usage
-
-1. **Be explicit about workflows**: "Implement, test, and review this feature"
-2. **Use trigger phrases**: "build", "review", "optimize", "document"
-3. **Set quality gates**: "Not done until tests pass and code is reviewed"
-4. **Reference CLAUDE.md**: "Follow the agent workflow"
-5. **Mention agents by name**: "Use the reviewer agent to check this"
-6. **Structure large tasks**: "Plan this feature, then implement each branch"
-
-## Architecture Notes
-
-- **Hierarchical delegation**: Main agent → specialist agents (not agent-to-agent)
-- **Agent discovery**: Agents auto-load from `~/.claude/agents/*.md`
-- **Stateless execution**: Each agent starts with clean context
-- **Result-based flow**: Agents return results; main agent decides next steps
-- **Model selection**: Critical agents use Opus, routine tasks use Sonnet/Haiku
