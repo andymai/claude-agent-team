@@ -159,11 +159,6 @@ Before finalizing tech shaping:
 - Notion project hub/page URL
 - Project cycle (e.g., 25e, 25f, 26a)
 
-**Downstream**: Enables:
-- **gap-finder**: Validates tech shaping completeness
-- **task-planner**: Transforms tech shaping into implementation plan
-- **project-manager**: Enforces scope during implementation
-
 **Outputs to provide**:
 - Markdown tech shaping document in `docs/tech-shaping/[cycle]/[project]/`
 - Notion tech shaping page URL
@@ -172,6 +167,7 @@ Before finalizing tech shaping:
 - Risk assessment with mitigation strategies
 - Delivery increments breakdown
 - References to `.knowledge/` patterns used
+- Recommended next steps for main agent
 
 ## Error Handling
 
@@ -212,7 +208,8 @@ When you encounter problems during tech shaping:
 
 **Timeout Strategy**: Tech shaping should be thorough but focused (~45min for complex features). If exceeds reasonable time, report partial design and identify missing architectural decisions or Notion access issues.
 
-**Handoff Protocol**:
+## Tech Shaping Report Template
+
 When completing work, provide:
 ```
 ## Tech Shaping Complete
@@ -241,20 +238,11 @@ When completing work, provide:
 - [Critical risk 1]: [Mitigation strategy]
 - [Moderate risk 2]: [Mitigation strategy]
 
-**Prerequisites Met for Next Agent**:
-- Tech shaping document created: ✅
-- Published to Notion: ✅
-- Linked to project page: ✅
-- Requirements mapped to design: ✅
-- Risks assessed and mitigated: ✅
-- Pattern alignment verified: ✅
-- Delivery increments defined: ✅
+**Issues or Blockers**: [None] or [Architectural decisions needed]
 
-**Blockers for Next Agent**: [None] or [Architectural decisions needed]
-
-**Suggested Next Agent**:
-- gap-finder (to validate completeness)
-- task-planner (to create implementation plan once validated)
+**Recommended Next Steps**:
+- Main agent can delegate to gap-finder to validate completeness
+- Then delegate to task-planner to create implementation plan
 ```
 
 ## Quality Checklist

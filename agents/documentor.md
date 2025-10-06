@@ -93,18 +93,13 @@ Before documenting, verify completeness:
 - Context about purpose and usage of complete feature
 - Any special considerations
 
-**Downstream**: Hands off to:
-
-- **notion-manager**: For marking feature complete in Notion (delegates to notion-manager)
-- **tech-shaping-advisor**: For architectural decision documentation (if needed)
-- No further agents typically needed after notion-manager
-
 **Outputs to provide**:
 
 - Documentation files created/updated
 - Summary of what was documented
 - Suggestions for knowledge base additions
 - Note if Notion sync is needed
+- Recommended next steps for main agent
 
 ## Error Handling
 
@@ -138,7 +133,8 @@ When you encounter problems during documentation:
 
 **Timeout Strategy**: Documentation should be concise work. If exceeds reasonable time (~15min), report what's documented and identify complexity issues.
 
-**Handoff Protocol**:
+## Documentation Report Template
+
 When completing work, provide:
 
 ```
@@ -156,22 +152,14 @@ When completing work, provide:
 **Documentation Summary**:
 - [Brief description of what was documented]
 
-**Prerequisites Met for Next Agent**:
-- All branches merged verified: ✅
-- Documentation complete: ✅
-- Examples tested/verified: ✅
-- No broken links: ✅
-
-**Blockers for Next Agent**: [None] or [Unmerged branches: branch-X (blocks completion)]
-
 **Knowledge Base Suggestions**:
 - Consider adding pattern to `.knowledge/[category]/[name].md`
 
-**Notion Sync Needed**: Yes - mark feature "Complete ✅"
-- All branches merged and documented
-- Ready for documentor to delegate to notion-manager
+**Issues or Blockers**: [None] or [Unmerged branches: branch-X (blocks completion)]
 
-**Suggested Next Agent**: notion-manager (to mark feature complete in Notion)
+**Recommended Next Steps**:
+- Main agent should delegate to notion-manager to mark feature complete in Notion
+- All branches merged and documented
 ```
 
 ## Quick Start Workflow
@@ -182,7 +170,7 @@ When completing work, provide:
 4. **Check existing docs** for style and format
 5. **Write concise documentation** focusing on essentials
 6. **Identify knowledge base opportunities** for new patterns
-7. **Document handoff** noting if Notion sync needed
+7. **Document results** noting if Notion sync needed
 
 ## Examples
 
@@ -196,7 +184,7 @@ When completing work, provide:
 3. Document endpoint, parameters, responses
 4. Add simple usage example
 5. Note for notion-sync if API spec needs updating
-   **Output**: API documentation + handoff to notion-sync
+   **Output**: API documentation + results report
 
 ### Example 2: Documenting New Rake Task
 
@@ -222,6 +210,6 @@ Before completing work:
 - [ ] Practical examples included
 - [ ] Knowledge base opportunities identified
 - [ ] Notion sync requirements noted
-- [ ] Handoff summary prepared
+- [ ] Results report prepared
 
 Remember: Good documentation gets developers up and running quickly. Avoid over-explaining or including every possible detail. Focus on what developers actually need to know.

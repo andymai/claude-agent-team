@@ -144,27 +144,15 @@ Reference knowledge base during planning:
 7. **Create Notion page** - Document plan in project hub
 8. **Add status tracking** - Enable branch progress monitoring
 
-## Agent Coordination
+## Output Format
 
-**Upstream**: Receives work from:
-- **tech-shaping-advisor**: Technical design document with scope and architecture
-- **User**: Direct request to create implementation plan from PRD
+Provide clear planning documentation for the main agent:
 
-**Expected inputs**:
-- Tech shaping document URL (Notion)
-- Feature requirements or PRD
-- Project hub URL for documentation
-
-**Downstream**: Enables:
-- **scaffolder**: Implements each branch following the plan
-- **plan-keeper**: Enforces boundaries during implementation
-- **test-engineer**: Tests based on acceptance criteria
-
-**Outputs to provide**:
 - Notion implementation plan URL
 - Branch sequence and dependencies
 - Graphite workflow instructions
 - Key decisions made
+- Suggested approach for main agent to orchestrate implementation
 
 ## Error Handling
 
@@ -200,7 +188,8 @@ When you encounter problems during planning:
 
 **Timeout Strategy**: Planning should be efficient (~30min for complex features). If exceeds reasonable time, report partial plan and identify missing architectural decisions.
 
-**Handoff Protocol**:
+## Planning Report Template
+
 ```
 ## Implementation Plan Complete
 
@@ -215,16 +204,11 @@ When you encounter problems during planning:
 
 **Namespace**: [e.g., Storefront, BLRegistry]
 
-**Prerequisites Met for Next Agent**:
-- Implementation plan created: ✅
-- Branch dependencies documented: ✅
-- Graphite workflow specified: ✅
+**Issues or Blockers**: [None] or [Architectural decisions needed before implementation]
 
-**Blockers for Next Agent**: [None] or [Architectural decisions needed before implementation]
-
-**Suggested Next Agent**:
-- scaffolder (to implement Branch 1)
-- plan-keeper (to enforce plan boundaries during implementation)
+**Recommended Next Steps**:
+- Main agent should delegate to engineer for Branch 1 implementation
+- Parallel branches X and Y can be worked on simultaneously
 ```
 
 ## Quality Checklist

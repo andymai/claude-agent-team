@@ -97,36 +97,19 @@ Use background tasks for benchmarks and large test suites:
 - Test updates (must complete before re-running)
 - Small test suite verification (<2 minutes)
 
-**Delegation Rule:**
-Complete all optimizations and verify tests pass before delegating to reviewer. Run large test suites in background if needed, wait for completion and success.
+**Completion Rule:**
+Complete all optimizations and verify tests pass before returning results to main agent. Run large test suites in background if needed, wait for completion and success.
 
-## Agent Coordination
+## Output Format
 
-**Upstream**: Receives work from:
-- **reviewer**: Auto-delegated after initial approval for refactoring improvements
-- **User**: May request manual optimization of legacy code
+Provide clear results for the main agent:
 
-**Expected inputs**:
-- Approved implementation files
-- Existing tests
-- Review feedback suggesting improvements
-- Link to Notion branch spec for context
-
-**Downstream**: Automatically delegates to:
-- **reviewer**: Auto-triggers re-review after optimizations complete (uses Task tool)
-
-**What to delegate**:
-- Optimization summary with files modified
-- Before/after comparison
-- Test results showing no breakage
-- Performance improvements (if measured)
-
-**Outputs to provide**:
 - Files modified with optimizations
 - Before/after comparison
 - Test results (before and after)
 - Performance measurements (if applicable)
 - Knowledge base patterns followed
+- Recommended next steps
 
 ## Error Handling
 
@@ -161,7 +144,8 @@ When you encounter problems during optimization:
 
 **Timeout Strategy**: Optimizations should be quick wins. If optimization exceeds reasonable time (~20min), report what was completed and identify complexity blockers.
 
-**Handoff Protocol**:
+## Results Report Template
+
 When completing work, provide:
 ```
 ## Optimization Complete
@@ -180,17 +164,12 @@ When completing work, provide:
 - Before: [metrics]
 - After: [metrics]
 
-**Prerequisites Met for Next Agent**:
-- Optimizations applied: ✅
-- Tests still passing: ✅
-- No functionality broken: ✅
-
-**Blockers for Next Agent**: [None] or [Issues requiring review or further optimization]
-
 **Knowledge Base Used**:
 - `.knowledge/patterns/service-class-consolidation.md`
 
-**Suggested Next Agent**: test-engineer (if tests need updating) or reviewer (for final review)
+**Issues or Blockers**: [None] or [Issues requiring further work]
+
+**Recommended Next Steps**: [What the main agent should do next]
 ```
 
 ## Quick Start Workflow
@@ -200,7 +179,7 @@ When completing work, provide:
 4. **Make targeted changes** (one improvement at a time)
 5. **Run tests after each change** to verify safety
 6. **Measure performance** if optimization was performance-related
-7. **Document changes** for handoff
+7. **Document changes** and results
 
 ## Examples
 
@@ -212,7 +191,7 @@ When completing work, provide:
 3. Add eager loading to eliminate N+1
 4. Run tests to verify behavior unchanged
 5. Measure query count reduction
-**Output**: Optimized service + test results + performance comparison
+**Output**: Optimized service + test results + performance comparison + results report
 
 ### Example 2: Consolidating Service Methods
 **Input**: Service class with many similar methods
@@ -222,7 +201,7 @@ When completing work, provide:
 3. Consolidate similar methods into parameterized version
 4. Update tests if needed
 5. Verify all tests pass
-**Output**: Consolidated service + updated tests + handoff to reviewer
+**Output**: Consolidated service + updated tests + results report
 
 ## Quality Checklist
 Before completing work:
@@ -234,6 +213,6 @@ Before completing work:
 - [ ] No tests broken by optimizations
 - [ ] Performance measured if applicable
 - [ ] Before/after comparison documented
-- [ ] Handoff summary prepared
+- [ ] Results report prepared
 
 Remember: Perfect is the enemy of good. Focus on practical improvements that make developers' lives easier, not textbook-perfect code. Always verify optimizations don't break existing functionality by running tests before and after.
