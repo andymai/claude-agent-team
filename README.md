@@ -2,7 +2,9 @@
 
 Specialized AI agents that orchestrate your entire feature development workflow - from PRD to production.
 
-**Think of these agents as teammates, not replacements.** They're specialists who handle tech shaping, planning, implementation, testing, review, optimization, and documentation. Claude Code orchestrates them hierarchically - the main agent delegates to specialist agents based on your requests and the workflow defined in `CLAUDE.md`. The quality of your output is directly proportional to the quality of your input.
+**Your AI engineering team that ships features, not just code.** From PRD to production, these specialized agents handle tech shaping, implementation, testing, review, optimization, and documentation—autonomously executing the full development workflow while you focus on what to build, not how to build it.
+
+> **The quality of your output is directly proportional to the quality of your input.** Give agents clear requirements, context, and goals—they'll handle the rest.
 
 ## Quick Start
 
@@ -11,7 +13,7 @@ Specialized AI agents that orchestrate your entire feature development workflow 
 3. **Copy orchestration guide**: `cp CLAUDE.md ~/.claude/CLAUDE.md`
 4. **Use**: "Implement authentication following the agent workflow"
 
-Agents auto-discover from `~/.claude/agents/`. The `CLAUDE.md` file tells Claude Code when to proactively invoke each agent.
+Agents auto-discover from `~/.claude/agents/`. The `CLAUDE.md` file guides Claude Code on when to consider invoking each agent.
 
 ## Available Agents
 
@@ -30,34 +32,41 @@ Agents auto-discover from `~/.claude/agents/`. The `CLAUDE.md` file tells Claude
 
 ## Quick Workflow
 
-**1. Tech Shaping** - Draft tech spec with AI assistance:
+**1. Tech Shaping**
 ```
-Help me draft a technical approach for the gift tracking feature based on this PRD...
-→ tech-shaping-advisor assists with pattern research and section drafting
-```
-
-**2. Planning** - Create implementation plan:
-```
-Create an implementation plan from https://notion.so/tech-shaping-doc
-→ task-planner breaks down into branches with acceptance criteria
+You: "Help me draft a technical approach for the gift tracking feature based on this PRD..."
+Claude Code: [invokes tech-shaping-advisor to research patterns and draft sections]
 ```
 
-**3. Implementation** - Claude Code orchestrates specialists:
+**2. Planning**
 ```
-Implement the first branch from https://notion.so/plan#branch-1
-→ Claude Code delegates: engineer → tester → gap-finder → reviewer → optimizer → notion-manager
-```
-
-**4. Integration Testing** - Test cross-component interactions:
-```
-Test the end-to-end gift tracking workflows
-→ integration-tester creates integration tests
+You: "Create an implementation plan from this tech shaping doc"
+Claude Code: [invokes task-planner to break down into branches with acceptance criteria]
 ```
 
-**5. Documentation** - Document completed feature:
+**3. Implementation**
 ```
-Document the gift tracking feature now that all branches are merged
-→ documentor verifies all merged, creates docs, updates Notion
+You: "Implement the first branch and make sure it's tested and reviewed"
+Claude Code: [invokes engineer]
+             [engineer returns implementation]
+             [invokes tester based on CLAUDE.md guidance]
+             [tester returns test results]
+             [invokes gap-finder]
+             [gap-finder returns completeness check]
+             [invokes reviewer]
+             [reviewer returns approval/changes needed]
+```
+
+**4. Integration Testing**
+```
+You: "Test the end-to-end gift tracking workflows"
+Claude Code: [invokes integration-tester to create and run integration tests]
+```
+
+**5. Documentation**
+```
+You: "Document the gift tracking feature now that all branches are merged"
+Claude Code: [invokes documentor to verify merges, write docs, and suggest Notion sync]
 ```
 
 ## Optional Dependencies
@@ -78,7 +87,7 @@ Claude Code uses a **hierarchical delegation model**:
 - Specialist agents **cannot delegate to each other** - they return results to the main agent
 - The main agent decides which agent to invoke next based on context and `CLAUDE.md` guidance
 
-### Getting Agents to Trigger Automatically
+### Encouraging Claude Code to Use Agents
 
 **Use natural language that matches agent purposes:**
 
@@ -95,17 +104,17 @@ Claude Code uses a **hierarchical delegation model**:
 "Did I miss anything from the spec?"
 "Check if the implementation is complete"
 
-# Triggers tester agent (usually auto-triggered after engineer)
+# Triggers tester agent
 "Write tests for this feature"
 ```
 
-**Set completion criteria that require agent chains:**
+**Set completion criteria to encourage agent chains:**
 
 ```bash
-# Forces: engineer → tester → gap-finder → reviewer
+# Encourages: engineer → tester → gap-finder → reviewer
 "Implement authentication. It's not done until tested and reviewed."
 
-# Forces full workflow
+# Encourages full workflow
 "Build the gift tracking feature following the agent workflow"
 ```
 
@@ -115,49 +124,21 @@ Claude Code uses a **hierarchical delegation model**:
 "Follow the agent orchestration workflow from CLAUDE.md"
 ```
 
-### Agent Invocation Flow
+### Agent Invocation Flow (Example)
 
-When you say "Implement the auth feature":
+When you say "Implement the auth feature and make sure it's tested and reviewed", Claude Code might:
 
-1. Main agent invokes **engineer** to implement
-2. Engineer returns implementation results
-3. Main agent invokes **tester** to write tests
-4. Tester returns test results
-5. Main agent invokes **gap-finder** to verify completeness
-6. Gap-finder returns analysis
-7. Main agent invokes **reviewer** to review code
-8. Reviewer returns review decision
-9. Main agent reports final status to you
+1. Invoke **engineer** to implement
+2. Receive implementation results from engineer
+3. Decide to invoke **tester** (based on "make sure it's tested" + CLAUDE.md guidance)
+4. Receive test results from tester
+5. Decide to invoke **gap-finder** to verify completeness
+6. Receive completeness analysis from gap-finder
+7. Decide to invoke **reviewer** (based on "reviewed" + CLAUDE.md guidance)
+8. Receive review decision from reviewer
+9. Report final status to you
 
-Each agent works autonomously and returns comprehensive results. The main agent orchestrates the sequence.
-
-## Customizing Agent Behavior
-
-### CLAUDE.md Configuration
-
-The `CLAUDE.md` file in `~/.claude/` controls agent orchestration:
-
-- **Auto-trigger rules**: When to invoke each agent
-- **Trigger phrases**: Keywords that activate agents
-- **Completion criteria**: What "done" means
-- **Workflow examples**: How requests should flow through agents
-
-Edit `~/.claude/CLAUDE.md` to customize orchestration for your workflow.
-
-### Agent Descriptions
-
-Each agent's frontmatter `description` field tells Claude Code when to use it:
-
-```yaml
----
-name: engineer
-description: USE PROACTIVELY for implementation tasks. Implements features based on detailed specifications by reading context, exploring codebase patterns, and writing working code that follows existing conventions.
-tools: Read, Write, Edit, Bash, Glob, Grep
-model: sonnet
----
-```
-
-The more explicit the description about when to trigger, the better Claude Code can orchestrate.
+Each agent works autonomously and returns comprehensive results. Claude Code makes sequential decisions about which agent to invoke next based on your request, agent descriptions, CLAUDE.md guidance, and the results received so far.
 
 ## Tips for Maximum Agent Usage
 
