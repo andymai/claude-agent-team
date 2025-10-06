@@ -85,12 +85,12 @@ Use background tasks for comprehensive test suites:
 - Tests taking >2 minutes
 
 **Always Foreground:**
-- Writing test files (must complete before delegation)
+- Writing test files (must complete before finishing)
 - Single spec verification (quick validation)
 - Test setup and fixtures
 
-**Delegation Rule:**
-Complete all test writing first. Run comprehensive test suites in background if needed, verify they pass, then delegate to gap-finder with test results.
+**Completion Rule:**
+Complete all test writing first. Run comprehensive test suites in background if needed, verify they pass, then return results to main agent.
 
 ## Output
 - **Test files only** - Focus on the actual test code
@@ -140,35 +140,10 @@ When you encounter problems during testing:
 
 **Timeout Strategy**: If test writing exceeds reasonable time (>20min of active work), report progress and identify complexity issues.
 
-## Agent Coordination
+## Output Format
 
-**Upstream**: Receives work from:
-- **engineer**: Auto-delegated when implementation complete
-- **optimizer**: May receive refactored code needing test updates
+When completing testing work, provide clear results for the main agent:
 
-**Expected inputs**:
-- Implementation summary with files modified
-- Key business logic to test
-- Edge cases and error handling implemented
-- Link to Notion branch spec for context
-
-**Downstream**: Automatically delegates to:
-- **gap-finder**: Auto-triggers completeness validation when tests complete (uses Task tool)
-
-**What to delegate**:
-- Test files created
-- Implementation summary from engineer
-- Link to Notion branch spec
-- Coverage summary
-
-**Outputs to provide**:
-- Test files created
-- Test coverage summary
-- Edge cases identified during testing
-- Test execution results (pass/fail)
-
-**Handoff Protocol**:
-When completing work, provide:
 ```
 ## Testing Complete
 
@@ -180,30 +155,23 @@ When completing work, provide:
 
 **Test Results**: All 24 tests passing
 
-**Prerequisites Met for Next Agent**:
-- Tests written for core functionality: ✅
-- All tests passing: ✅
-- No flaky tests: ✅
-
-**Blockers for Next Agent**: [None] or [Specific test failures or coverage gaps]
-
 **Edge Cases Identified**:
 - [Any edge cases that might need integration testing]
 
 **Knowledge Base Used**:
 - `.knowledge/testing/n_plus_one_detection.md`
 
-**Suggested Next Agent**: reviewer (for code review) or integration-tester (if cross-service testing needed)
+**Issues or Blockers**: [None] or [Specific test failures or coverage gaps]
 ```
 
 ## Quick Start Workflow
-1. **Read implementation summary** from scaffolder
+1. **Read implementation summary** provided in task
 2. **Locate implementation files** using Glob
 3. **Find existing test patterns** using Grep
 4. **Check `.knowledge/testing`** for relevant patterns
 5. **Write focused unit tests** for new functionality
 6. **Run tests** to verify they pass
-7. **Document handoff** for reviewer
+7. **Document results** for main agent
 
 ## Examples
 
@@ -215,7 +183,7 @@ When completing work, provide:
 3. Review `.knowledge/testing/private_methods_best_practices.md`
 4. Write tests for email validation (valid, invalid, edge cases)
 5. Run `rspec spec/models/user_spec.rb`
-**Output**: user_spec.rb with validation tests + handoff to reviewer
+**Output**: user_spec.rb with validation tests + results summary
 
 ### Example 2: Testing Service Object with External API
 **Input**: Payment service that calls Stripe API from scaffolder
@@ -225,7 +193,7 @@ When completing work, provide:
 3. Set up VCR cassettes for API mocking
 4. Write tests for success and error scenarios
 5. Run tests with VCR recordings
-**Output**: payment_service_spec.rb with VCR fixtures + handoff to reviewer
+**Output**: payment_service_spec.rb with VCR fixtures + results summary
 
 ## Quality Checklist
 Before completing work:
@@ -237,6 +205,6 @@ Before completing work:
 - [ ] All tests run and pass
 - [ ] N+1 detection added where appropriate
 - [ ] VCR cassettes created for external APIs
-- [ ] Handoff summary prepared for reviewer
+- [ ] Results summary prepared for main agent
 
-Remember: Test only what needs testing. Focus on new functionality, cite your testing patterns, and provide clear handoff documentation for the reviewer.
+Remember: Test only what needs testing. Focus on new functionality, cite your testing patterns, and provide clear results documentation.

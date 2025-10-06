@@ -14,18 +14,18 @@ Agents auto-discover from `~/.claude/agents/`. Optionally add the workflow to `C
 
 ## Available Agents
 
-| Agent | When to Use | Model | Auto-Delegates |
-|-------|-------------|-------|----------------|
-| 🔨 engineer | "Implement the auth service" | Sonnet | ✅ tester |
-| 🧪 tester | "Write specs for the new API" | Sonnet | ✅ gap-finder |
-| 🔍 reviewer | "Review before merging" | Opus | ✅ engineer/optimizer/notion-manager |
-| ⚡ optimizer | "Refactor after it works" | Sonnet | ✅ reviewer |
-| 📝 documentor | "Document the new feature" | Haiku | ✅ notion-manager |
-| 🔌 integration-tester | "Test end-to-end flows" | Sonnet | ❌ |
-| 🔎 gap-finder | "Find what's missing vs spec" | Opus | ✅ engineer/reviewer |
-| 🎨 tech-shaping-advisor | "Help me draft tech spec sections" | Opus | ❌ |
-| 📋 task-planner | "Create implementation plan" | Opus | ❌ |
-| 🔄 notion-manager | "Sync status to Notion" | Haiku | ❌ |
+| Agent | When to Use | Model |
+|-------|-------------|-------|
+| 🔨 engineer | "Implement the auth service" | Sonnet |
+| 🧪 tester | "Write specs for the new API" | Sonnet |
+| 🔍 reviewer | "Review before merging" | Opus |
+| ⚡ optimizer | "Refactor after it works" | Sonnet |
+| 📝 documentor | "Document the new feature" | Haiku |
+| 🔌 integration-tester | "Test end-to-end flows" | Sonnet |
+| 🔎 gap-finder | "Find what's missing vs spec" | Opus |
+| 🎨 tech-shaping-advisor | "Help me draft tech spec sections" | Opus |
+| 📋 task-planner | "Create implementation plan" | Opus |
+| 🔄 notion-manager | "Sync status to Notion" | Haiku |
 
 ## Quick Workflow
 
@@ -41,10 +41,10 @@ Create an implementation plan from https://notion.so/tech-shaping-doc
 → task-planner breaks down into branches with acceptance criteria
 ```
 
-**3. Implementation** - Describe the work, agents handle the rest:
+**3. Implementation** - Claude Code orchestrates specialists:
 ```
 Implement the first branch from https://notion.so/plan#branch-1
-→ engineer implements, auto-delegates: tester → gap-finder → reviewer → optimizer → notion-manager
+→ Claude Code delegates: engineer → tester → gap-finder → reviewer → optimizer → notion-manager
 ```
 
 **4. Integration Testing** - Test cross-component interactions:

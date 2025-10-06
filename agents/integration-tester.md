@@ -77,17 +77,13 @@ Write all integration tests first. Run comprehensive test suites in background, 
 - System architecture context
 - Critical user workflows to test
 
-**Downstream**: Hands off to:
-
-- **reviewer**: For review of integration tests
-- **devops-engineer**: If deployment pipeline tests needed
-
 **Outputs to provide**:
 
 - Integration test files
 - Test execution results
 - Integration points verified
 - Data flow validation results
+- Recommended next steps for main agent
 
 ## Error Handling
 
@@ -124,7 +120,7 @@ When you encounter problems during integration testing:
 
 **Timeout Strategy**: Integration tests may take longer due to setup complexity. If exceeds reasonable time (~30min), report progress and identify infrastructure or design issues.
 
-**Handoff Protocol**:
+## Testing Report Template
 
 ```
 ## Integration Testing Complete
@@ -145,18 +141,13 @@ When you encounter problems during integration testing:
 - Error propagation: Verified
 - User workflows: [List workflows tested]
 
-**Prerequisites Met for Next Agent**:
-- Integration tests complete: ✅
-- All tests passing: ✅
-- Critical workflows verified: ✅
-
-**Blockers for Next Agent**: [None] or [Integration issues requiring attention]
-
 **Knowledge Base Used**:
 - `.knowledge/testing/journey-tests.md`
 - `.knowledge/patterns/event-subscription-patterns.md`
 
-**Suggested Next Agent**: reviewer (for review of tests and implementation)
+**Issues or Blockers**: [None] or [Integration issues requiring attention]
+
+**Recommended Next Steps**: [What the main agent should do based on test results]
 ```
 
 ## Quality Checklist
@@ -168,6 +159,6 @@ When you encounter problems during integration testing:
 - [ ] Event subscription patterns tested (if applicable)
 - [ ] Clear diagnostics on test failure
 - [ ] All tests executed and passing
-- [ ] Handoff summary prepared
+- [ ] Results report prepared
 
 Your goal is to ensure that all system components work together correctly, identifying integration issues before they affect users and providing clear guidance on resolving any problems discovered.
