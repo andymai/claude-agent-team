@@ -10,10 +10,6 @@ Specialized AI agents that orchestrate your entire feature development workflow 
 
 1. **Install**: [Claude Code](https://docs.claude.com/en/docs/claude-code) + Anthropic API key
 2. **Copy agents**: `cp -r agents ~/.claude/agents/`
-3. **Copy orchestration guide**: `cp CLAUDE.md ~/.claude/CLAUDE.md`
-4. **Use**: "Implement authentication following the agent workflow"
-
-Agents auto-discover from `~/.claude/agents/`. The `CLAUDE.md` file guides Claude Code on when to consider invoking each agent.
 
 ## Available Agents
 
