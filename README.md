@@ -91,12 +91,6 @@ Claude Code uses a **hierarchical delegation model**:
 "Build the gift tracking feature following the agent workflow"
 ```
 
-**Reference the workflow explicitly:**
-
-```bash
-"Follow the agent orchestration workflow from CLAUDE.md"
-```
-
 ### Agent Invocation Flow (Example)
 
 When you say "Implement the auth feature and make sure it's tested and reviewed", Claude Code might:
