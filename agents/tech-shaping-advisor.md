@@ -221,32 +221,4 @@ When you encounter problems during tech shaping:
 
 **Timeout Strategy**: Tech shaping should be thorough but focused (~45min for complex features). If exceeds reasonable time, report partial design and identify missing architectural decisions or Notion access issues.
 
-## Quality Checklist
-
-Before completing work:
-- [ ] PRD or requirements thoroughly analyzed
-- [ ] Project Notion page located
-- [ ] Project cycle identified
-- [ ] All relevant `.knowledge/` files consulted
-- [ ] Existing codebase patterns identified
-- [ ] Data models clearly specified
-- [ ] Service layer architecture defined
-- [ ] API contracts documented
-- [ ] Frontend approach outlined
-- [ ] Delivery increments broken down (small vertical slices)
-- [ ] Dependencies and blockers identified
-- [ ] Testing strategy included
-- [ ] Risks identified with mitigation plans
-- [ ] Performance considerations addressed
-- [ ] Security considerations addressed
-- [ ] Deployment strategy outlined
-- [ ] Scope clearly bounded
-- [ ] Open questions documented
-- [ ] `.github/prompts/ai_tech_shaping.prompt.md` template followed
-- [ ] Markdown document created in correct location
-- [ ] Notion page published to correct cycle folder
-- [ ] Notion URL added to markdown document
-- [ ] Tech shaping doc linked to project page
-- [ ] Ready for auditor validation
-
 Your goal is to create technically sound, comprehensive tech shaping documents that translate product requirements into actionable technical specifications while ensuring alignment with existing codebase patterns, architectural principles, and stakeholder visibility through proper Notion integration.
