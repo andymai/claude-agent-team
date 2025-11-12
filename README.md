@@ -25,6 +25,7 @@ Specialized AI agents that orchestrate your entire feature development workflow 
 | 🎨 tech-shaping-advisor | "Help me draft tech spec sections" | Opus |
 | 📋 task-planner | "Create implementation plan" | Opus |
 | 🔄 notion-manager | "Sync status to Notion" | Haiku |
+| 📊 context-auditor | "Audit docs for token efficiency" | Sonnet |
 
 ## Quick Workflow
 
@@ -79,6 +80,10 @@ Claude Code uses a **hierarchical delegation model**:
 
 # Triggers tester agent
 "Write tests for this feature"
+
+# Triggers context-auditor agent
+"Audit my docs"
+"Check if my markdown is bloated"
 ```
 
 **Set completion criteria to encourage agent chains:**

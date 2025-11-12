@@ -11,3 +11,4 @@ settings.local.json
 shell-snapshots/
 statsig/
 statusline.sh
+debug/
