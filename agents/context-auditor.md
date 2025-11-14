@@ -45,7 +45,7 @@ Key features:
 - **Free**: No cost (subject to rate limits)
 
 **Document Classification & Token Budgets:**
-Classify each document by scope, then apply appropriate limits:
+Classify each document by scope, then apply appropriate limits. Budget ranges balance detail depth with context efficiency: focused components need less context than cross-cutting systems.
 
 1. **Component-Level** (2-3k tokens): Single service, module patterns, simple guides
    - Patterns: `*-component.md`, single class/service docs, basic how-to guides
