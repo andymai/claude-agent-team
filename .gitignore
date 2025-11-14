@@ -12,3 +12,4 @@ shell-snapshots/
 statsig/
 statusline.sh
 debug/
+.backup/
