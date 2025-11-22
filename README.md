@@ -27,6 +27,35 @@ Specialized AI agents that orchestrate your entire feature development workflow 
 | 🔄 notion-manager | "Sync status to Notion" | Haiku |
 | 📊 context-auditor | "Audit docs for token efficiency" | Sonnet |
 
+## Slash Commands
+
+| Command | Description |
+|---------|-------------|
+| `/contribution-report` | Generate GitHub contribution summaries for performance reviews |
+
+### Usage Examples
+
+```bash
+/contribution-report              # Current month
+/contribution-report Q4 2024      # Specific quarter
+/contribution-report past 6 months # Rolling window
+/contribution-report --local-only  # Skip GitHub upload
+```
+
+## Output Styles
+
+| Style | Description |
+|-------|-------------|
+| explanatory-with-agents | Educational explanations with clear visibility into which agents are being used |
+
+Enable with: `claude --output-style explanatory-with-agents`
+
+## Scripts
+
+| Script | Description |
+|--------|-------------|
+| `scripts/count-tokens.sh` | Token counting with Anthropic API (caches results, falls back to estimation) |
+
 ## Quick Workflow
 
 ```
