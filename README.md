@@ -42,14 +42,6 @@ Specialized AI agents that orchestrate your entire feature development workflow 
 /contribution-report --local-only  # Skip GitHub upload
 ```
 
-## Output Styles
-
-| Style | Description |
-|-------|-------------|
-| explanatory-with-agents | Educational explanations with clear visibility into which agents are being used |
-
-Enable with: `claude --output-style explanatory-with-agents`
-
 ## Scripts
 
 | Script | Description |
