@@ -10,6 +10,7 @@ Specialized AI agents that orchestrate your entire feature development workflow 
 
 1. **Install**: [Claude Code](https://docs.claude.com/en/docs/claude-code) + Anthropic API key
 2. **Copy agents**: `cp -r agents ~/.claude/agents/`
+3. **Copy commands**: `cp -r commands ~/.claude/commands/`
 
 ## Available Agents
 
@@ -26,6 +27,7 @@ Specialized AI agents that orchestrate your entire feature development workflow 
 | 📋 task-planner | "Create implementation plan" | Opus |
 | 🔄 notion-manager | "Sync status to Notion" | Haiku |
 | 📊 context-auditor | "Audit docs for token efficiency" | Sonnet |
+| 🤖 ml-systems-reviewer | "Review my ML pipeline/architecture" | Opus |
 
 ## Slash Commands
 
@@ -105,6 +107,10 @@ Claude Code uses a **hierarchical delegation model**:
 # Triggers context-auditor agent
 "Audit my docs"
 "Check if my markdown is bloated"
+
+# Triggers ml-systems-reviewer agent
+"Review my ML pipeline"
+"Is my model serving architecture production-ready?"
 ```
 
 **Set completion criteria to encourage agent chains:**
