@@ -28,20 +28,52 @@ Specialized AI agents that orchestrate your entire feature development workflow 
 | 🔄 notion-manager | "Sync status to Notion" | Haiku |
 | 📊 context-auditor | "Audit docs for token efficiency" | Sonnet |
 | 🤖 ml-systems-reviewer | "Review my ML pipeline/architecture" | Opus |
+| 🔬 researcher | "Research this technology/pattern" | Opus |
+| 💡 brainstormer | "What are different ways to solve this?" | Opus |
+| 📰 changelog-writer | "Generate release notes" | Haiku |
+| 📜 decision-logger | "Record this architectural decision" | Sonnet |
+| ✍️ copywriter | "Improve this README" | Sonnet |
+| 📈 progress-tracker | "Generate a status report" | Haiku |
 
 ## Slash Commands
 
 | Command | Description |
 |---------|-------------|
 | `/contribution-report` | Generate GitHub contribution summaries for performance reviews |
+| `/pr-description` | Generate PR title and description from branch changes |
+| `/check-deps` | Audit dependencies for outdated packages and vulnerabilities |
+| `/security-scan` | Quick security audit for common vulnerabilities |
+| `/find-dead-code` | Find unused exports and orphaned files |
+| `/find-todos` | Find and organize TODO/FIXME/HACK annotations |
+| `/explain-error` | Decode error messages in context of your codebase |
+| `/debug-test` | Analyze failing tests and identify root cause |
+| `/env-template` | Generate `.env.example` by scanning for env var usage |
+| `/mock-api` | Generate mock API responses from types or schemas |
+| `/upgrade-dep` | Upgrade a dependency and fix breaking changes |
 
 ### Usage Examples
 
 ```bash
+# Contribution reports
 /contribution-report              # Current month
 /contribution-report Q4 2024      # Specific quarter
-/contribution-report past 6 months # Rolling window
-/contribution-report --local-only  # Skip GitHub upload
+
+# Dependency management
+/check-deps                       # Full audit
+/check-deps --security            # Security only
+/upgrade-dep react@18             # Upgrade specific package
+
+# Code quality
+/find-dead-code                   # Find unused code
+/find-todos --stale=90            # TODOs older than 90 days
+/security-scan --staged           # Scan staged changes
+
+# Development workflow
+/pr-description                   # Generate PR description
+/explain-error                    # Decode last error
+/debug-test "should handle empty" # Debug specific test
+/env-template --update            # Update .env.example
+/mock-api User --count=10         # Generate mock data
 ```
 
 ## Scripts
@@ -111,6 +143,22 @@ Claude Code uses a **hierarchical delegation model**:
 # Triggers ml-systems-reviewer agent
 "Review my ML pipeline"
 "Is my model serving architecture production-ready?"
+
+# Triggers researcher agent
+"Research how other projects handle caching"
+"What are the tradeoffs between Redis and Memcached?"
+
+# Triggers brainstormer agent
+"What are different ways to solve this problem?"
+"I'm stuck - help me think of alternatives"
+
+# Triggers changelog-writer agent
+"Generate release notes for v2.0"
+"What changed since last release?"
+
+# Triggers decision-logger agent
+"Record why we chose PostgreSQL over MongoDB"
+"Create an ADR for this architecture decision"
 ```
 
 **Set completion criteria to encourage agent chains:**
