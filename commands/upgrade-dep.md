@@ -1,3 +1,7 @@
+---
+description: Upgrade a dependency and fix breaking changes
+---
+
 # Upgrade Dependency
 
 Upgrade a specific dependency and fix breaking changes.

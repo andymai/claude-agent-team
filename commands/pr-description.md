@@ -1,3 +1,7 @@
+---
+description: Generate a PR title and description from branch changes
+---
+
 # PR Description
 
 Generate a pull request title and description from your current branch changes.

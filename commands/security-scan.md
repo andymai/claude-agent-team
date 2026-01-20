@@ -1,3 +1,7 @@
+---
+description: Quick security audit for common vulnerabilities and leaked secrets
+---
+
 # Security Scan
 
 Quick security audit of your code for common vulnerabilities.

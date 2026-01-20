@@ -1,3 +1,7 @@
+---
+description: Decode error messages and stack traces in context of your codebase
+---
+
 # Explain Error
 
 Decode error messages and stack traces in the context of your codebase.

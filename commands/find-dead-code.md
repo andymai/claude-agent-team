@@ -1,3 +1,7 @@
+---
+description: Identify unused exports, unreferenced files, and orphaned code
+---
+
 # Find Dead Code
 
 Identify unused exports, unreferenced files, and orphaned code in your codebase.
