@@ -1,3 +1,7 @@
+---
+description: Generate .env.example by scanning codebase for environment variables
+---
+
 # Env Template
 
 Generate a `.env.example` file by scanning your codebase for environment variable usage.

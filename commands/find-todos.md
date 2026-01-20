@@ -1,3 +1,7 @@
+---
+description: Find and organize TODO/FIXME/HACK annotations in your codebase
+---
+
 # Find TODOs
 
 Find and organize all TODO, FIXME, HACK, and other code annotations in your codebase.

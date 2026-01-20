@@ -1,3 +1,7 @@
+---
+description: Generate mock API responses from types, schemas, or endpoints
+---
+
 # Mock API
 
 Generate mock API responses from types, schemas, or existing endpoints.

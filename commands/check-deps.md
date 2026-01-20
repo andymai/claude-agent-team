@@ -1,3 +1,7 @@
+---
+description: Audit dependencies for outdated packages and security vulnerabilities
+---
+
 # Check Dependencies
 
 Audit dependencies for outdated packages, security vulnerabilities, and upgrade recommendations.

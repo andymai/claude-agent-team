@@ -1,3 +1,7 @@
+---
+description: Analyze a failing test and identify the root cause
+---
+
 # Debug Test
 
 Analyze a failing test and help identify the root cause.
