@@ -1,12 +1,16 @@
 # Claude Agent Team
 
-Lean set of specialized AI agents for Claude Code, optimized for Opus 4.6.
+Specialized AI agents that orchestrate your entire feature development workflow - from PRD to production.
+
+**Your AI engineering team that ships features, not just code.** From PRD to production, these specialized agents handle tech shaping, implementation, testing, review, optimization, and documentation—autonomously executing the full development workflow while you focus on what to build, not how to build it.
+
+> **The quality of your output is directly proportional to the quality of your input.** Give agents clear requirements, context, and goals—they'll handle the rest.
 
 ## Quick Start
 
-1. Install [Claude Code](https://docs.claude.com/en/docs/claude-code)
-2. Copy agents: `cp -r agents/* ~/.claude/agents/`
-3. Copy commands: `cp -r commands ~/.claude/commands/`
+1. **Install**: [Claude Code](https://docs.claude.com/en/docs/claude-code) + Anthropic API key
+2. **Copy agents**: `cp -r agents/* ~/.claude/agents/`
+3. **Copy commands**: `cp -r commands ~/.claude/commands/`
 
 ## Agents
 
@@ -17,14 +21,6 @@ Lean set of specialized AI agents for Claude Code, optimized for Opus 4.6.
 | **engineer**   | Implement features following existing codebase patterns     | Sonnet |                           |
 | **tester**     | Write unit tests for new functionality                      | Sonnet |                           |
 | **optimizer**  | Practical code improvements and refactoring                 | Sonnet | `memory: user`            |
-
-### Design Principles
-
-- **Concise prompts** — Opus 4.6 is naturally thorough; only tell it what it doesn't already know
-- **3-5 agents max** — more agents = slower routing decisions and more misroutes
-- **Generic, not project-specific** — agents work across any codebase
-- **New frontmatter features** — `memory`, `maxTurns`, `disallowedTools` for better control
-- **No `Task` tool** — subagents cannot spawn other subagents
 
 ### Workflow
 
