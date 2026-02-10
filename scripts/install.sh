@@ -65,11 +65,17 @@ sha256() {
   fi
 }
 
-# Load checksum DB into associative array
+# Checksum DB helpers (bash 3.2 compatible - no associative arrays)
 CHECKSUM_VERSION=1
-declare -A CHECKSUMS
+
+get_checksum() {
+  local path="$1"
+  if [[ -f "$CHECKSUM_FILE" ]]; then
+    grep -F "${path}=" "$CHECKSUM_FILE" 2>/dev/null | cut -d'=' -f2- || true
+  fi
+}
+
 load_checksums() {
-  CHECKSUMS=()
   if [[ -f "$CHECKSUM_FILE" ]]; then
     local first_line
     first_line=$(head -1 "$CHECKSUM_FILE")
@@ -77,29 +83,40 @@ load_checksums() {
       local file_version="${first_line#\# version=}"
       if [[ "$file_version" -ne "$CHECKSUM_VERSION" ]]; then
         warn "Checksum file format v${file_version} differs from expected v${CHECKSUM_VERSION}, rebuilding"
-        return
+        rm -f "$CHECKSUM_FILE"
       fi
     fi
-    while IFS='=' read -r key value; do
-      [[ "$key" == \#* ]] && continue
-      [[ -n "$key" && -n "$value" ]] && CHECKSUMS["$key"]="$value"
-    done < "$CHECKSUM_FILE"
   fi
 }
 
-save_checksums() {
+save_checksum() {
   if $DRY_RUN; then return; fi
+  local dest="$1"
+  local hash="$2"
   mkdir -p "$(dirname "$CHECKSUM_FILE")"
-  : > "$CHECKSUM_FILE"
-  echo "# version=$CHECKSUM_VERSION" >> "$CHECKSUM_FILE"
-  for key in "${!CHECKSUMS[@]}"; do
-    echo "${key}=${CHECKSUMS[$key]}" >> "$CHECKSUM_FILE"
-  done
+
+  # Create file with version header if it doesn't exist
+  if [[ ! -f "$CHECKSUM_FILE" ]]; then
+    echo "# version=$CHECKSUM_VERSION" > "$CHECKSUM_FILE"
+  fi
+
+  # Remove old entry for this path if it exists, then add new one
+  if grep -qF "${dest}=" "$CHECKSUM_FILE" 2>/dev/null || false; then
+    local tmpfile="${CHECKSUM_FILE}.tmp"
+    grep -vF "${dest}=" "$CHECKSUM_FILE" > "$tmpfile" || true
+    mv "$tmpfile" "$CHECKSUM_FILE"
+  fi
+  echo "${dest}=${hash}" >> "$CHECKSUM_FILE"
 }
 
-record_checksum() {
+remove_checksum() {
+  if $DRY_RUN || [[ ! -f "$CHECKSUM_FILE" ]]; then return; fi
   local dest="$1"
-  CHECKSUMS["$dest"]="$(sha256 "$dest")"
+  if grep -qF "${dest}=" "$CHECKSUM_FILE" 2>/dev/null || false; then
+    local tmpfile="${CHECKSUM_FILE}.tmp"
+    grep -vF "${dest}=" "$CHECKSUM_FILE" > "$tmpfile" || true
+    mv "$tmpfile" "$CHECKSUM_FILE"
+  fi
 }
 
 # Collect all source files (relative paths like agents/foo.md, commands/bar.md, scripts/foo.sh)
@@ -133,8 +150,9 @@ install_file() {
     # Already identical
     if [[ "$src_hash" == "$dest_hash" ]]; then
       # Seed checksum if not yet tracked
-      if [[ -z "${CHECKSUMS[$dest]:-}" ]]; then
-        record_checksum "$dest"
+      recorded_hash="$(get_checksum "$dest")"
+      if [[ -z "$recorded_hash" ]]; then
+        save_checksum "$dest" "$dest_hash"
         verbose "tracked: $rel"
       else
         verbose "unchanged: $rel"
@@ -144,14 +162,19 @@ install_file() {
     fi
 
     # Check if user modified the installed file
-    recorded_hash="${CHECKSUMS[$dest]:-}"
+    recorded_hash="$(get_checksum "$dest")"
 
     if [[ -n "$recorded_hash" && "$recorded_hash" != "$dest_hash" ]]; then
       # Destination was modified since we last installed it
       warn "Local modifications detected: ${BOLD}$rel${RESET}"
       echo ""
       if command -v diff &>/dev/null; then
-        diff --color=auto -u "$dest" "$src" | head -30 || true
+        # Use colordiff if available, otherwise plain diff
+        if command -v colordiff &>/dev/null; then
+          colordiff -u "$dest" "$src" | head -30 || true
+        else
+          diff -u "$dest" "$src" | head -30 || true
+        fi
         local total_lines
         total_lines=$( (diff -u "$dest" "$src" || true) | wc -l)
         if [[ "$total_lines" -gt 30 ]]; then
@@ -170,7 +193,7 @@ install_file() {
             else
               mkdir -p "$(dirname "$dest")"
               cp "$src" "$dest"
-              record_checksum "$dest"
+              save_checksum "$dest" "$(sha256 "$dest")"
               log "overwritten: $rel"
             fi
             UPDATED=$((UPDATED + 1))
@@ -182,7 +205,12 @@ install_file() {
             return
             ;;
           d|D|diff)
-            diff --color=auto -u "$dest" "$src" || true
+            # Use colordiff if available, otherwise plain diff
+            if command -v colordiff &>/dev/null; then
+              colordiff -u "$dest" "$src" || true
+            else
+              diff -u "$dest" "$src" || true
+            fi
             ;;
           *) echo "  Enter o, s, or d" ;;
         esac
@@ -193,7 +221,7 @@ install_file() {
         info "would update: $rel"
       else
         cp "$src" "$dest"
-        record_checksum "$dest"
+        save_checksum "$dest" "$(sha256 "$dest")"
         log "updated: $rel"
       fi
       UPDATED=$((UPDATED + 1))
@@ -205,7 +233,7 @@ install_file() {
     else
       mkdir -p "$(dirname "$dest")"
       cp "$src" "$dest"
-      record_checksum "$dest"
+      save_checksum "$dest" "$(sha256 "$dest")"
       log "installed: $rel"
     fi
     INSTALLED=$((INSTALLED + 1))
@@ -231,8 +259,6 @@ do_install() {
     install_file "$rel"
   done
 
-  save_checksums
-
   echo ""
   echo -e "${BOLD}Summary:${RESET} ${GREEN}$INSTALLED installed${RESET}, ${CYAN}$UPDATED updated${RESET}, ${YELLOW}$SKIPPED unchanged${RESET}"
 }
@@ -254,7 +280,7 @@ do_uninstall() {
         info "would remove: $rel"
       else
         rm "$dest"
-        unset "CHECKSUMS[$dest]"
+        remove_checksum "$dest"
         log "removed: $rel"
       fi
       REMOVED=$((REMOVED + 1))
@@ -264,8 +290,6 @@ do_uninstall() {
   done
 
   if ! $DRY_RUN && [[ -f "$CHECKSUM_FILE" ]]; then
-    # Clean up checksums for removed files; keep others
-    save_checksums
     # If no checksums remain, remove the file
     if [[ ! -s "$CHECKSUM_FILE" ]] || [[ $(wc -l < "$CHECKSUM_FILE") -le 1 ]]; then
       rm -f "$CHECKSUM_FILE"
@@ -309,7 +333,7 @@ do_status() {
       local src_hash dest_hash recorded_hash
       src_hash="$(sha256 "$src")"
       dest_hash="$(sha256 "$dest")"
-      recorded_hash="${CHECKSUMS[$dest]:-}"
+      recorded_hash="$(get_checksum "$dest")"
 
       if [[ "$src_hash" == "$dest_hash" ]]; then
         status="${GREEN}up to date${RESET}"
