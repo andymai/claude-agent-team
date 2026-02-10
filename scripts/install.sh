@@ -9,13 +9,17 @@ REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 DEST_DIR="$HOME/.claude"
 CHECKSUM_FILE="$DEST_DIR/.checksums"
 
-# --- Colors ---
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-CYAN='\033[0;36m'
-BOLD='\033[1m'
-RESET='\033[0m'
+# --- Colors (disabled for non-TTY output) ---
+if [ -t 1 ]; then
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  YELLOW='\033[0;33m'
+  CYAN='\033[0;36m'
+  BOLD='\033[1m'
+  RESET='\033[0m'
+else
+  RED='' GREEN='' YELLOW='' CYAN='' BOLD='' RESET=''
+fi
 
 # --- State ---
 DRY_RUN=false
@@ -62,11 +66,22 @@ sha256() {
 }
 
 # Load checksum DB into associative array
+CHECKSUM_VERSION=1
 declare -A CHECKSUMS
 load_checksums() {
   CHECKSUMS=()
   if [[ -f "$CHECKSUM_FILE" ]]; then
+    local first_line
+    first_line=$(head -1 "$CHECKSUM_FILE")
+    if [[ "$first_line" == "# version="* ]]; then
+      local file_version="${first_line#\# version=}"
+      if [[ "$file_version" -ne "$CHECKSUM_VERSION" ]]; then
+        warn "Checksum file format v${file_version} differs from expected v${CHECKSUM_VERSION}, rebuilding"
+        return
+      fi
+    fi
     while IFS='=' read -r key value; do
+      [[ "$key" == \#* ]] && continue
       [[ -n "$key" && -n "$value" ]] && CHECKSUMS["$key"]="$value"
     done < "$CHECKSUM_FILE"
   fi
@@ -76,6 +91,7 @@ save_checksums() {
   if $DRY_RUN; then return; fi
   mkdir -p "$(dirname "$CHECKSUM_FILE")"
   : > "$CHECKSUM_FILE"
+  echo "# version=$CHECKSUM_VERSION" >> "$CHECKSUM_FILE"
   for key in "${!CHECKSUMS[@]}"; do
     echo "${key}=${CHECKSUMS[$key]}" >> "$CHECKSUM_FILE"
   done
@@ -251,9 +267,19 @@ do_uninstall() {
     # Clean up checksums for removed files; keep others
     save_checksums
     # If no checksums remain, remove the file
-    if [[ ! -s "$CHECKSUM_FILE" ]]; then
+    if [[ ! -s "$CHECKSUM_FILE" ]] || [[ $(wc -l < "$CHECKSUM_FILE") -le 1 ]]; then
       rm -f "$CHECKSUM_FILE"
     fi
+  fi
+
+  # Remove empty directories left behind
+  if ! $DRY_RUN; then
+    for dir in agents commands scripts; do
+      local target="$DEST_DIR/$dir"
+      if [[ -d "$target" ]] && [[ -z "$(ls -A "$target" 2>/dev/null)" ]]; then
+        rmdir "$target" 2>/dev/null && log "removed empty directory: $dir/"
+      fi
+    done
   fi
 
   echo ""
