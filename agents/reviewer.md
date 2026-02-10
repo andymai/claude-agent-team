@@ -3,7 +3,7 @@ name: reviewer
 description: Reviews code for bugs, logic errors, security vulnerabilities, and adherence to project conventions, using confidence-based filtering to report only high-priority issues that truly matter
 tools: Read, Glob, Grep, Bash
 disallowedTools: Write, Edit
-model: sonnet
+model: opus
 memory: user
 maxTurns: 20
 color: red

@@ -16,8 +16,8 @@ Specialized AI agents that orchestrate your entire feature development workflow 
 
 | Agent          | Purpose                                                     | Model  | Features                  |
 | -------------- | ----------------------------------------------------------- | ------ | ------------------------- |
-| **researcher** | Explore codebases, compare technologies, gather information | Sonnet | `memory: user`            |
-| **reviewer**   | Code review with confidence-based filtering (≥80 threshold) | Sonnet | `memory: user`, read-only |
+| **researcher** | Explore codebases, compare technologies, gather information | Opus   | `memory: user`            |
+| **reviewer**   | Code review with confidence-based filtering (≥80 threshold) | Opus   | `memory: user`, read-only |
 | **engineer**   | Implement features following existing codebase patterns     | Sonnet |                           |
 | **tester**     | Write unit tests for new functionality                      | Sonnet |                           |
 | **optimizer**  | Practical code improvements and refactoring                 | Sonnet | `memory: user`            |
@@ -35,17 +35,9 @@ Each agent works autonomously and returns results. Claude Code decides which age
 
 | Command                | Description                                                  |
 | ---------------------- | ------------------------------------------------------------ |
-| `/contribution-report` | GitHub contribution summaries for performance reviews        |
-| `/pr-description`      | Generate PR title and description from branch changes        |
-| `/check-deps`          | Audit dependencies for outdated packages and vulnerabilities |
-| `/security-scan`       | Quick security audit for common vulnerabilities              |
-| `/find-dead-code`      | Find unused exports and orphaned files                       |
-| `/find-todos`          | Find and organize TODO/FIXME/HACK annotations                |
-| `/explain-error`       | Decode error messages in context of your codebase            |
-| `/debug-test`          | Analyze failing tests and identify root cause                |
-| `/env-template`        | Generate `.env.example` by scanning for env var usage        |
-| `/mock-api`            | Generate mock API responses from types or schemas            |
-| `/upgrade-dep`         | Upgrade a dependency and fix breaking changes                |
+| `/contribution-report` | GitHub contribution summaries for performance reviews |
+| `/pr-description`      | Generate PR title and description from branch changes |
+| `/upgrade-dep`         | Upgrade a dependency and fix breaking changes         |
 
 ## Scripts
 
