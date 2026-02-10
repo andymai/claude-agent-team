@@ -3,6 +3,7 @@ name: engineer
 description: Implements features by deeply understanding existing codebase patterns and conventions, then writing clean code that integrates seamlessly with the established architecture
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
+memory: user
 maxTurns: 30
 color: green
 ---

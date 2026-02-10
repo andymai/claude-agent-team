@@ -17,17 +17,19 @@ Tracks checksums so re-running safely updates changed files without clobbering l
 
 | Agent          | Purpose                                                     | Model  | Features                  |
 | -------------- | ----------------------------------------------------------- | ------ | ------------------------- |
-| **researcher** | Explore codebases, compare technologies, gather information | Opus   | `memory: user`            |
-| **reviewer**   | Code review with confidence-based filtering (≥80 threshold) | Opus   | `memory: user`, read-only |
-| **engineer**   | Implement features following existing codebase patterns     | Sonnet |                           |
-| **tester**     | Write unit tests for new functionality                      | Sonnet |                           |
-| **optimizer**  | Practical code improvements and refactoring                 | Sonnet | `memory: user`            |
+| **researcher**       | Explore codebases, compare technologies, gather information     | Opus   | `memory: user`            |
+| **reviewer**         | Code review with confidence-based filtering (≥80 threshold)     | Opus   | `memory: user`, read-only |
+| **gap-finder**       | Verify implementations match specs, find missing requirements   | Opus   | read-only                 |
+| **engineer**         | Implement features following existing codebase patterns         | Sonnet |                           |
+| **tester**           | Write unit tests for new functionality                          | Sonnet |                           |
+| **optimizer**        | Practical code improvements and refactoring                     | Sonnet | `memory: user`            |
+| **context-auditor**  | Audit markdown docs for token efficiency and redundancy         | Sonnet | read-only                 |
 
 ### Workflow
 
 ```
 "Implement the auth feature and make sure it's tested and reviewed"
-→ engineer implements → tester writes tests → reviewer reviews
+→ engineer implements → tester writes tests → gap-finder checks → reviewer reviews
 ```
 
 Each agent works autonomously and returns results. Claude Code decides which agent to invoke next.
