@@ -1,3 +1,7 @@
+---
+description: GitHub contribution summaries for performance reviews
+---
+
 # Contribution Report
 
 Generate a comprehensive summary of your GitHub contributions for performance tracking.
