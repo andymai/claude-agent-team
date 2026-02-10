@@ -4,7 +4,7 @@ description: Reviews code for bugs, logic errors, security vulnerabilities, and 
 tools: Read, Glob, Grep, Bash
 disallowedTools: Write, Edit
 model: opus
-memory: user
+memory: local
 maxTurns: 20
 color: red
 ---

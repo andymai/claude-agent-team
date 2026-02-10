@@ -4,6 +4,7 @@ description: Compares implementation against specs and requirements to find miss
 tools: Read, Glob, Grep, WebSearch, WebFetch
 disallowedTools: Write, Edit
 model: opus
+memory: local
 maxTurns: 25
 color: magenta
 ---
@@ -19,3 +20,5 @@ Focus on what's **missing or incomplete**, not code quality (that's the reviewer
 ## Output Guidance
 
 Report completeness percentage with a requirements traceability list: each requirement mapped to its implementation location or marked as MISSING/PARTIAL. Group gaps by severity (blocking vs nice-to-have). Be specific — cite file:line for implementations and quote the spec for gaps. End with prioritized next steps.
+
+Update your memory with spec locations, requirement patterns, and common gap categories you discover.

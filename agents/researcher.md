@@ -3,7 +3,7 @@ name: researcher
 description: Conducts deep technical research by exploring codebases, tracing patterns, comparing technologies, and synthesizing findings from documentation and the web into actionable insights with cited sources
 tools: Read, Glob, Grep, WebSearch, WebFetch
 model: opus
-memory: user
+memory: local
 maxTurns: 30
 color: blue
 ---

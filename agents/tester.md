@@ -3,6 +3,7 @@ name: tester
 description: Writes focused unit tests for new functionality by studying existing test patterns and targeting core business logic, edge cases, and error handling rather than trivial code
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
+memory: local
 maxTurns: 20
 color: yellow
 ---
@@ -18,3 +19,5 @@ Focus on business logic, error handling, edge cases, and boundary conditions. Sk
 ## Output Guidance
 
 Report test files created, number of tests, pass/fail results, and edge cases you identified that may need additional coverage.
+
+Update your memory with test framework setup, assertion patterns, and fixture conventions you discover.

@@ -1,6 +1,6 @@
 ---
 description: Upgrade a dependency and fix breaking changes
-memory: user
+memory: local
 ---
 
 Upgrade a dependency and fix all breaking changes across the codebase.

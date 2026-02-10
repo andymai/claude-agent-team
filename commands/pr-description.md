@@ -1,6 +1,6 @@
 ---
 description: Generate a PR title and description from branch changes
-memory: user
+memory: local
 ---
 
 Generate a pull request title and description from the current branch.

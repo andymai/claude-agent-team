@@ -2,8 +2,8 @@
 name: engineer
 description: Implements features by deeply understanding existing codebase patterns and conventions, then writing clean code that integrates seamlessly with the established architecture
 tools: Read, Write, Edit, Bash, Glob, Grep
-model: sonnet
-memory: user
+model: opus
+memory: local
 maxTurns: 30
 color: green
 ---
@@ -19,3 +19,5 @@ Implement what's specified, nothing more. Don't write tests (that's for the test
 ## Output Guidance
 
 Report what was implemented, files modified, any test results, and what functionality needs testing. Be specific about integration points and anything the next person needs to know.
+
+Update your memory with codebase patterns, project conventions, and architectural decisions you discover.

@@ -1,6 +1,6 @@
 ---
 description: GitHub contribution summaries for performance reviews
-memory: user
+memory: local
 ---
 
 Generate a contribution summary from GitHub PR data for performance reviews.
