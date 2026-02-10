@@ -9,8 +9,9 @@ Specialized AI agents that orchestrate your entire feature development workflow 
 ## Quick Start
 
 1. **Install**: [Claude Code](https://docs.claude.com/en/docs/claude-code) + Anthropic API key
-2. **Copy agents**: `cp -r agents/* ~/.claude/agents/`
-3. **Copy commands**: `cp -r commands ~/.claude/commands/`
+2. **Run**: `./scripts/install.sh`
+
+Tracks checksums so re-running safely updates changed files without clobbering local edits. See `./scripts/install.sh --help` for `--status`, `--uninstall`, `--dry-run`, and `--verbose`.
 
 ## Agents
 
@@ -43,4 +44,5 @@ Each agent works autonomously and returns results. Claude Code decides which age
 
 | Script                    | Description                                                                  |
 | ------------------------- | ---------------------------------------------------------------------------- |
-| `scripts/count-tokens.sh` | Token counting with Anthropic API (caches results, falls back to estimation) |
+| `scripts/install.sh`      | Install/update/uninstall agents and commands with checksum-based conflict detection |
+| `scripts/count-tokens.sh` | Token counting with Anthropic API (caches results, falls back to estimation)       |
