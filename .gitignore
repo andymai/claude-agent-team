@@ -13,3 +13,4 @@ statsig/
 statusline.sh
 debug/
 .backup/
+.token-cache.json
