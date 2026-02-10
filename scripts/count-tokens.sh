@@ -15,7 +15,14 @@ if [ ! -f "$FILE_PATH" ]; then
 fi
 
 CACHE_FILE=".token-cache.json"
-FILE_HASH=$(md5sum "$FILE_PATH" | cut -d' ' -f1)
+if command -v md5sum &>/dev/null; then
+  FILE_HASH=$(md5sum "$FILE_PATH" | cut -d' ' -f1)
+elif command -v md5 &>/dev/null; then
+  FILE_HASH=$(md5 -q "$FILE_PATH")
+else
+  echo "ERROR: No md5 tool found (need md5sum or md5)" >&2
+  exit 1
+fi
 FILE_MTIME=$(stat -c %Y "$FILE_PATH" 2>/dev/null || stat -f %m "$FILE_PATH" 2>/dev/null)
 
 # Try to use cache (if file unchanged)

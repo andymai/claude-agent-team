@@ -37,7 +37,7 @@ Options:
   --verbose     Detailed logging of each operation
   --help        Show this help message
 
-Without flags, installs agents/ and commands/ into ~/.claude/.
+Without flags, installs agents/, commands/, and scripts/ into ~/.claude/.
 EOF
   exit 0
 }
@@ -86,15 +86,17 @@ record_checksum() {
   CHECKSUMS["$dest"]="$(sha256 "$dest")"
 }
 
-# Collect all source files (relative paths like agents/foo.md, commands/bar.md)
+# Collect all source files (relative paths like agents/foo.md, commands/bar.md, scripts/foo.sh)
 collect_files() {
   local files=()
-  for dir in agents commands; do
+  for dir in agents commands scripts; do
     local src_dir="$REPO_DIR/$dir"
     [[ -d "$src_dir" ]] || continue
+    local pattern='*.md'
+    [[ "$dir" == "scripts" ]] && pattern='*.sh'
     while IFS= read -r -d '' f; do
       files+=("${f#"$REPO_DIR/"}")
-    done < <(find "$src_dir" -type f -name '*.md' -print0)
+    done < <(find "$src_dir" -type f -name "$pattern" -print0)
   done
   echo "${files[@]}"
 }
@@ -205,7 +207,7 @@ do_install() {
   read -ra files <<< "$(collect_files)"
 
   if [[ ${#files[@]} -eq 0 ]]; then
-    error "No .md files found in agents/ or commands/"
+    error "No files found in agents/, commands/, or scripts/"
     exit 1
   fi
 

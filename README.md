@@ -15,21 +15,42 @@ Tracks checksums so re-running safely updates changed files without clobbering l
 
 ## Agents
 
-| Agent          | Purpose                                                     | Model  | Features                  |
-| -------------- | ----------------------------------------------------------- | ------ | ------------------------- |
-| **researcher**       | Explore codebases, compare technologies, gather information     | Opus   | `memory: user`            |
-| **reviewer**         | Code review with confidence-based filtering (≥80 threshold)     | Opus   | `memory: user`, read-only |
-| **gap-finder**       | Verify implementations match specs, find missing requirements   | Opus   | read-only                 |
-| **engineer**         | Implement features following existing codebase patterns         | Sonnet |                           |
-| **tester**           | Write unit tests for new functionality                          | Sonnet |                           |
-| **optimizer**        | Practical code improvements and refactoring                     | Sonnet | `memory: user`            |
-| **context-auditor**  | Audit markdown docs for token efficiency and redundancy         | Sonnet | read-only                 |
+| Agent              | Purpose                                                       | Model  | Features        |
+| ------------------ | ------------------------------------------------------------- | ------ | --------------- |
+| **planner**        | Design implementation plans and architecture decisions        | Opus   | read-only       |
+| **engineer**       | Implement features following existing codebase patterns       | Opus   |                 |
+| **debugger**       | Systematic bug investigation and verified fixes               | Opus   |                 |
+| **tester**         | Write unit tests for new functionality                        | Sonnet |                 |
+| **reviewer**       | Code review with confidence-based filtering (≥80 threshold)   | Opus   | read-only       |
+| **security**       | Security audit — OWASP Top 10, auth flows, dependency risks  | Opus   | read-only       |
+| **researcher**     | Explore codebases, compare technologies, gather information   | Opus   |                 |
+| **gap-finder**     | Verify implementations match specs, find missing requirements | Opus   | read-only       |
+| **optimizer**      | Practical code improvements and refactoring                   | Sonnet |                 |
+| **documenter**     | Create and maintain documentation, diagrams, and guides       | Sonnet |                 |
+| **context-auditor**| Audit markdown docs for token efficiency and redundancy       | Sonnet | read-only       |
 
-### Workflow
+All agents use project-scoped memory (`memory: local`) to learn codebase patterns across sessions without cross-project contamination.
 
+### Workflow Recipes
+
+**Bug fix**:
 ```
-"Implement the auth feature and make sure it's tested and reviewed"
-→ engineer implements → tester writes tests → gap-finder checks → reviewer reviews
+debugger → engineer → tester → reviewer
+```
+
+**New feature**:
+```
+planner → engineer → tester → gap-finder → reviewer
+```
+
+**Security review**:
+```
+security → reviewer
+```
+
+**Documentation**:
+```
+documenter (standalone or after feature work)
 ```
 
 Each agent works autonomously and returns results. Claude Code decides which agent to invoke next.
@@ -46,5 +67,5 @@ Each agent works autonomously and returns results. Claude Code decides which age
 
 | Script                    | Description                                                                  |
 | ------------------------- | ---------------------------------------------------------------------------- |
-| `scripts/install.sh`      | Install/update/uninstall agents and commands with checksum-based conflict detection |
+| `scripts/install.sh`      | Install/update/uninstall agents, commands, and scripts with checksum-based conflict detection |
 | `scripts/count-tokens.sh` | Token counting with Anthropic API (caches results, falls back to estimation)       |
