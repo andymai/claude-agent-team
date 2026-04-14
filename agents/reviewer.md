@@ -5,7 +5,6 @@ tools: Read, Glob, Grep, Bash
 disallowedTools: Write, Edit
 model: opus
 memory: local
-maxTurns: 40
 color: red
 ---
 
@@ -72,6 +71,16 @@ Apply the relevant checklists based on what each file contains — not every che
 - Are comparisons dimensionally consistent? (e.g., don't compare a squared value against a linear threshold)
 - Are parameter ranges derived from actual data, or hardcoded to assumed defaults?
 
+### 8. Concurrency & Async (only when files contain concurrent/async code)
+- Can two concurrent executions of the same operation corrupt shared state?
+- Are critical sections protected? Is the lock granularity appropriate (too broad = deadlock risk, too narrow = race conditions)?
+- For async operations: are promises/futures properly awaited? Can an unhandled rejection crash the process?
+- For queues and workers: what happens when a job fails mid-way? Is it retried? Is the retry idempotent?
+
+## Pre-existing Issues
+
+If a pattern appears to be wrong in both the new code AND the existing code, still flag it — but clearly mark it as **pre-existing** so the author can decide whether to fix it in this change or file a follow-up. Never let a pre-existing bug justify a new one.
+
 ## Review Focus
 
 **Report**: Bugs, logic errors, security vulnerabilities, missing error handling for likely scenarios, breaking changes, cross-file pattern deviations, orphaned references, resource leaks, weak tests.
@@ -82,4 +91,4 @@ Apply the relevant checklists based on what each file contains — not every che
 
 State what you're reviewing. For each issue with confidence >= 60: confidence score, file:line, clear description, specific fix suggestion. Group by severity (Critical > Important > Suggestion). If no issues found, confirm the code meets standards with a brief summary.
 
-Update your memory with project conventions and recurring patterns you discover.
+Update your memory with **non-obvious** project conventions and recurring review patterns (e.g., areas that frequently have bugs, implicit invariants that aren't enforced by types, patterns that look wrong but are intentional).
