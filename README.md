@@ -17,11 +17,12 @@ Tracks checksums so re-running safely updates changed files without clobbering l
 
 | Agent              | Purpose                                                       | Model  | Features        |
 | ------------------ | ------------------------------------------------------------- | ------ | --------------- |
-| **planner**        | Design implementation plans and architecture decisions        | Opus   | read-only       |
+| **planner**        | Design implementation plans, classify session shape, ordered tasks | Opus   | read-only       |
+| **architect**      | Audit layer boundaries, dependency directions, module coupling | Opus   | read-only       |
 | **engineer**       | Implement features following existing codebase patterns       | Opus   |                 |
-| **debugger**       | Systematic bug investigation and verified fixes               | Opus   |                 |
+| **debugger**       | Systematic bug investigation — reproduce, fix all layers, real deps only | Opus   |                 |
 | **tester**         | Write unit tests for new functionality                        | Sonnet |                 |
-| **reviewer**       | Code review with confidence-based filtering (≥80 threshold)   | Opus   | read-only       |
+| **reviewer**       | Code review with confidence-based filtering (≥60 threshold)   | Opus   | read-only       |
 | **security**       | Security audit — OWASP Top 10, auth flows, dependency risks  | Opus   | read-only       |
 | **researcher**     | Explore codebases, compare technologies, gather information   | Opus   |                 |
 | **gap-finder**     | Verify implementations match specs, find missing requirements | Opus   | read-only       |
@@ -48,6 +49,11 @@ planner → engineer → tester → gap-finder → reviewer
 security → reviewer
 ```
 
+**Architecture audit** (for layered codebases):
+```
+architect → reviewer
+```
+
 **Documentation**:
 ```
 documenter (standalone or after feature work)
@@ -59,10 +65,13 @@ Each agent works autonomously and returns results. Claude Code decides which age
 
 | Command                | Description                                                  |
 | ---------------------- | ------------------------------------------------------------ |
-| `/commit`              | Create a conventional commit from working tree changes |
-| `/contribution-report` | GitHub contribution summaries for performance reviews  |
-| `/pr-description`      | Generate PR title and description from branch changes  |
-| `/upgrade-dep`         | Upgrade a dependency and fix breaking changes          |
+| `/branch`              | Create a branch following `<type>/<kebab-description>` naming |
+| `/check`               | Run the project's local quality gate (auto-detected)          |
+| `/commit`              | Create a conventional commit from working tree changes        |
+| `/contribution-report` | GitHub contribution summaries for performance reviews         |
+| `/pr-description`      | Generate PR title and description from branch changes         |
+| `/upgrade-dep`         | Upgrade a dependency and fix breaking changes                 |
+| `/worktree`            | Set up a git worktree under `.worktrees/` for parallel work   |
 
 ## Scripts
 
@@ -70,3 +79,7 @@ Each agent works autonomously and returns results. Claude Code decides which age
 | ------------------------- | ---------------------------------------------------------------------------- |
 | `scripts/install.sh`      | Install/update/uninstall agents, commands, and scripts with checksum-based conflict detection |
 | `scripts/count-tokens.sh` | Token counting with Anthropic API (caches results, falls back to estimation)       |
+
+## Contributing
+
+Adding or upgrading an agent? See [AGENTS.md](AGENTS.md) — the playbook for agent authors. Covers the frontmatter schema, model selection, color palette, and the **generalization rule** (agents run across every repo you touch, so rules must be portable).
