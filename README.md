@@ -59,9 +59,10 @@ Each agent works autonomously and returns results. Claude Code decides which age
 
 | Command                | Description                                                  |
 | ---------------------- | ------------------------------------------------------------ |
-| `/contribution-report` | GitHub contribution summaries for performance reviews |
-| `/pr-description`      | Generate PR title and description from branch changes |
-| `/upgrade-dep`         | Upgrade a dependency and fix breaking changes         |
+| `/commit`              | Create a conventional commit from working tree changes |
+| `/contribution-report` | GitHub contribution summaries for performance reviews  |
+| `/pr-description`      | Generate PR title and description from branch changes  |
+| `/upgrade-dep`         | Upgrade a dependency and fix breaking changes          |
 
 ## Scripts
 
