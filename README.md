@@ -1,10 +1,16 @@
+<div align="center">
+
 # Claude Agent Team
 
-Specialized AI agents that orchestrate your entire feature development workflow - from PRD to production.
+A set of Claude Code subagents (planner, engineer, debugger, reviewer, and more) installed via `./scripts/install.sh`, designed to be composed into workflow recipes.
 
-**Your AI engineering team that ships features, not just code.** From PRD to production, these specialized agents handle tech shaping, implementation, testing, review, optimization, and documentation—autonomously executing the full development workflow while you focus on what to build, not how to build it.
+[Agents](#agents) · [Workflow Recipes](#workflow-recipes) · [Quick Start](#quick-start)
 
-> **The quality of your output is directly proportional to the quality of your input.** Give agents clear requirements, context, and goals—they'll handle the rest.
+</div>
+
+---
+
+This repo contains agent definitions and slash commands for [Claude Code](https://docs.claude.com/en/docs/claude-code). Running `./scripts/install.sh` copies them into `~/.claude/`, where Claude Code picks them up as project-scoped subagents. Agents use project-scoped memory (`memory: local`) so codebase patterns learned in one project don't bleed into another.
 
 ## Quick Start
 
@@ -32,7 +38,17 @@ Tracks checksums so re-running safely updates changed files without clobbering l
 
 All agents use project-scoped memory (`memory: local`) to learn codebase patterns across sessions without cross-project contamination.
 
-### Workflow Recipes
+## Scope
+
+To set expectations, this collection deliberately does not:
+
+- **Replace or install Claude Code** — assumes Claude Code is already installed and authenticated; this repo only adds agent definitions on top of it.
+- **Provide a runtime orchestration framework** — agents are static markdown definitions read by Claude Code; there is no daemon, scheduler, or inter-agent message bus.
+- **Make workflow recipes executable** — the recipes under [Workflow Recipes](#workflow-recipes) are documentation suggestions showing a useful invocation order, not automated pipelines you can run with a single command.
+- **Bootstrap new projects** — the installer copies files into `~/.claude/` for use in existing projects; it does not scaffold repos, generate boilerplate, or configure CI.
+- **Work outside Claude Code** — the agent and slash-command formats are specific to Claude Code's subagent protocol and are not compatible with other LLM tooling without modification.
+
+## Workflow Recipes
 
 **Bug fix**:
 ```
