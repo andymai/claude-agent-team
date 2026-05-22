@@ -47,7 +47,7 @@ color: <ANSI color>             # required, see palette below
 - `red` / `brightRed` — finding problems (reviewer, debugger)
 - `brightYellow` / `yellow` — testing/security (security, tester)
 - `cyan` / `brightCyan` / `brightBlue` / `blue` — planning/research/architecture (optimizer, planner, architect, researcher)
-- `magenta` — gap-finding
+- `magenta` / `brightMagenta` — gap-finding, review-responding (post-PR feedback work)
 - `white` — auditing (context-auditor)
 
 Avoid duplicating colors across agents that the user might invoke in the same workflow.
@@ -94,7 +94,8 @@ Commands receive the raw user prompt via `{{RAW_PROMPT}}`. Document the supporte
 
 - **Add a new agent vs. extend an existing one?** Extend when the new capability is a refinement (engineer learns a new convention, reviewer learns a new checklist). New agent when the role is fundamentally different (architect ≠ reviewer; security ≠ reviewer).
 - **Hardcoded rule vs. discovered rule?** If the rule is in *every* well-run project, hardcode it (e.g., "read CLAUDE.md before starting"). If the rule depends on the project's stack or style, the agent should *discover* it locally.
-- **Read-only vs. write-capable agent?** Read-only (no `Write`/`Edit`) for analysis agents (reviewer, security, planner, gap-finder, architect, context-auditor, researcher). Write-capable for execution agents (engineer, debugger, tester, optimizer, documenter).
+- **Read-only vs. write-capable agent?** Read-only (no `Write`/`Edit`) for analysis agents (reviewer, security, planner, gap-finder, architect, context-auditor, researcher). Write-capable for execution agents (engineer, debugger, tester, optimizer, documenter, review-responder).
+- **Review-responder vs. inline fixup?** Use `review-responder` when a PR has accumulated feedback from multiple sources or tiers (human reviewers, automated/AI review tools, multiple files) — the agent's value is structured triage and tiered commits. For a single one-off comment on a small diff, fixing inline as part of normal engineering work is fine. Once a review crosses ~3 findings or any P1, hand off to `review-responder`.
 
 ## Conventions
 

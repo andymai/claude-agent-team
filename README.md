@@ -32,6 +32,7 @@ Tracks checksums so re-running safely updates changed files without clobbering l
 | **security**       | Security audit — OWASP Top 10, auth flows, dependency risks  | Opus   | read-only       |
 | **researcher**     | Explore codebases, compare technologies, gather information   | Opus   |                 |
 | **gap-finder**     | Verify implementations match specs, find missing requirements | Opus   | read-only       |
+| **review-responder**| Parse PR review feedback, triage by severity, apply as one commit per tier | Opus   |                 |
 | **optimizer**      | Practical code improvements and refactoring                   | Sonnet |                 |
 | **documenter**     | Create and maintain documentation, diagrams, and guides       | Sonnet |                 |
 | **context-auditor**| Audit markdown docs for token efficiency and redundancy       | Sonnet | read-only       |
@@ -75,6 +76,11 @@ architect → reviewer
 documenter (standalone or after feature work)
 ```
 
+**PR review response**:
+```
+review-responder (→ tester for substantial new coverage)
+```
+
 Each agent works autonomously and returns results. Claude Code decides which agent to invoke next.
 
 ## Slash Commands
@@ -86,6 +92,7 @@ Each agent works autonomously and returns results. Claude Code decides which age
 | `/commit`              | Create a conventional commit from working tree changes        |
 | `/contribution-report` | GitHub contribution summaries for performance reviews         |
 | `/pr-description`      | Generate PR title and description from branch changes         |
+| `/respond-review`      | Parse PR review feedback and apply fixes as one commit per severity tier |
 | `/upgrade-dep`         | Upgrade a dependency and fix breaking changes                 |
 | `/worktree`            | Set up a git worktree under `.worktrees/` for parallel work   |
 

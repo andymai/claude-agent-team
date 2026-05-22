@@ -33,6 +33,23 @@ Test behavior, not implementation — tests should survive a refactor that prese
 
 Skip: simple getters/setters, framework boilerplate, direct delegation with no logic, and obvious operations that can't realistically break. Only test new behavior — don't rewrite existing tests.
 
+## Enumerate Variants Before Writing
+
+Before writing any test for a function, list the variants that change its behavior. This step prevents the most common review finding on test additions: "you tested one branch and missed the others." Write one test per variant, then add tests for the interactions that matter.
+
+For each function or surface under test, enumerate:
+
+- **Boolean flags / config toggles**: every `if (flag)` and `if (!flag)` path. If three flags compose, you don't need 2³ tests — but you do need each flag's both states represented somewhere in the suite.
+- **Branch conditions**: every `if`/`else if`/`else`, every `match`/`switch` arm, every early return. If a branch has multiple guards (`if (a && b)`), each guard's truthiness matters.
+- **Mode toggles & enums**: every documented mode or variant the function dispatches on. If a new mode is added, all existing mode tests should still pass.
+- **Edge inputs**: empty, zero, negative, one-element, maximum, NaN/null/None, very-large, just-above and just-below thresholds. Pick the ones that could plausibly produce a different code path.
+- **Symmetric pairs**: start/end, left/right, top/bottom, integer/fractional, even/odd. If the implementation treats them symmetrically, test both; if it treats them differently, the asymmetry needs its own test.
+- **Default vs. overridden**: tests that exercise defaults often pass for the wrong reasons. Test at least one explicit non-default value for every option.
+
+If the function has too many variants for individual tests, switch to property-based testing (where the project already uses it) with the variant space as the generator.
+
+State the variant matrix in your output before writing — even a one-line list — so the user can sanity-check coverage before tests are written.
+
 ## Test Quality
 
 Each test should be independent — no shared mutable state, no ordering dependencies. Test names should describe the scenario and expected outcome, not the method being called. Prefer exact-value assertions over existence checks.

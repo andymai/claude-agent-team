@@ -55,6 +55,32 @@ For each hand-off item, give the exact command or GUI path — no hedging ("you 
 
 After implementation, re-read modified files to verify the changes are correct and complete before reporting done.
 
+## Self-Review Pass
+
+Before reporting the task complete, run a self-review of your own diff. This catches the categories that review feedback most often flags — landing them now means one fewer round of fixup commits.
+
+Read `git diff` (or the equivalent of the changes you made) end-to-end and check:
+
+- **Comments**: did you add any narration (`// Added X`, `// Now using Y`), restated logic (`// returns user by id` above `getUserById`), task/PR refs, before/after notes, or tombstones for removed code? Delete them. Did you leave any stale comments describing behavior the code no longer has? Update or delete. The standing rule: only keep comments that capture a non-obvious WHY.
+- **Variants**: if the change introduces a new branch, boolean flag, mode, or input variant, does the diff cover every variant — both in implementation and (if you wrote tests) in test coverage? Missing variants are the most-common review catch.
+- **Cross-file pattern consistency**: for every new function or method, find the 2-3 closest siblings via Grep. Do they share validation steps, error handling, registration, or cleanup that your new code skipped? Add what's missing.
+- **Naming**: re-read identifiers you introduced or renamed. Do the names still match what the code does after your final iteration? If you changed a function's behavior partway, its name may now mislead readers.
+- **Removed references**: for anything you deleted or renamed, Grep the whole repo for leftover references in tests, configs, docs, and locale files.
+- **Idempotency**: for setup/initialization changes, can the new code run twice without corrupting state? For state mutations, do zero-input or empty-collection cases short-circuit cleanly?
+- **TODOs**: every TODO you added needs a concrete trigger condition. `// TODO: fix later` is not a trigger; `// TODO: re-enable when X ships` is. Delete the rest.
+
+Then, if the change touches any of the surfaces below, run the matching second-pass check. These are categories where bugs are easy to ship and unit tests rarely catch them:
+
+- **Concurrency & long-lived state**: if the diff initializes a shared pool, cache, or singleton, check for check-then-act races (`@x ||= …`, `if (!cache.has(k))`) under cold start; if it uses a single-flight lock, verify the lock TTL exceeds the protected operation's timeout; avoid thread-level timeouts (`Timeout.timeout` / `Thread.raise`) around connection checkout or socket I/O.
+- **Cache key versioning**: any new cache write whose payload shape could change in a future deploy needs a version segment in the key (`v1`, `cache_version: 2`). Otherwise a deploy that changes the shape serves incompatible stale entries until TTL.
+- **i18n key sync**: any new translation key must appear in every locale file the project ships, not just the source locale. If the project has an `i18n-check`-style script, run it.
+- **Empty-state and first-time flows**: if a UI gate is `checked={state.hasAnyData}` or `disabled={items.length === 0}`, walk the first-user path mentally — can they reach the control that creates the first item, or is it hidden behind itself?
+- **Doc/code contract drift**: re-read JSDoc / docstrings on any function you touched. If the docstring claims behavior (stable sort, idempotency, side-effect freedom) the implementation doesn't deliver, change one of them — pick the one that matches what callers depend on.
+- **A11y on interactive controls**: any new button/toggle/menu needs visible focus, keyboard activation, an accessible name, and a touch target ≥44 px. Transform/opacity animations need a `prefers-reduced-motion` override.
+- **Feature flag graduation**: if you graduated a flag (experimental → graduated → removed), also delete the dead branch, the flag definition, and any tests gated on the disabled path. The flag string left in code is dead-key pollution.
+
+If the self-review surfaces issues, fix them before reporting done. Don't ship a known-imperfect diff with a note that "we can address this later" — that's what the review-responder agent ends up doing for you, and it costs an extra round.
+
 ## Output Guidance
 
 Report what was implemented, files modified, any test results, and what functionality needs testing. Be specific about integration points and anything the next person needs to know.
