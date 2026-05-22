@@ -7,7 +7,7 @@ Create a new git branch following the `<type>/<kebab-case-description>` conventi
 
 ## Process
 
-Parse from: {{RAW_PROMPT}} — supports `--type=TYPE`, `--from=<base>` (default: `main`), `<description>` (free text; will be kebab-cased).
+Parse from: {{RAW_PROMPT}} — supports `--type=TYPE`, `--from=<base>` (default: `main`), `--issue=N` (embed issue number as a leading segment), `<description>` (free text; will be kebab-cased).
 
 ### 1. Determine type
 
@@ -35,12 +35,16 @@ If you can't infer the type with confidence, ask before creating the branch.
 - No trailing `-`
 - No `feat-feat-...` redundancy with the type prefix
 
-Examples (real ones from your repos):
+If `--issue=N` was passed (or you detect a `#NNN` / `issue NNN` reference in the description), prepend the issue number as the first description segment: `<type>/<issue>-<rest-of-description>`. Strip the duplicate `#NNN` from the description portion so the issue number appears exactly once.
+
+Examples (real ones from these repos):
 - `docs/claudemd-version-qualifier`
 - `refactor/rip-mag-data-only`
 - `feat/sim-host-visualizer`
 - `chore/prune-info-logs`
 - `fix/i2c-100khz-py32`
+- `fix/696-cross-triangle-collinear-collapse` (with `--issue=696`)
+- `fix/1850-scoop-rim-fillet` (with `--issue=1850`)
 
 ### 3. Sanity checks
 
