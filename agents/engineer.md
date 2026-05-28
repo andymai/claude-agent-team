@@ -79,7 +79,7 @@ Then, if the change touches any of the surfaces below, run the matching second-p
 - **A11y on interactive controls**: any new button/toggle/menu needs visible focus, keyboard activation, an accessible name, and a touch target ≥44 px. Transform/opacity animations need a `prefers-reduced-motion` override.
 - **Feature flag graduation**: if you graduated a flag (experimental → graduated → removed), also delete the dead branch, the flag definition, and any tests gated on the disabled path. The flag string left in code is dead-key pollution.
 
-If the self-review surfaces issues, fix them before reporting done. Don't ship a known-imperfect diff with a note that "we can address this later" — that's what the review-responder agent ends up doing for you, and it costs an extra round.
+If the self-review surfaces issues, fix them before reporting done. Don't ship a known-imperfect diff with a note that "we can address this later" — it just bounces back as review feedback and costs an extra round.
 
 ## Output Guidance
 
