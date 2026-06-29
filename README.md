@@ -4,7 +4,7 @@
 
 A set of Claude Code subagents (planner, engineer, debugger, reviewer, and more) installed via `./scripts/install.sh`, designed to be composed into workflow recipes.
 
-[Agents](#agents) · [Workflow Recipes](#workflow-recipes) · [Quick Start](#quick-start)
+[Agents](#agents) · [Unity Skills](#unity-skills) · [Workflow Recipes](#workflow-recipes) · [Quick Start](#quick-start)
 
 </div>
 
@@ -77,6 +77,22 @@ documenter (standalone or after feature work)
 
 Each agent works autonomously and returns results. Claude Code decides which agent to invoke next.
 
+## Unity Skills
+
+A set of [Agent Skills](https://code.claude.com/docs/en/skills) for Unity 6 (URP) game development, packaged via `.claude-plugin/plugin.json` and also installed by `./scripts/install.sh` into `~/.claude/skills/`. Skills load progressively — only each skill's `description` is always in context; the body and `reference/` files load when the skill triggers — so they add deep Unity knowledge without bloating the context window.
+
+| Skill                  | Triggers on                                                  | What it does |
+| ---------------------- | ----------------------------------------------------------- | ------------ |
+| **unity-csharp**       | editing `*.cs`, adding components/ScriptableObjects          | Performance-safe C#, MonoBehaviour lifecycle, serialization, Input System, and a ScriptableObject + event-channel default architecture (conforms to existing patterns when present) |
+| **unity-editor-loop**  | after edits, exceptions, or visual checks                    | The MCP feedback loop: recompile → read console → capture Game/Scene view → debug. Degrades to CLI batchmode when `unity-mcp` is absent |
+| **unity-testing**      | adding/running tests, `*Tests.cs`                            | Unity Test Framework EditMode/PlayMode, headless `-runTests`, NUnit XML parsing, plus visual verification so "tests pass" means the game works |
+| **unity-asset-safety** | touching `*.meta` / `*.unity` / `*.prefab` / `*.asset`        | Guardrails: `.meta`/GUID discipline, never hand-edit scene/prefab YAML, YAMLMerge, `.gitignore`/LFS hygiene |
+| **unity-performance**  | stutter, GC spikes, "optimize"                               | Profiler-guided workflow: measure → fix dominant cost → re-measure, with allocation-free patterns |
+| **unity-ui-toolkit**   | editing `*.uxml` / `*.uss`                                   | UXML/USS, UQuery, data binding, runtime-vs-Editor UI split |
+| **unity-build**        | `/unity-build` (command-only, never auto-runs)               | Headless player builds, Addressables, GameCI pipelines |
+
+`templates/unity-CLAUDE.md` is a drop-in `CLAUDE.md` for your Unity project root — fill in the version/pipeline/input backend once and every skill inherits those facts plus the hard "don't corrupt the project" rules. The Editor-driving skills target this environment's `unity-mcp` server (`Unity_RunCommand`, `Unity_GetConsoleLogs`, `Unity_Camera_Capture`, scene captures) and fall back to CLI when it isn't connected.
+
 ## Slash Commands
 
 | Command                | Description                                                  |
@@ -93,7 +109,7 @@ Each agent works autonomously and returns results. Claude Code decides which age
 
 | Script                    | Description                                                                  |
 | ------------------------- | ---------------------------------------------------------------------------- |
-| `scripts/install.sh`      | Install/update/uninstall agents, commands, and scripts with checksum-based conflict detection |
+| `scripts/install.sh`      | Install/update/uninstall agents, commands, scripts, and skills with checksum-based conflict detection |
 | `scripts/count-tokens.sh` | Token counting with Anthropic API (caches results, falls back to estimation)       |
 
 ## Contributing

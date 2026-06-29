@@ -1,0 +1,8 @@
+{
+  "name": "claude-agent-team",
+  "description": "Subagents, slash commands, and Unity game-development skills for Claude Code. The Unity skills cover C# architecture, the Editor MCP feedback loop, testing, asset/serialization safety, performance, UI Toolkit, and builds.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Andy Aragon"
+  }
+}
