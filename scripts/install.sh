@@ -41,7 +41,7 @@ Options:
   --verbose     Detailed logging of each operation
   --help        Show this help message
 
-Without flags, installs agents/, commands/, and scripts/ into ~/.claude/.
+Without flags, installs agents/, commands/, scripts/, and skills/ into ~/.claude/.
 EOF
   exit 0
 }
@@ -122,7 +122,7 @@ remove_checksum() {
 # Collect all source files (relative paths like agents/foo.md, commands/bar.md, scripts/foo.sh)
 collect_files() {
   local files=()
-  for dir in agents commands scripts; do
+  for dir in agents commands scripts skills; do
     local src_dir="$REPO_DIR/$dir"
     [[ -d "$src_dir" ]] || continue
     local pattern='*.md'
@@ -296,13 +296,13 @@ do_uninstall() {
     fi
   fi
 
-  # Remove empty directories left behind
+  # Remove empty directories left behind (skills/ nests one level: skills/<name>/reference)
   if ! $DRY_RUN; then
-    for dir in agents commands scripts; do
+    for dir in agents commands scripts skills; do
       local target="$DEST_DIR/$dir"
-      if [[ -d "$target" ]] && [[ -z "$(ls -A "$target" 2>/dev/null)" ]]; then
-        rmdir "$target" 2>/dev/null && log "removed empty directory: $dir/"
-      fi
+      [[ -d "$target" ]] || continue
+      find "$target" -depth -type d -empty -delete 2>/dev/null || true
+      [[ -d "$target" ]] || log "removed empty directory: $dir/"
     done
   fi
 
