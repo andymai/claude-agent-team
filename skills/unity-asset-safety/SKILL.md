@@ -9,6 +9,19 @@ paths: "**/*.meta,**/*.unity,**/*.prefab,**/*.asset"
 
 Unity's cross-asset references are GUID-based and its serialized files are GUI-centric YAML. Text-editing them is the #1 source of silent project corruption by AI agents. This skill is a guardrail: it says what **not** to do and what to do instead.
 
+## STOP conditions — check before every asset operation
+
+Before moving, renaming, deleting, or editing anything under `Assets/`, run this checklist. If any answer is "yes", stop and use the safe route listed:
+
+1. **Am I about to move/rename/delete a file without its `.meta` sibling in the same operation?** → Move both in one step (`git mv` both), or route through the Editor.
+2. **Am I about to edit a `.unity`, `.prefab`, or `.asset` file as text?** → Don't. Route through Editor tooling (unity-editor-loop) or hand the change to the user. The single narrow exception must meet **all four** observable criteria: the edit changes exactly one line; that line contains no `fileID:` or `guid:`; the value is a plain scalar (number, bool, quoted string); and `git diff` on the file afterward shows exactly that one line changed. Fail any criterion → route through the Editor.
+3. **Am I about to create a new asset file directly on disk?** → Fine for `.cs`/`.uxml`/`.uss`, but Unity must generate its `.meta` before commit — refresh the Editor (or run a batchmode import) and confirm the `.meta` exists; commit them together.
+4. **Am I about to read or write a binary asset (`.fbx`, `.png`, `.wav`, binary `.asset`)?** → Don't. Report what's needed instead.
+5. **Am I about to resolve a merge conflict in a scene/prefab by picking lines?** → Don't. Use UnityYAMLMerge (below) or escalate to the user.
+6. **Did a "missing script" / "missing reference" symptom appear after my file operation?** → Treat it as a GUID break you caused: check `git status`/`git diff` for a `.meta` that was regenerated (new GUID) or orphaned. Before restoring, run `git diff <path>.meta` and confirm the change actually is a `guid:` regeneration — if the diff shows import-settings changes instead (someone tuned them in the Editor this session), show it to the user rather than reverting. Restore only the specific `.meta` file(s) whose GUID changed, never a broad `git checkout -- '*.meta'`.
+
+These operations are cheap to get right and catastrophic to get wrong — the corruption is silent, appears only at runtime or on a teammate's machine, and is misery to trace. When unsure, the safe move is always: don't touch it, say what you wanted to do, and ask.
+
 ## Meta files are sacred
 
 Every asset (and folder) has a sibling `.meta` holding a **GUID** that every other asset references. Rules:

@@ -10,7 +10,7 @@ A set of Claude Code subagents (planner, engineer, debugger, reviewer, and more)
 
 ---
 
-This repo contains agent definitions and slash commands for [Claude Code](https://docs.claude.com/en/docs/claude-code). Running `./scripts/install.sh` copies them into `~/.claude/`, where Claude Code picks them up as project-scoped subagents. Agents use project-scoped memory (`memory: local`) so codebase patterns learned in one project don't bleed into another.
+This repo contains agent definitions and slash commands for [Claude Code](https://docs.claude.com/en/docs/claude-code). Running `./scripts/install.sh` copies them into `~/.claude/`, where Claude Code picks them up as user-scoped subagents available in every project. Agents use project-scoped memory (`memory: local`) so codebase patterns learned in one project don't bleed into another.
 
 ## Quick Start
 
@@ -30,7 +30,7 @@ Tracks checksums so re-running safely updates changed files without clobbering l
 | **tester**         | Write unit tests for new functionality                        | Sonnet |                 |
 | **reviewer**       | Code review with confidence-based filtering (≥60 threshold)   | Opus   | read-only       |
 | **security**       | Security audit — OWASP Top 10, auth flows, dependency risks  | Opus   | read-only       |
-| **researcher**     | Explore codebases, compare technologies, gather information   | Opus   |                 |
+| **researcher**     | Explore codebases, compare technologies, gather information   | Opus   | read-only       |
 | **gap-finder**     | Verify implementations match specs, find missing requirements | Opus   | read-only       |
 | **optimizer**      | Practical code improvements and refactoring                   | Sonnet |                 |
 | **documenter**     | Create and maintain documentation, diagrams, and guides       | Sonnet |                 |
@@ -97,6 +97,7 @@ A set of [Agent Skills](https://code.claude.com/docs/en/skills) for Unity 6 (URP
 
 | Command                | Description                                                  |
 | ---------------------- | ------------------------------------------------------------ |
+| `/audit-claudemd`      | Audit or bootstrap the project's CLAUDE.md against observed conventions |
 | `/branch`              | Create a branch following `<type>/<kebab-description>` naming |
 | `/check`               | Run the project's local quality gate (auto-detected)          |
 | `/commit`              | Create a conventional commit from working tree changes        |
@@ -114,4 +115,4 @@ A set of [Agent Skills](https://code.claude.com/docs/en/skills) for Unity 6 (URP
 
 ## Contributing
 
-Adding or upgrading an agent? See [AGENTS.md](AGENTS.md) — the playbook for agent authors. Covers the frontmatter schema, model selection, color palette, and the **generalization rule** (agents run across every repo you touch, so rules must be portable).
+Adding or upgrading an agent? See [AGENTS.md](AGENTS.md) — the playbook for agent authors. Covers the frontmatter schema, model selection, color palette, the **generalization rule** (agents run across every repo you touch, so rules must be portable), and the **weakest-executor rule** (prompts must carry the discipline — evidence rules, hard gates, self-checks — so smaller models and junior engineers succeed with them too).

@@ -49,7 +49,7 @@ Note `[SerializeReference]` has its own gotchas (no shared references, migration
 If the project uses the Input System package (`com.unity.inputsystem`):
 
 - Define an **Input Actions asset** (`.inputactions`) with action maps and actions; enable "Generate C# Class" for a typed wrapper, or use `PlayerInput` with Unity Events / `SendMessages`.
-- Read input via callbacks (`context.performed`), not by polling `Input.GetKey` in `Update`.
+- Read **discrete events** (jump, fire, interact) via callbacks (`context.performed`); reading **continuous axes** (movement, look) by polling `action.ReadValue<T>()` in `Update` is idiomatic and fine — the example below does exactly that. What's banned is polling the *legacy* `Input.GetKey`/`Input.GetAxis` API when the project uses the Input System.
 - Enable/disable action maps with the object lifecycle (`OnEnable`/`OnDisable`) to avoid stale callbacks.
 
 ```csharp

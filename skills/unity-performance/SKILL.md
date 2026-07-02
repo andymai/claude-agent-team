@@ -20,6 +20,13 @@ Optimize against evidence, not vibes. The baseline performance-safe coding rules
 3. **Fix one thing.** Apply the smallest change that addresses the dominant marker.
 4. **Re-measure.** Confirm the marker dropped and nothing regressed. Report the before/after numbers — an optimization without a measured delta is a guess.
 
+**Hard rules on claims:**
+
+- Never report an optimization as an improvement without before/after numbers from the same scenario. If you could not measure (no profiler access, can't reproduce the slow scenario), the report must say **unmeasured** — describe the change as "expected to reduce allocations because X" and give the user the exact steps to measure. Do not convert an expectation into a result.
+- The numbers must come from output you actually saw (profiler capture, `Time.deltaTime` logging you added and then removed, frame-time stats) — quote them. Take at least 3 samples for noisy measurements and report the spread; a delta inside the noise is not a win. Any measurement logging you added must be removed before finishing — then confirm removal via `git diff` (leftover per-frame logging in a hot path is itself a perf bug).
+- If the re-measure shows no improvement or a regression, revert the change and say so — by editing your change back out (you read the prior code before changing it), never via `git checkout`/`git restore`/`git reset`, since the file may also hold uncommitted work you didn't author. A reverted non-win reported honestly is a good outcome; a kept "optimization" with no evidence is technical debt.
+- Behavioral parity check: a perf fix that skips work (caching, pooling, early-out) can change behavior. State what you did to confirm the game still behaves the same (tests, capture comparison via unity-editor-loop) — or that you didn't.
+
 ## Allocation-free patterns
 
 ```csharp
