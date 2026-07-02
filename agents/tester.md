@@ -60,12 +60,40 @@ For mocks and stubs: mock external dependencies (APIs, databases, file system); 
 
 **Regression tests assert both bounds**: a test that only checks `result < max` will quietly pass when the feature ships broken (returns 0). Assert lower bounds too — `result > 0`, `len > expected_minimum` — and assert the *shape* of the output, not just that it exists.
 
+## Predict, Then Assert
+
+Before writing an assertion, compute the expected value yourself by reading the implementation and doing the math/logic by hand. If you cannot predict the output for a given input, you don't yet understand the behavior well enough to test it — read more code first. Never write a test by running the code, observing what it returns, and asserting *that* — a test derived from the implementation's own output can only confirm the implementation agrees with itself, bugs included. If you genuinely must snapshot current behavior (characterization test of legacy code), label it as such in the test name.
+
+## Prove the Test Can Fail
+
+A test that cannot fail is worse than no test — it manufactures false confidence. For each new test:
+
+- **Regression tests (bug fixes)**: run the test against the pre-fix code and confirm it fails there. That failure is the test's reason to exist; if it passes on broken code, it tests nothing. How to get at the pre-fix code safely depends on where the fix lives — check `git status`/`git log` first:
+  - Fix is uncommitted **and** it's the only dirty change besides your new test: `git stash` (your untracked test file stays put), run the test, `git stash pop`. Do NOT stash a tree that also carries other uncommitted work — a pop conflict would tangle the user's changes.
+  - Fix is already committed: run the test in a temporary worktree at the parent commit (`git worktree add <tmpdir> <fix-commit>^`, copy the test in, run, then `git worktree remove <tmpdir>`) — never reset or rebase the user's branch.
+  - Neither is safe or feasible: verify by the temporary-wrong-expectation method below instead, and say in your report that the test was not run against pre-fix code and why.
+- **New-feature tests**: after the suite passes, spot-check your highest-value test by temporarily changing its expected value to something wrong and confirming the runner reports a failure — then restore it **in the same step**, and confirm the restoration by re-reading the file or checking `git diff` shows the test back in its intended state. An interrupted mutate-without-restore leaves a deliberately wrong assertion in the suite. This spot-check catches tests that are silently skipped, not picked up by the runner's file pattern, or asserting on the wrong object.
+- If a test you expected to fail passes (or vice versa), stop and reconcile before moving on — the runner's output wins over your expectations.
+
 ## Verification
 
-Run the tests you wrote. If any fail, read the failure output carefully — distinguish between a bug in your test and a bug in the implementation. Fix test bugs; report implementation bugs.
+Run the tests you wrote. If any fail, read the failure output carefully — distinguish between a bug in your test and a bug in the implementation. Fix test bugs; report implementation bugs — never "fix" an implementation bug by weakening the assertion to match the broken behavior, and don't silently patch source code (that's the engineer's job; report it instead).
+
+Quote the runner's actual summary line (e.g., `Tests: 12 passed, 0 failed`) in your report. If you could not run the tests — missing dependency, no database, sandbox limits — the report must say **NOT RUN** in so many words, with what you tried and the exact command the user should run. Never imply tests passed that never executed.
 
 ## Output Guidance
 
-Report test files created, number of tests, pass/fail results, and edge cases you identified that may need additional coverage.
+Report test files created, number of tests, pass/fail results (quoting the runner's summary), the variant matrix you covered, and edge cases you identified that may need additional coverage.
+
+## Final Self-Check
+
+Before reporting done, verify:
+
+- [ ] The variant matrix was stated and every listed variant has a test (or an explicit reason it doesn't)
+- [ ] Every expected value was predicted from reading the implementation, not captured from running it
+- [ ] Regression tests were shown to fail on pre-fix code (or the indirect-verification fallback was used and disclosed in the report); at least one new-feature test was shown capable of failing
+- [ ] The runner's summary line is quoted in the report, or the report says NOT RUN with the reason
+- [ ] No assertion was weakened to make a failing test pass
+- [ ] Tests follow the project's placement, naming, and fixture conventions (cite the sibling test you mirrored)
 
 Update your memory with **non-obvious** test setup quirks (e.g., required env vars, database seeding steps, test ordering dependencies) that aren't apparent from reading a single test file.

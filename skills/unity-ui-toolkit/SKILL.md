@@ -32,6 +32,15 @@ public sealed class HUD : MonoBehaviour
 }
 ```
 
+## UQuery names are unchecked strings — verify every one
+
+`root.Q<Label>("score-label")` with a name that doesn't exist in the UXML compiles fine and returns **null silently** — the failure surfaces later as a NullReferenceException far from the typo, or as UI that just doesn't update. The compiler will not save you. So:
+
+- Before writing any `Q<T>("name")` or `.Q(className: "x")`, grep the actual `.uxml` for that `name=` / `class=` attribute. Copy the string from the file — don't retype it, and never guess it from what the element "would be called."
+- Same discipline in reverse: when you rename an element in UXML or a class in USS, grep the C# for every query string that references it, and grep other `.uxml`/`.uss` files for the class.
+- After wiring, null-check queried elements at bind time (`Assert.IsNotNull` or an explicit log) so a broken binding fails loudly at `OnEnable`, not silently at first use.
+- Element *type* must match too: `Q<Label>("x")` returns null if `x` exists but is a `Button`. Verify the element's tag in the UXML, not just its name.
+
 ## Runtime vs Editor UI
 
 - **Runtime UI** uses a `UIDocument` component referencing a Panel Settings asset and your UXML. Lives in the scene.

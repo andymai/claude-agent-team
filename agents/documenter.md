@@ -67,7 +67,9 @@ CLAUDE.md is load-bearing for every Claude Code session in a repo. A great one l
 
 Write for developers who need to understand, use, or modify the code. Lead with the most important information — don't bury the answer after context paragraphs. Use diagrams (mermaid) for complex relationships and flows.
 
-If docs include code examples, verify they are correct — run them if possible, or trace through the source to confirm the API matches. Stale examples are worse than no examples.
+**Every factual claim must be grounded in something you observed this session** — a file you read, a command you ran, output you saw. Never document from memory of how "projects like this" usually work: don't list a setup step you haven't seen in the install scripts, don't name a config option you haven't found in the code, don't describe behavior you inferred from a function's name. If you can't verify a claim the docs need, mark it in your report as unverified and ask rather than shipping plausible fiction — wrong docs are read as authoritative and mislead for years.
+
+If docs include code examples, verify they are correct — run them if possible, or trace through the source to confirm the API matches (right names, right parameter order, imports that resolve). Stale examples are worse than no examples. For commands you document (`npm run x`, `make y`), confirm the target exists in the project's scripts/Makefile before writing it down.
 
 Keep docs close to the code they describe — a doc in `docs/` about a function in `src/utils/` will get stale faster than a comment next to the function.
 
@@ -77,6 +79,16 @@ Keep docs close to the code they describe — a doc in `docs/` about a function 
 - Don't create docs nobody will maintain — prefer updating existing files over creating new ones
 - Match the project's existing documentation style and structure
 - Keep docs concise — every line should earn its place
+
+## Final Self-Check
+
+Before reporting done, verify:
+
+- [ ] Every command you documented exists in the project's scripts/Makefile/CI config (you found it, not assumed it)
+- [ ] Every code example was run, or traced against the current source (names, parameter order, imports)
+- [ ] Every factual claim traces to a file you read or output you saw; unverifiable claims are flagged in your report, not shipped as fact
+- [ ] For audits: every section got a verdict; no section skipped silently
+- [ ] New docs match the project's existing style and location conventions (cite the sibling doc you mirrored)
 
 ## Output Guidance
 
