@@ -1,0 +1,126 @@
+skills/unity-csharp/reference/serialization-and-input.md
+  s_8853ce99e28295::t_d41a5aee92b868 52
+agents/debugger.md
+  s_8853ce99e28295::t_d7042a49fdbadf 55
+  s_8853ce99e28295::t_726eaaad46db74 97
+  s_8853ce99e28295::t_3746aa894e0f8c 36-41,44-54
+  s_8853ce99e28295::t_e2a9e26d662ac6 88-96,98-99
+  s_8853ce99e28295::t_ec55630b8050e4 18
+  s_8853ce99e28295::t_eb3165214e0d6e 22-23
+  s_8853ce99e28295::t_4dc98461317f48 56
+agents/security.md
+  s_8853ce99e28295::t_016c4e0b6669c8 38-50
+  s_8853ce99e28295::t_efa8562c275e83 66-81
+agents/documenter.md
+  s_8853ce99e28295::t_3cb0e7edd4cd1c 70-72
+  s_8853ce99e28295::t_0c4257315eb9be 83-92
+agents/context-auditor.md
+  s_8853ce99e28295::t_637a14ef5eb33d 48-57
+  s_8853ce99e28295::t_deff160ff0e558 41-47,60
+  s_8853ce99e28295::t_69229c5b56e8f3 61-62
+skills/unity-asset-safety/SKILL.md
+  s_8853ce99e28295::t_322c58b760f7e2 12-16,18-20,22-24
+  s_8853ce99e28295::t_77d7afe5dcf0f5 21
+  s_8853ce99e28295::t_e3f934ccb90e59 17
+skills/unity-editor-loop/SKILL.md
+  s_8853ce99e28295::t_5eef06be94dbb2 33
+  s_8853ce99e28295::t_c4b34a725e76f4 25-28
+  s_d284f77483fe77::t_d5cb8de7ce6a48 45-47,51,57-58
+skills/unity-performance/SKILL.md
+  s_8853ce99e28295::t_499a09087b6449 26-27
+  s_8853ce99e28295::t_c4145b1672946f 23-25,28-29
+agents/planner.md
+  s_8853ce99e28295::t_be401583e236db 45,48-60,82-100
+  s_8853ce99e28295::t_2c1d136ff4c822 101
+agents/tester.md
+  s_8853ce99e28295::t_8f130368a6bc13 75
+  s_8853ce99e28295::t_b1076f81ac4890 71-74
+  s_8853ce99e28295::t_b0ee94ea58e222 86-93,95-97
+  s_8853ce99e28295::t_41de73302c1126 94
+  s_8853ce99e28295::t_80e474bb138a83 63-70,76-77,80-82
+agents/architect.md
+  s_8853ce99e28295::t_b9e8b9865259a3 57-63
+  s_8853ce99e28295::t_0db72f7def565b 80-89
+agents/researcher.md
+  s_8853ce99e28295::t_d33105434c9e36 38
+  s_8853ce99e28295::t_76748a7eb519ea 40-48
+  s_8853ce99e28295::t_ab7719f3b5724d 28-35
+  s_8853ce99e28295::t_f9440fbaeaefd5 39
+agents/engineer.md
+  s_8853ce99e28295::t_88417b463acf5b 22-40,42-43
+  s_8853ce99e28295::t_b8efe9753c15b4 110-115
+  s_8853ce99e28295::t_d149583aeeb01f 97
+  s_8853ce99e28295::t_970329dde9fdd2 41
+  s_8853ce99e28295::t_ab02d3bba0db58 116-125
+  s_8853ce99e28295::t_a61c59e533301b 101
+agents/optimizer.md
+  s_8853ce99e28295::t_27c9bfc1fcc0d6 4
+  s_8853ce99e28295::t_2ebd4159cce3fb 87-96
+  s_8853ce99e28295::t_d95e29ecbb5eba 69-77
+  s_8853ce99e28295::t_adb7de68bba606 66-67
+  s_8853ce99e28295::t_ac44225fe58026 44
+  s_8853ce99e28295::t_0cfe8fb6870ff7 68
+agents/reviewer.md
+  s_8853ce99e28295::t_f89051bb0db1db 189
+  s_8853ce99e28295::t_c62c48e0eacf33 32-40,43-60
+  s_8853ce99e28295::t_de9449d4588557 41-42
+  s_8853ce99e28295::t_cd7ada46cf44d8 183-188,190-193
+  s_8853ce99e28295::t_7fa4a554320c48 137
+AGENTS.md
+  s_8853ce99e28295::t_fc523644c58edc 22-36
+  s_8853ce99e28295::t_62758b56c9eddd 107
+  s_8853ce99e28295::t_9972a99ca073d3 7-8
+  s_8853ce99e28295::t_81c770f59aa7f6 46
+  s_8853ce99e28295::t_9c5561e88a1c8b 114
+  s_8853ce99e28295::t_f4029449c44b61 55-56
+skills/unity-csharp/SKILL.md
+  s_8853ce99e28295::t_1ec74a6ea2652b 47-50,52-55
+  s_8853ce99e28295::t_1493fb0314b150 35
+  s_8853ce99e28295::t_061b3d72877bff 51
+  s_8853ce99e28295::t_e3953bd173bb23 8,10-12
+skills/unity-build/SKILL.md
+  s_8853ce99e28295::t_2361298873d625 11
+  s_8853ce99e28295::t_e8e95604ee8d5d 70-77
+  s_8853ce99e28295::t_4d1f65263aee7f 39,42-43,50
+  s_8853ce99e28295::t_5cd00ef690f027 30-32
+  s_8853ce99e28295::t_1efff830017bfe 51
+agents/gap-finder.md
+  s_8853ce99e28295::t_9f56cd0e3230da 80-102
+skills/unity-ui-toolkit/SKILL.md
+  s_8853ce99e28295::t_22fd4ec354cf0a 35-43
+skills/unity-testing/SKILL.md
+  s_8853ce99e28295::t_5bfeca180dce64 80
+  s_8853ce99e28295::t_5ded9632d6e84b 24,26-27,29-34
+  s_8853ce99e28295::t_88b70aa75a03cc 51,57
+  s_8853ce99e28295::t_b8d75387f44370 74-79,81
+  s_8853ce99e28295::t_cf37bad95eef41 58
+README.md
+  s_8853ce99e28295::t_1886bd47a3eee1 13
+  s_8853ce99e28295::t_2b37c619dc50b0 33
+  s_8853ce99e28295::t_2eda33dc084e0d 100
+  s_8853ce99e28295::t_ca33118a0e55ae 118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "51fc309774a5f9b9a5ac94740c9a5fd69b2164b5",
+  "prompts": {},
+  "sessions": {
+    "s_8853ce99e28295": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0d42207a-16b7-455b-9586-9b357c6442ab",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    },
+    "s_d284f77483fe77": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d3bda5e7-4f75-4405-afcf-e2881f0ad0d3",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
