@@ -1,0 +1,31 @@
+AGENTS.md
+  s_04138f2372a5c2::t_3c2c51a0097af2 54,86,94
+README.md
+  s_25989936a1c209::t_f25d81603d6f3b 13
+commands/commit.md
+  s_04138f2372a5c2::t_a2b85cda47cc41 49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "bb9a7b46cd4e16b8187f7dcb30a0736bff4847ba",
+  "prompts": {},
+  "sessions": {
+    "s_04138f2372a5c2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5e05374c-d7bf-4673-b471-1d2858a9e102",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    },
+    "s_25989936a1c209": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa9573eb-b4fd-4ed1-b09d-791c1cdbffdc",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
