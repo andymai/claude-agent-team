@@ -10,7 +10,7 @@ A set of Claude Code subagents (planner, engineer, debugger, reviewer, and more)
 
 ---
 
-This repo contains agent definitions and slash commands for [Claude Code](https://docs.claude.com/en/docs/claude-code). Running `./scripts/install.sh` copies them into `~/.claude/`, where Claude Code picks them up as user-scoped subagents available in every project. Agents use project-scoped memory (`memory: local`) so codebase patterns learned in one project don't bleed into another.
+This repo contains agent definitions and slash commands for [Claude Code](https://docs.claude.com/en/docs/claude-code). Running `./scripts/install.sh` copies them into `~/.claude/`, where Claude Code picks them up as user-scoped subagents available in every project.
 
 ## Quick Start
 
@@ -35,8 +35,6 @@ Tracks checksums so re-running safely updates changed files without clobbering l
 | **optimizer**      | Practical code improvements and refactoring                   | Sonnet |                 |
 | **documenter**     | Create and maintain documentation, diagrams, and guides       | Sonnet |                 |
 | **context-auditor**| Audit markdown docs for token efficiency and redundancy       | Sonnet | read-only       |
-
-All agents use project-scoped memory (`memory: local`) to learn codebase patterns across sessions without cross-project contamination.
 
 ## Scope
 

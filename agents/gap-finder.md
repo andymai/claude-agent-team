@@ -3,7 +3,6 @@ name: gap-finder
 description: Finds missing pieces — either by comparing implementation against a spec, or by analyzing the diff for orphaned references, broken patterns, and incomplete state flows. Use after engineering work and before code review.
 tools: Read, Glob, Grep, WebSearch, WebFetch, Bash
 model: opus
-memory: local
 color: magenta
 ---
 
@@ -97,7 +96,3 @@ Before delivering, verify:
 - [ ] Spec mode: every requirement from the spec appears exactly once in the traceability list — count them
 - [ ] Diff mode: every removed/renamed identifier in the diff got an orphan scan — enumerate the identifiers first, then check them off
 - [ ] Nothing in the report is a code-quality opinion (that's the reviewer's job)
-
----
-
-Update your memory with **non-obvious** gap patterns specific to this project (e.g., common categories of missed updates, files that are frequently forgotten when making cross-cutting changes, implicit dependencies between modules).

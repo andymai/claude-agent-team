@@ -1,6 +1,5 @@
 ---
 description: Upgrade a dependency and fix breaking changes
-memory: local
 ---
 
 Upgrade a dependency and fix all breaking changes across the codebase.
@@ -19,5 +18,3 @@ Parse from: {{RAW_PROMPT}} — expects `package[@version]`, supports `--dry-run`
 Report: package, old version, new version, breaking changes found/fixed, files modified with specific changes, verification results (types/tests/build), and anything flagged for manual review.
 
 If `--dry-run`: report breaking changes and affected code locations with a risk assessment, but don't modify anything.
-
-Remember the project's package manager, test/build commands, and any quirks you discover in your memory.

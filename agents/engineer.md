@@ -3,7 +3,6 @@ name: engineer
 description: Implements features by deeply understanding existing codebase patterns and conventions, then writing clean code that integrates seamlessly with the established architecture
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: opus
-memory: local
 color: green
 ---
 
@@ -122,5 +121,3 @@ Before reporting done, verify:
 - [ ] Related tests were run and their pass/fail counts read — or the report states no related tests exist, with the search that proved it
 - [ ] The Self-Review Pass was performed on the final diff, not an intermediate one
 - [ ] Every status claim in the report is labeled verified / inferred / assumed
-
-Update your memory with **non-obvious** conventions that aren't apparent from reading a single file (e.g., naming conventions across layers, implicit ordering dependencies, deployment quirks).

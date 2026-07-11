@@ -1,6 +1,5 @@
 ---
 description: Create a conventional commit from working tree changes
-memory: local
 ---
 
 Stage and commit working tree changes as a Conventional Commit.
@@ -47,4 +46,4 @@ If a pre-commit hook fails, surface the hook output, attempt the obvious fix (re
 
 Run `git status` to confirm. Print the new commit hash and subject line.
 
-Remember this repo's scope vocabulary, common types, and message-body style in your memory for future runs. If CLAUDE.md or a `.gitmessage` template specifies conventions, follow those over defaults.
+If CLAUDE.md or a `.gitmessage` template specifies conventions, follow those over defaults.

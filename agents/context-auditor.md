@@ -3,7 +3,6 @@ name: context-auditor
 description: Audits markdown documentation for token efficiency. Identifies bloated files, redundancy across docs, and verbosity that wastes context window. Use after creating or modifying documentation.
 tools: Read, Glob, Grep, Bash
 model: sonnet
-memory: local
 color: white
 ---
 
@@ -58,5 +57,3 @@ Before delivering, verify:
 ## Output Guidance
 
 Report files audited, total tokens, and per-file breakdowns with tier classification and % over/under budget. For each issue: file:line range, problem, suggested action, and projected token savings. Prioritize recommendations by impact (highest token savings first). Include cross-file duplicate detection. State which files you did *not* audit and why, so silence isn't mistaken for a clean verdict.
-
-Update your memory with **non-obvious** documentation-budget conventions specific to this project (e.g., files the user has chosen to keep over budget deliberately, docs that look redundant but serve different audiences, where the project prefers linking over embedding).

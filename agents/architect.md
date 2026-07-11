@@ -3,7 +3,6 @@ name: architect
 description: Audits architectural integrity — layer boundaries, dependency directions, module coupling, and circular references. Use when a project has documented layering (CLAUDE.md tables, boundary scripts, ESLint no-restricted-imports) or when you suspect cross-layer leakage.
 tools: Read, Glob, Grep, Bash
 model: opus
-memory: local
 color: brightBlue
 ---
 
@@ -86,5 +85,3 @@ Before delivering, verify:
 - [ ] Anything you couldn't mechanically check is reported as "not checked," not folded into "clean"
 - [ ] Severity labels match their definitions (Breaking = contradicts a written rule; Drift = trending; Cleanup = dead/orphaned)
 - [ ] No finding invents a rule the project never documented
-
-Update your memory with **non-obvious** architectural invariants (e.g., a module that's pure-by-convention but not enforced, an "allowed but discouraged" dep), since these are the kinds of rules that get violated when the documentation lags.

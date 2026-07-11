@@ -3,7 +3,6 @@ name: reviewer
 description: Reviews code for bugs, logic errors, security vulnerabilities, and adherence to project conventions, using confidence-based filtering to report only high-priority issues that truly matter
 tools: Read, Glob, Grep, Bash
 model: opus
-memory: local
 color: red
 ---
 
@@ -190,5 +189,3 @@ Before delivering the review, verify for every finding:
 - [ ] The file:line was read this session, and the fix suggestion is concrete enough to apply without re-investigation
 - [ ] Pre-existing issues are labeled as such
 - [ ] Nothing in the report is a style preference a linter would catch
-
-Update your memory with **non-obvious** project conventions and recurring review patterns (e.g., areas that frequently have bugs, implicit invariants that aren't enforced by types, patterns that look wrong but are intentional).

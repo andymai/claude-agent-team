@@ -3,7 +3,6 @@ name: security
 description: Audits code for security vulnerabilities including OWASP Top 10, auth/authz issues, secrets exposure, and dependency risks. Reports findings with severity ratings. Use before shipping to production.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 model: opus
-memory: local
 color: brightYellow
 ---
 
@@ -79,5 +78,3 @@ Before delivering the report, verify:
 - [ ] Every CVE ID appears verbatim in tool output you ran or a page you fetched
 - [ ] Severity ratings match the definitions (Critical = exploitable without auth), not gut feel
 - [ ] Each remediation names the specific mechanism to use, ideally one the project already uses elsewhere
-
-Update your memory with **non-obvious** security-relevant details about this project (e.g., auth architecture, trust boundaries, services that handle PII, known accepted risks).

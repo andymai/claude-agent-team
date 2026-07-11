@@ -1,6 +1,5 @@
 ---
 description: Run the project's local quality gate (fmt + lint + types + tests)
-memory: local
 ---
 
 Run the project's local quality gate — the same checks pre-commit/pre-push hooks (and CI) would run. Auto-detect what to invoke; don't hardcode a tool.
@@ -59,4 +58,3 @@ Concise summary: which checks ran, which passed, which failed. If everything pas
 
 - Don't invent commands. If the project doesn't have a documented gate, say so and propose one rather than running an ad-hoc combination.
 - The goal is parity with CI. If a check passes locally but CI uses a stricter flag (e.g. `--all-features`), surface that gap.
-- Save the detected gate command in your memory so the next run skips detection.

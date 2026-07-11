@@ -1,6 +1,5 @@
 ---
 description: Generate a PR title and description from branch changes
-memory: local
 ---
 
 Generate a pull request title and a structured description from the current branch.
@@ -80,5 +79,3 @@ Print the title on one line, then the description. Do not create the PR — just
 - "What does not change": find adjacent surfaces in the diff — types/interfaces near the changed files, sibling functions in the same module, callers of changed functions. If any of those would be a reasonable place for the change to bleed but didn't, name them as not-changed.
 - "Test plan" automated items: scan the diff for changes to test files; mention them. Run the project's check command (`/check` convention) and report its output. If no test changes were made for a code change that should have them, mark a `[ ]` item explicitly: "needs test for X — followup".
 - "Test plan" manual items: derive from the change surface. UI changes → "visual check at <route>". State changes → "<flow> end-to-end". Schema changes → "verify migration on staging".
-
-Remember the repo's PR conventions in your memory: which sections it actually uses, how detailed the bullets get, which check commands its CI runs, scope vocabulary, and any project-specific sections (e.g., "Breaking changes", "Localization impact", "Migration notes") to include for future runs.

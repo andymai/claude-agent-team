@@ -45,14 +45,13 @@ description: <one paragraph>    # required, used by Claude to decide when to inv
 tools: <comma-separated>        # required, see allowed tools below
 disallowedTools: <list>         # optional hard-deny — see caveat below before using
 model: opus | sonnet | haiku    # required, see model selection below
-memory: local                   # required, project-scoped memory (never `global`)
 color: <ANSI color>             # required, see palette below
 ---
 ```
 
 **Allowed tool names**: `Read`, `Write`, `Edit`, `Bash`, `Glob`, `Grep`, `WebSearch`, `WebFetch`. (Don't list tools the agent never uses — the description should make use of every listed tool.)
 
-**Read-only agents are enforced by omission, not `disallowedTools`.** The `tools:` list is an allowlist, so leaving out `Write`/`Edit` already makes an agent read-only for its normal work. Do **not** add `disallowedTools: Write, Edit` on top: `memory: local` works by auto-enabling Read/Write/Edit for the agent's memory directory (per the subagents docs), and the precedence of a `disallowedTools` hard-deny over that auto-enable is undocumented — it may silently break memory persistence. Reserve `disallowedTools` for blocking a tool that would otherwise be *inherited* when no `tools:` allowlist is set.
+**Read-only agents are enforced by omission, not `disallowedTools`.** The `tools:` list is an allowlist, so leaving out `Write`/`Edit` already makes an agent read-only. Don't add `disallowedTools: Write, Edit` on top — it's redundant. Reserve `disallowedTools` for blocking a tool that would otherwise be *inherited* when no `tools:` allowlist is set.
 
 **Model selection**:
 - `opus` — reasoning-heavy work: planning, architecture, debugging, security, review, research, gap-finding.
@@ -74,7 +73,6 @@ Avoid duplicating colors across agents that the user might invoke in the same wo
 ```yaml
 ---
 description: <one short line>    # required
-memory: local                    # required
 ---
 ```
 
@@ -85,7 +83,7 @@ Commands receive the raw user prompt via `{{RAW_PROMPT}}`. Document the supporte
 ### Shape 1: Adding a new agent
 1. Identify the *meta-pattern* you're encoding (not the specific repo it came from). Confirm it generalizes.
 2. Create `agents/<name>.md` with frontmatter from the schema above.
-3. Body structure: one-line role statement → core approach → 3-7 numbered steps or checklists → constraints → output guidance → memory update guidance.
+3. Body structure: one-line role statement → core approach → 3-7 numbered steps or checklists → constraints → output guidance.
 4. Match the prose style of existing agents (terse, second-person, action-oriented).
 5. Update `README.md` agent table and any workflow recipes that reference the new agent.
 6. Test it: `./scripts/install.sh --dry-run` should show it would install.
@@ -93,8 +91,7 @@ Commands receive the raw user prompt via `{{RAW_PROMPT}}`. Document the supporte
 ### Shape 2: Upgrading an existing agent
 1. Read the agent in full first — don't patch what you haven't understood.
 2. Add new sections *after* existing ones where possible; don't reorder unless the existing structure is broken.
-3. Preserve the "memory update" guidance at the end of every agent.
-4. Run `git diff agents/<name>.md` and re-read — agent prompts are load-bearing; a typo in the rules ships to every session.
+3. Run `git diff agents/<name>.md` and re-read — agent prompts are load-bearing; a typo in the rules ships to every session.
 
 ### Shape 3: Adding a slash command
 1. Decide if it's worth a command vs. an agent. Commands are good for short, parameterized operations the user runs often (commit, branch, worktree). Agents are good for open-ended reasoning that benefits from a system prompt.

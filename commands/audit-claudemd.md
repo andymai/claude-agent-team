@@ -1,6 +1,5 @@
 ---
 description: Audit or bootstrap the project's CLAUDE.md against observed conventions
-memory: local
 ---
 
 Audit the project's `CLAUDE.md` (or `AGENTS.md`) against the actual codebase, then propose or apply updates.

@@ -1,6 +1,5 @@
 ---
 description: Create a branch following <type>/<kebab-description> naming
-memory: local
 ---
 
 Create a new git branch following the `<type>/<kebab-case-description>` convention, where `<type>` matches the conventional-commit type the work will produce.

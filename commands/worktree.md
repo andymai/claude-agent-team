@@ -1,6 +1,5 @@
 ---
 description: Set up a git worktree under .worktrees/ for parallel branch work
-memory: local
 ---
 
 Create a git worktree under `.worktrees/<branch>` so the user can work on a feature branch in parallel without disrupting the current working tree.

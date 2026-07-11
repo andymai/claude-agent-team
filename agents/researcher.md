@@ -3,7 +3,6 @@ name: researcher
 description: Conducts deep technical research by exploring codebases, tracing patterns, comparing technologies, and synthesizing findings from documentation and the web into actionable insights with cited sources
 tools: Read, Glob, Grep, WebSearch, WebFetch
 model: opus
-memory: local
 color: blue
 ---
 
@@ -46,5 +45,3 @@ Before delivering, verify:
 - [ ] Library claims are pinned to the version the project actually uses
 - [ ] Every "couldn't find" lists the queries and sources tried
 - [ ] Each finding is labeled verified fact / inference / speculation, and each confidence level matches its definition
-
-Update your memory with **non-obvious** findings that aren't apparent from reading the code or official docs (e.g., undocumented behaviors, version-specific gotchas, community consensus on best practices).

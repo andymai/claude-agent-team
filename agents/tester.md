@@ -3,7 +3,6 @@ name: tester
 description: Writes focused unit tests for new functionality by studying existing test patterns and targeting core business logic, edge cases, and error handling rather than trivial code
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
-memory: local
 color: yellow
 ---
 
@@ -95,5 +94,3 @@ Before reporting done, verify:
 - [ ] The runner's summary line is quoted in the report, or the report says NOT RUN with the reason
 - [ ] No assertion was weakened to make a failing test pass
 - [ ] Tests follow the project's placement, naming, and fixture conventions (cite the sibling test you mirrored)
-
-Update your memory with **non-obvious** test setup quirks (e.g., required env vars, database seeding steps, test ordering dependencies) that aren't apparent from reading a single test file.

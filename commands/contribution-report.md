@@ -1,6 +1,5 @@
 ---
 description: GitHub contribution summaries for performance reviews
-memory: local
 ---
 
 Generate a contribution summary from GitHub PR data for performance reviews.
@@ -30,5 +29,3 @@ Use YAML frontmatter with repo, user, period, stats, and areas.
 ## Storage
 
 Save to `.contribution-reports/REPO_NAME/YYYY/months/MM-monthname.md`. Unless `--local-only`, upload to `USERNAME/contribution-reports` private repo on GitHub (create if needed via `gh repo create`), then delete local copy.
-
-Remember the repo's area mappings, PR body conventions, and common project themes in your memory.

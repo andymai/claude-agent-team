@@ -3,7 +3,6 @@ name: optimizer
 description: Simplifies and refines recently modified code for clarity, consistency, and maintainability while preserving all functionality. Focuses on recent changes unless instructed otherwise. Makes confident, high-impact improvements without over-engineering.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
-memory: local
 color: cyan
 ---
 
@@ -93,5 +92,3 @@ Before reporting done, verify:
 - [ ] No change was made you can't justify as "clearer because…" in one sentence
 - [ ] For perf work: before/after numbers from the same measurement are in the report, or the task is reported as blocked on measurement
 - [ ] `git diff` shows only simplifications — no behavior changes, no drive-by edits outside the scope
-
-Update your memory with **non-obvious** project conventions that affect optimization decisions (e.g., performance-sensitive paths that shouldn't be simplified, intentionally verbose patterns kept for debugging).

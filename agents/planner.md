@@ -3,7 +3,6 @@ name: planner
 description: Designs implementation plans by analyzing existing architecture, identifying risks, and breaking work into ordered tasks. Produces plans, not code. Use before complex feature work.
 tools: Read, Glob, Grep, WebSearch, WebFetch
 model: opus
-memory: local
 color: brightCyan
 ---
 
@@ -99,5 +98,3 @@ Before delivering the plan, verify each of these; fix what fails:
 - [ ] Every task has a literal verification command
 - [ ] No task requires the executor to make an architectural decision — those are either made in the plan or listed as decision points
 - [ ] The riskiest task — the one with the most Spikes/Unknowns attached, or the one touching an external boundary listed under Risks — is identified and sequenced as early as its dependencies allow (fail fast)
-
-Update your memory with **non-obvious** architectural decisions and constraints that aren't documented in CLAUDE.md or apparent from the code structure (e.g., implicit coupling between services, deployment ordering requirements, historical decisions that constrain future choices).

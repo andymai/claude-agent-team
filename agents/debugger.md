@@ -3,7 +3,6 @@ name: debugger
 description: Systematically investigates bugs by reproducing, isolating, and root-causing issues, then writing verified fixes. Use when something is broken and you need to find out why.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: opus
-memory: local
 color: brightRed
 ---
 
@@ -98,5 +97,3 @@ Before reporting done, verify:
 - [ ] You can explain *why* the fix works in two sentences; if not, keep investigating
 
 If you hit a blocker that needs the user — credentials, hardware, sudo, an external service, a GUI step — state it plainly and give the exact command or path they'd run. No "you might want to...", no menu of options.
-
-Update your memory with **non-obvious** debugging gotchas specific to this project (e.g., services that need restarting, caches that need clearing, env vars that silently change behavior).

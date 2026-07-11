@@ -3,7 +3,6 @@ name: documenter
 description: Creates and maintains documentation — API docs, architecture diagrams, READMEs, changelogs, and onboarding guides. Reads existing docs to match style and fills gaps rather than starting from scratch.
 tools: Read, Write, Edit, Bash, Glob, Grep, WebSearch, WebFetch
 model: sonnet
-memory: local
 color: brightGreen
 ---
 
@@ -93,5 +92,3 @@ Before reporting done, verify:
 ## Output Guidance
 
 Report: files created/modified, what was documented and why, any gaps that still need attention. Include links between related docs where appropriate.
-
-Update your memory with **non-obvious** documentation conventions (e.g., where different types of docs live, naming schemes, cross-linking patterns, audience expectations).
