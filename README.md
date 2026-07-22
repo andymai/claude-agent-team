@@ -4,7 +4,7 @@
 
 A set of Claude Code subagents (planner, engineer, debugger, reviewer, and more) installed via `./scripts/install.sh`, designed to be composed into workflow recipes.
 
-[Agents](#agents) · [Unity Skills](#unity-skills) · [Workflow Recipes](#workflow-recipes) · [Quick Start](#quick-start)
+[Agents](#agents) · [Workflow Skills](#workflow-skills) · [Unity Skills](#unity-skills) · [Workflow Recipes](#workflow-recipes) · [Quick Start](#quick-start)
 
 </div>
 
@@ -74,6 +74,14 @@ documenter (standalone or after feature work)
 ```
 
 Each agent works autonomously and returns results. Claude Code decides which agent to invoke next.
+
+## Workflow Skills
+
+General-purpose [Agent Skills](https://code.claude.com/docs/en/skills) that aren't tied to a specific stack, installed by `./scripts/install.sh` into `~/.claude/skills/` and available in every project. Like all skills they load progressively — only the `description` stays in context until the skill triggers.
+
+| Skill            | Triggers on                                                   | What it does |
+| ---------------- | ------------------------------------------------------------- | ------------ |
+| **shepherd-pr**  | "shepherd the PR", "drive this PR to green", "clean up the PR" | Autonomous loop that drives the current branch's PR to a clean state — resolves review comments, fixes check-run findings (including neutral-status reviewers the CI rollup hides), and waits on CI — then reassigns and reports. Repo-agnostic: detects Graphite vs plain git and derives the GitHub login at runtime |
 
 ## Unity Skills
 
