@@ -1,0 +1,24 @@
+README.md
+  s_412ad77b5c70fe::t_6da3c229949ea1 7
+  s_412ad77b5c70fe::t_306f5bddb3a62f 78-85
+.claude-plugin/plugin.json
+  s_412ad77b5c70fe::t_016af1a96b4ec8 3
+skills/shepherd-pr/SKILL.md
+  s_412ad77b5c70fe::t_1c2672cffdcd13 1-196
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "4305cc764556d8a83a7acc452c137e1facff03d1",
+  "prompts": {},
+  "sessions": {
+    "s_412ad77b5c70fe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "77c3df52-fc96-408d-91af-cb21f141030b",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
