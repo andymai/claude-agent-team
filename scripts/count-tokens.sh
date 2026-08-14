@@ -78,10 +78,15 @@ TOKENS=$(echo "$BODY" | jq -r '.input_tokens')
 
 mkdir -p "$(dirname "$CACHE_FILE")"
 if [ ! -f "$CACHE_FILE" ]; then echo '{}' > "$CACHE_FILE"; fi
-# Write to a temp file first: redirecting jq's output straight to $CACHE_FILE
-# would truncate it before jq finishes reading the same path as input.
-jq --arg hash "$FILE_HASH" --arg tokens "$TOKENS" \
-  '.[$hash] = ($tokens | tonumber)' \
-  "$CACHE_FILE" > "$CACHE_FILE.tmp" && mv "$CACHE_FILE.tmp" "$CACHE_FILE"
+# jq cannot write to its own input path: the redirect would truncate the cache
+# before jq reads it. The temp name is randomized rather than fixed because the
+# cache is shared, so concurrent writers must not collide on it.
+TMP_FILE=$(mktemp "${CACHE_FILE}.XXXXXX")
+if jq --arg hash "$FILE_HASH" --arg tokens "$TOKENS" \
+  '.[$hash] = ($tokens | tonumber)' "$CACHE_FILE" > "$TMP_FILE"; then
+  mv "$TMP_FILE" "$CACHE_FILE"
+else
+  rm -f "$TMP_FILE"
+fi
 
 echo "$TOKENS"
