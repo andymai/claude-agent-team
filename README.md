@@ -2,22 +2,30 @@
 
 # Claude Agent Team
 
-A set of Claude Code subagents (planner, engineer, debugger, reviewer, and more) installed via `./scripts/install.sh`, designed to be composed into workflow recipes.
+A set of Claude Code subagents (planner, engineer, debugger, reviewer, and more), shipped as a plugin and designed to be composed into workflow recipes.
 
-[Agents](#agents) · [Workflow Skills](#workflow-skills) · [Unity Skills](#unity-skills) · [Workflow Recipes](#workflow-recipes) · [Quick Start](#quick-start)
+[Agents](#agents) · [Workflow Skills](#workflow-skills) · [Workflow Recipes](#workflow-recipes) · [Quick Start](#quick-start)
 
 </div>
 
 ---
 
-This repo contains agent definitions and slash commands for [Claude Code](https://docs.claude.com/en/docs/claude-code). Running `./scripts/install.sh` copies them into `~/.claude/`, where Claude Code picks them up as user-scoped subagents available in every project.
+This repo is a [Claude Code plugin](https://code.claude.com/docs/en/plugins) containing agent definitions, slash commands, and workflow skills. It doubles as its own marketplace, so installing it registers the agents in every project you open.
 
 ## Quick Start
 
-1. **Install**: [Claude Code](https://docs.claude.com/en/docs/claude-code) + Anthropic API key
-2. **Run**: `./scripts/install.sh`
+Requires [Claude Code](https://docs.claude.com/en/docs/claude-code). In any session:
 
-Tracks checksums so re-running safely updates changed files without clobbering local edits. See `./scripts/install.sh --help` for `--status`, `--uninstall`, `--dry-run`, and `--verbose`.
+```
+/plugin marketplace add andymai/claude-agent-team
+/plugin install team@claude-agent-team
+```
+
+To pull later changes, refresh the catalog with `/plugin marketplace update claude-agent-team`, then update from a shell with `claude plugin update team@claude-agent-team` (or pick Update from the `/plugin` menu). Remove everything with `/plugin uninstall team`.
+
+Components are namespaced by the plugin name: commands and skills are `/team:commit`, `/team:shepherd-pr`, and so on; agents are `team:engineer`, `team:reviewer`, and so on.
+
+To work on the plugin itself, load a clone directly for one session: `claude --plugin-dir /path/to/claude-agent-team`. Installing reads from a copy in the plugin cache, so edits to a clone don't reach an installed copy.
 
 ## Agents
 
@@ -40,11 +48,11 @@ Tracks checksums so re-running safely updates changed files without clobbering l
 
 To set expectations, this collection deliberately does not:
 
-- **Replace or install Claude Code** — assumes Claude Code is already installed and authenticated; this repo only adds agent definitions on top of it.
-- **Provide a runtime orchestration framework** — agents are static markdown definitions read by Claude Code; there is no daemon, scheduler, or inter-agent message bus.
-- **Make workflow recipes executable** — the recipes under [Workflow Recipes](#workflow-recipes) are documentation suggestions showing a useful invocation order, not automated pipelines you can run with a single command.
-- **Bootstrap new projects** — the installer copies files into `~/.claude/` for use in existing projects; it does not scaffold repos, generate boilerplate, or configure CI.
-- **Work outside Claude Code** — the agent and slash-command formats are specific to Claude Code's subagent protocol and are not compatible with other LLM tooling without modification.
+- **Replace or install Claude Code**: assumes Claude Code is already installed and authenticated; this repo only adds agent definitions on top of it.
+- **Provide a runtime orchestration framework**: agents are static markdown definitions read by Claude Code; there is no daemon, scheduler, or inter-agent message bus.
+- **Make workflow recipes executable**: the recipes under [Workflow Recipes](#workflow-recipes) are documentation suggestions showing a useful invocation order, not automated pipelines you can run with a single command.
+- **Bootstrap new projects**: the plugin adds agents and commands for use in existing projects; it does not scaffold repos, generate boilerplate, or configure CI.
+- **Work outside Claude Code**: the agent and slash-command formats are specific to Claude Code's subagent protocol and are not compatible with other LLM tooling without modification.
 
 ## Workflow Recipes
 
@@ -77,47 +85,28 @@ Each agent works autonomously and returns results. Claude Code decides which age
 
 ## Workflow Skills
 
-General-purpose [Agent Skills](https://code.claude.com/docs/en/skills) that aren't tied to a specific stack, installed by `./scripts/install.sh` into `~/.claude/skills/` and available in every project. Like all skills they load progressively — only the `description` stays in context until the skill triggers.
+General-purpose [Agent Skills](https://code.claude.com/docs/en/skills) that aren't tied to a specific stack, available in every project once the plugin is installed. Like all skills they load progressively: only the `description` stays in context until the skill triggers.
 
 | Skill            | Triggers on                                                   | What it does |
 | ---------------- | ------------------------------------------------------------- | ------------ |
 | **shepherd-pr**  | "shepherd the PR", "drive this PR to green", "clean up the PR" | Autonomous loop that drives the current branch's PR to a clean state — resolves review comments, fixes check-run findings (including neutral-status reviewers the CI rollup hides), and waits on CI — then reassigns and reports. Repo-agnostic: detects Graphite vs plain git and derives the GitHub login at runtime |
 
-## Unity Skills
-
-A set of [Agent Skills](https://code.claude.com/docs/en/skills) for Unity 6 (URP) game development, packaged via `.claude-plugin/plugin.json` and also installed by `./scripts/install.sh` into `~/.claude/skills/`. Skills load progressively — only each skill's `description` is always in context; the body and `reference/` files load when the skill triggers — so they add deep Unity knowledge without bloating the context window.
-
-| Skill                  | Triggers on                                                  | What it does |
-| ---------------------- | ----------------------------------------------------------- | ------------ |
-| **unity-csharp**       | editing `*.cs`, adding components/ScriptableObjects          | Performance-safe C#, MonoBehaviour lifecycle, serialization, Input System, and a ScriptableObject + event-channel default architecture (conforms to existing patterns when present) |
-| **unity-editor-loop**  | after edits, exceptions, or visual checks                    | The MCP feedback loop: recompile → read console → capture Game/Scene view → debug. Degrades to CLI batchmode when `unity-mcp` is absent |
-| **unity-testing**      | adding/running tests, `*Tests.cs`                            | Unity Test Framework EditMode/PlayMode, headless `-runTests`, NUnit XML parsing, plus visual verification so "tests pass" means the game works |
-| **unity-asset-safety** | touching `*.meta` / `*.unity` / `*.prefab` / `*.asset`        | Guardrails: `.meta`/GUID discipline, never hand-edit scene/prefab YAML, YAMLMerge, `.gitignore`/LFS hygiene |
-| **unity-performance**  | stutter, GC spikes, "optimize"                               | Profiler-guided workflow: measure → fix dominant cost → re-measure, with allocation-free patterns |
-| **unity-ui-toolkit**   | editing `*.uxml` / `*.uss`                                   | UXML/USS, UQuery, data binding, runtime-vs-Editor UI split |
-| **unity-build**        | `/unity-build` (command-only, never auto-runs)               | Headless player builds, Addressables, GameCI pipelines |
-
-`templates/unity-CLAUDE.md` is a drop-in `CLAUDE.md` for your Unity project root — fill in the version/pipeline/input backend once and every skill inherits those facts plus the hard "don't corrupt the project" rules. The Editor-driving skills target this environment's `unity-mcp` server (`Unity_RunCommand`, `Unity_GetConsoleLogs`, `Unity_Camera_Capture`, scene captures) and fall back to CLI when it isn't connected.
-
 ## Slash Commands
 
-| Command                | Description                                                  |
-| ---------------------- | ------------------------------------------------------------ |
-| `/audit-claudemd`      | Audit or bootstrap the project's CLAUDE.md against observed conventions |
-| `/branch`              | Create a branch following `<type>/<kebab-description>` naming |
-| `/check`               | Run the project's local quality gate (auto-detected)          |
-| `/commit`              | Create a conventional commit from working tree changes        |
-| `/contribution-report` | GitHub contribution summaries for performance reviews         |
-| `/pr-description`      | Generate PR title and description from branch changes         |
-| `/upgrade-dep`         | Upgrade a dependency and fix breaking changes                 |
-| `/worktree`            | Set up a git worktree under `.worktrees/` for parallel work   |
+| Command                     | Description                                                  |
+| --------------------------- | ------------------------------------------------------------ |
+| `/team:audit-claudemd`      | Audit or bootstrap the project's CLAUDE.md against observed conventions |
+| `/team:branch`              | Create a branch following `<type>/<kebab-description>` naming |
+| `/team:check`               | Run the project's local quality gate (auto-detected)          |
+| `/team:commit`              | Create a conventional commit from working tree changes        |
+| `/team:contribution-report` | GitHub contribution summaries for performance reviews         |
+| `/team:pr-description`      | Generate PR title and description from branch changes         |
+| `/team:upgrade-dep`         | Upgrade a dependency and fix breaking changes                 |
+| `/team:worktree`            | Set up a git worktree under `.worktrees/` for parallel work   |
 
 ## Scripts
 
-| Script                    | Description                                                                  |
-| ------------------------- | ---------------------------------------------------------------------------- |
-| `scripts/install.sh`      | Install/update/uninstall agents, commands, scripts, and skills with checksum-based conflict detection |
-| `scripts/count-tokens.sh` | Token counting with Anthropic API (caches results, falls back to estimation)       |
+`scripts/count-tokens.sh` ships with the plugin and is called by the **context-auditor** agent via `${CLAUDE_PLUGIN_ROOT}`. It counts tokens with the Anthropic API when `ANTHROPIC_API_KEY` is set, caches results, and falls back to a character-based estimate otherwise.
 
 ## Contributing
 
