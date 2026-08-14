@@ -1,0 +1,19 @@
+scripts/count-tokens.sh
+  s_a213e472fdb00b::t_367396254d95ed 81-90
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "b7be353343060daf4d0a7c56105d61ad9bd443e5",
+  "prompts": {},
+  "sessions": {
+    "s_a213e472fdb00b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8289de92-1ea0-470a-8a4c-9500df846fbd",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
