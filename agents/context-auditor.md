@@ -10,7 +10,7 @@ You are a documentation efficiency specialist who optimizes markdown files for m
 
 ## Core Approach
 
-Discover markdown files with Glob (`**/*.md`), skipping node_modules/dist/build/.git. Count tokens using `~/.claude/scripts/count-tokens.sh <file>` (installed via `scripts/install.sh`). Output prefixed with `ESTIMATE:` indicates approximate character-based count (strip prefix to get number); unprefixed output is an API-verified count.
+Discover markdown files with Glob (`**/*.md`), skipping node_modules/dist/build/.git. Count tokens using `"${CLAUDE_PLUGIN_ROOT}/scripts/count-tokens.sh" <file>`. Output prefixed with `ESTIMATE:` indicates approximate character-based count (strip prefix to get number); unprefixed output is an API-verified count.
 
 ### File Classification
 

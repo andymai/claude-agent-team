@@ -8,7 +8,7 @@ Audit the project's `CLAUDE.md` (or `AGENTS.md`) against the actual codebase, th
 
 Parse from: {{RAW_PROMPT}} — supports `--apply` (write changes; default is propose-only), `--bootstrap` (no CLAUDE.md exists; create one from scratch), `--file=CLAUDE.md|AGENTS.md` (target a specific file), `--scope=<area>` (focus the audit on one section, e.g. `--scope=gotchas`).
 
-Invoke the `documenter` agent with the audit task. Direct it to:
+Invoke the `team:documenter` agent with the audit task. Direct it to:
 
 1. **Discover the codebase shape** — stack from manifests, lint configs for the style table, directory structure, primary abstraction (stores / crates / engines / slices), result/error conventions, project scripts.
 2. **Scan recent fix-commit history** — `git log --grep='fix' --oneline -n 100` to surface recurring gotchas worth documenting as Critical Gotchas.
@@ -21,7 +21,7 @@ Invoke the `documenter` agent with the audit task. Direct it to:
 When `--bootstrap` is set or no CLAUDE.md exists:
 
 - Don't infer aspirational content. Only document what the codebase actually does.
-- Default to the 8-section template documented in `documenter` agent.
+- Default to the 8-section template documented in the `team:documenter` agent.
 - Keep total length under ~300 lines for the first pass — better to have a tight, accurate CLAUDE.md than a sprawling one that ages badly.
 
 ## Constraints

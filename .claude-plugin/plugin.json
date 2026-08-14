@@ -1,7 +1,8 @@
 {
-  "name": "claude-agent-team",
-  "description": "Subagents, slash commands, and skills for Claude Code. Includes workflow skills (e.g. shepherd-pr) and Unity game-development skills covering C# architecture, the Editor MCP feedback loop, testing, asset/serialization safety, performance, UI Toolkit, and builds.",
-  "version": "0.1.0",
+  "name": "team",
+  "displayName": "Claude Agent Team",
+  "description": "Subagents, slash commands, and workflow skills for Claude Code: a planner/engineer/debugger/reviewer team plus commands for commits, branches, worktrees, and PR shepherding.",
+  "version": "0.2.0",
   "author": {
     "name": "Andy Aragon"
   }

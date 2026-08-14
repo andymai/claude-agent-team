@@ -4,8 +4,10 @@ A playbook for AI agents working on `claude-agent-team` itself. CLAUDE.md (when 
 
 ## At a glance
 
-- **What this repo is**: a curated bundle of Claude Code agent definitions (`agents/*.md`), slash commands (`commands/*.md`), and Unity skills (`skills/*/SKILL.md`), installed into `~/.claude/` via `scripts/install.sh`.
-- **Distribution model**: agents, commands, and skills ship to `~/.claude/agents/`, `~/.claude/commands/`, and `~/.claude/skills/` and run **across every project the user touches**. They must be portable (skills are Unity-scoped by design, but must be portable across Unity projects).
+- **What this repo is**: a Claude Code plugin bundling agent definitions (`agents/*.md`), slash commands (`commands/*.md`), and workflow skills (`skills/*/SKILL.md`). It doubles as its own marketplace: `.claude-plugin/marketplace.json` lists one plugin, `team`, with `"source": "./"`.
+- **Distribution model**: users install with `/plugin marketplace add andymai/claude-agent-team` then `/plugin install team@claude-agent-team`. Claude Code auto-discovers `agents/`, `commands/`, and `skills/` at the plugin root, so adding a file is all it takes to ship it. Components are namespaced by the plugin name (`/team:commit`, `team:engineer`).
+- **Everything here runs across every project the user touches.** Agents, commands, and skills must be portable: stack-agnostic and free of repo-specific assumptions.
+- **Paths inside agent and skill bodies**: reference bundled files through `${CLAUDE_PLUGIN_ROOT}` (it resolves anywhere in agent and skill content), never through `~/.claude/...`. The install path is a versioned cache directory outside the repo, so a hardcoded path is never correct.
 - **The hard rule**: agents must not encode project-specific conventions. Read the local project's `CLAUDE.md`/`AGENTS.md` and follow *that*.
 
 ## The Generalization Rule
@@ -86,7 +88,7 @@ Commands receive the raw user prompt via `{{RAW_PROMPT}}`. Document the supporte
 3. Body structure: one-line role statement → core approach → 3-7 numbered steps or checklists → constraints → output guidance.
 4. Match the prose style of existing agents (terse, second-person, action-oriented).
 5. Update `README.md` agent table and any workflow recipes that reference the new agent.
-6. Test it: `./scripts/install.sh --dry-run` should show it would install.
+6. Test it: start a session with `claude --plugin-dir <repo path>` and confirm the agent appears as `team:<name>`. Don't test through an installed copy; installing copies the repo into the plugin cache, so your edits won't be in it.
 
 ### Shape 2: Upgrading an existing agent
 1. Read the agent in full first — don't patch what you haven't understood.
@@ -98,11 +100,19 @@ Commands receive the raw user prompt via `{{RAW_PROMPT}}`. Document the supporte
 2. Create `commands/<name>.md`. The body should document supported flags up front.
 3. Always honor `{{RAW_PROMPT}}` for arg parsing.
 4. Reference, don't duplicate, conventions documented elsewhere — link to the relevant AGENTS.md section.
+5. Update the `README.md` slash-command table, writing the command with its `/team:` prefix.
 
-### Shape 4: Repo hygiene / docs
+### Shape 4: Adding a workflow skill
+1. Decide skill vs. command. Skills are model-triggered from their `description`, so they fit multi-step procedures Claude should recognize and start on its own. Commands are for operations the user invokes deliberately.
+2. Create `skills/<name>/SKILL.md`. The `description` is the only part always in context, so spend it on trigger conditions, not on explaining the procedure.
+3. Put long reference material in `skills/<name>/reference/*.md`. It loads only once the skill fires, so the body can be thorough without costing context.
+4. Keep it portable. A skill ships to every project the user opens, so detect the project's tooling instead of assuming it.
+5. Update the `README.md` Workflow Skills table.
+
+### Shape 5: Repo hygiene / docs
 1. README.md is the human-facing pitch; AGENTS.md is the agent playbook. Don't mix audiences.
-2. The install script auto-discovers files in `agents/`, `commands/`, `scripts/`, and `skills/`. New files install automatically — no install.sh edit needed.
-3. Test installer changes with `./scripts/install.sh --dry-run` before committing.
+2. Claude Code auto-discovers `agents/`, `commands/`, and `skills/` at the plugin root. New files ship automatically, with no manifest edit needed.
+3. **Bump `version` in `.claude-plugin/plugin.json` on every change that should reach users.** `plugin.json` pins an explicit version, so `/plugin update` compares against it and reports "already at the latest version" for any commit that didn't bump it. An unbumped change ships to nobody.
 
 ## Decision frameworks
 
@@ -112,6 +122,7 @@ Commands receive the raw user prompt via `{{RAW_PROMPT}}`. Document the supporte
 
 ## Conventions
 
+- **Cross-references carry the `team:` prefix.** When a command or agent tells the executor to *invoke* another component in this bundle, name it `team:documenter` or `/team:check`, never bare. A bare name can resolve to an unrelated user-scoped component or to nothing at all. Descriptive prose about scope boundaries ("that's the reviewer's job") stays unprefixed, and Claude Code built-ins like `/plugin` and `/reload-plugins` are never prefixed.
 - **Commits**: conventional commits (`feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `ci`, `build`, `perf`, `style`, `revert`). Scope is optional and short.
 - **Branch naming**: `<type>/<kebab-description>` matching the commit type.
 - **One feature per PR.** Large agent rewrites that touch unrelated agents should be split.
