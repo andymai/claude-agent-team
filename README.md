@@ -90,6 +90,7 @@ General-purpose [Agent Skills](https://code.claude.com/docs/en/skills) that aren
 | Skill            | Triggers on                                                   | What it does |
 | ---------------- | ------------------------------------------------------------- | ------------ |
 | **shepherd-pr**  | "shepherd the PR", "drive this PR to green", "clean up the PR" | Autonomous loop that drives the current branch's PR to a clean state — resolves review comments, fixes check-run findings (including neutral-status reviewers the CI rollup hides), and waits on CI — then reassigns and reports. Repo-agnostic: detects Graphite vs plain git and derives the GitHub login at runtime |
+| **codex-write**  | the deliverable is prose another person will read: a design doc, proposal, wiki page, Slack message, PR body or reply, review reply, ticket, email | Writes through the OpenAI Codex CLI instead of directly. You research and fill a brief (facts with sources, decisions with reasons, the user's house rules), `run.sh` calls `codex exec` non-interactively and checks the draft for em or en dashes, you fact-check the draft against the brief, and nothing is published until the user has seen it. Requires the `codex` CLI on PATH |
 
 ## Slash Commands
 
@@ -106,7 +107,9 @@ General-purpose [Agent Skills](https://code.claude.com/docs/en/skills) that aren
 
 ## Scripts
 
-`scripts/count-tokens.sh` ships with the plugin and is called by the **context-auditor** agent via `${CLAUDE_PLUGIN_ROOT}`. It counts tokens with the Anthropic API when `ANTHROPIC_API_KEY` is set, caches results, and falls back to a character-based estimate otherwise.
+`scripts/count-tokens.sh` ships with the plugin and is called by the **context-auditor** agent via `${CLAUDE_PLUGIN_ROOT}`.
+
+`skills/codex-write/scripts/run.sh` and `check.py` ship with the **codex-write** skill, also reached via `${CLAUDE_PLUGIN_ROOT}`. `run.sh` wraps `codex exec` and writes only the final message; `check.py` fails a draft only on em or en dashes and reports its word count. It counts tokens with the Anthropic API when `ANTHROPIC_API_KEY` is set, caches results, and falls back to a character-based estimate otherwise.
 
 ## Contributing
 
