@@ -1,0 +1,31 @@
+.claude-plugin/plugin.json
+  s_6a54529197274d::t_daaba5dce732e8 5
+README.md
+  s_6a54529197274d::t_5ea2aec038c094 93,110-112
+skills/codex-write/SKILL.md
+  s_6a54529197274d::t_72e5e3ba7e08b9 1-77
+skills/codex-write/reference/brief-template.md
+  s_6a54529197274d::t_8cb4b18fb666ce 1-37
+skills/codex-write/reference/house-rules.md
+  s_6a54529197274d::t_be6d14157827f3 1-21
+skills/codex-write/scripts/check.py
+  s_6a54529197274d::t_b73cb4c0bf40ed 1-68
+skills/codex-write/scripts/run.sh
+  s_6a54529197274d::t_95aba461c87df4 1-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ba82e5cb5191f315d1e13dac88ed6f92d0b0c5bf",
+  "prompts": {},
+  "sessions": {
+    "s_6a54529197274d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bbe63953-b82e-4e76-82ab-342fe9f75745",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
