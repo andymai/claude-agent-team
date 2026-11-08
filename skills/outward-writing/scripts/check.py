@@ -7,14 +7,17 @@ DASHES = {"—": "em dash", "–": "en dash"}
 MAX_SENTENCE_WORDS = 25
 MAX_PARAGRAPH_SENTENCES = 6
 
-FENCE = re.compile(r"^\s*(```|~~~)")
+FENCE = re.compile(r"^\s*(`{3,}|~{3,})")
+SETEXT_UNDERLINE = re.compile(r"^\s*(=+|-{2,})\s*$")
 SKIP_LINE = re.compile(r"^\s*(#{1,6}\s|\||>|(-{3,}|\*{3,}|_{3,})\s*$|<[^>]+>\s*$)")
 LIST_ITEM = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s+(?:\[[ xX]\]\s+)?")
 ABBREVIATION = re.compile(r"\b(e\.g|i\.e|vs|etc|cf|approx|incl|a\.m|p\.m)\.", re.I)
 SENTENCE_BREAK = re.compile(r"(?<=[.!?])[\"')\]”’]*\s+")
 HTML_COMMENT = re.compile(r"<!--.*?-->", re.S)
 QUOTE_LINE = re.compile(r"^\s*>")
-INLINE_CODE = re.compile(r"`[^`]*`")
+INLINE_CODE = re.compile(r"(`+).+?\1")
+QUOTED = re.compile(r'"[^"\n]*"|“[^”\n]*”')
+URL = re.compile(r"https?://\S*[^\s.,;:!?)\]'\"”’]")
 WORD = re.compile(r"[A-Za-z0-9]")
 
 IRREGULAR = (
@@ -72,15 +75,31 @@ def strip_comments(text):
     return HTML_COMMENT.sub(lambda m: "\n" * m.group(0).count("\n"), text)
 
 
+def fence_step(line, open_fence):
+    match = FENCE.match(line)
+    if not match:
+        return open_fence, False
+    marker = match.group(1)
+    if open_fence is None:
+        return marker, True
+    rest = line.strip()[len(marker):].strip()
+    if marker[0] == open_fence[0] and len(marker) >= len(open_fence) and not rest:
+        return None, True
+    return open_fence, False
+
+
+def quote_token(match):
+    inner = match.group(0)[1:-1].rstrip()
+    return "QUOTE." if inner.endswith((".", "!", "?")) else "QUOTE"
+
+
 def dash_findings(text):
-    found, in_fence = [], False
+    found, open_fence = [], None
     for number, line in enumerate(strip_comments(text).splitlines(), start=1):
-        if FENCE.match(line):
-            in_fence = not in_fence
+        open_fence, is_delimiter = fence_step(line, open_fence)
+        if is_delimiter or open_fence or QUOTE_LINE.match(line):
             continue
-        if in_fence or QUOTE_LINE.match(line):
-            continue
-        line = INLINE_CODE.sub("", line)
+        line = QUOTED.sub("", INLINE_CODE.sub("", line))
         for ch, name in DASHES.items():
             if ch in line:
                 found.append((number, "FAIL", f"{line.count(ch)} {name}(s)"))
@@ -88,29 +107,36 @@ def dash_findings(text):
 
 
 def prose_blocks(text):
-    text = strip_comments(text)
-    blocks, block, in_fence = [], [], False
-    for number, raw in enumerate(text.splitlines(), start=1):
-        if FENCE.match(raw):
-            in_fence = not in_fence
-            raw = ""
-        if in_fence or not raw.strip() or SKIP_LINE.match(raw):
-            if block:
-                blocks.append(block)
-            block = []
+    blocks, block, open_fence = [], [], None
+
+    def flush():
+        if block:
+            blocks.append(list(block))
+        block.clear()
+
+    for number, raw in enumerate(strip_comments(text).splitlines(), start=1):
+        open_fence, is_delimiter = fence_step(raw, open_fence)
+        if is_delimiter or open_fence:
+            flush()
             continue
-        if LIST_ITEM.match(raw) and block:
-            blocks.append(block)
-            block = []
+        if SETEXT_UNDERLINE.match(raw) and block:
+            block.pop()
+            flush()
+            continue
+        if not raw.strip() or SKIP_LINE.match(raw):
+            flush()
+            continue
+        if LIST_ITEM.match(raw):
+            flush()
         line = LIST_ITEM.sub("", raw, count=1)
         line = INLINE_CODE.sub("CODE", line)
         line = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", line)
         line = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", line)
-        line = re.sub(r"https?://\S+", "URL", line)
+        line = URL.sub("URL", line)
+        line = QUOTED.sub(quote_token, line)
         line = ABBREVIATION.sub(lambda m: m.group(1).replace(".", ""), line)
         block.append((number, line.strip()))
-    if block:
-        blocks.append(block)
+    flush()
     return blocks
 
 
@@ -157,7 +183,8 @@ def main():
         print(f"note: over the {args.max}-word target")
 
     findings = []
-    for block in prose_blocks(text):
+    blocks = prose_blocks(text)
+    for block in blocks:
         found = sentences(block)
         if len(found) > MAX_PARAGRAPH_SENTENCES:
             findings.append((found[0][0], "FAIL", f"paragraph has {len(found)} sentences (max {MAX_PARAGRAPH_SENTENCES})"))
@@ -173,7 +200,7 @@ def main():
             for match in PASSIVE.finditer(sentence):
                 findings.append((number, "warn", f'possible passive "{match.group(0)}": name the actor'))
 
-    prose = [(number, line) for block in prose_blocks(text) for number, line in block]
+    prose = [(number, line) for block in blocks for number, line in block]
     for group in ONE_ACTION_VERBS:
         first_seen = {}
         for name, pattern in group.items():
