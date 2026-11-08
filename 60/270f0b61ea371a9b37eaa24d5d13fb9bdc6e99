@@ -1,0 +1,14 @@
+skills/outward-writing/scripts/check.py
+  h_b755e1950659f4 124
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "60270f0b61ea371a9b37eaa24d5d13fb9bdc6e99",
+  "prompts": {},
+  "humans": {
+    "h_b755e1950659f4": {
+      "author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
