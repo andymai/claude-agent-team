@@ -1,0 +1,19 @@
+skills/outward-writing/scripts/check.py
+  s_6d8b8abd791059::t_2d6633107c9982 10-11,18-20,78-95,97,99-100,102,110-127,129-130,135-136,139,186-187,203
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fc0973c541f86874c7c48e571b10f7e2377b6a2c",
+  "prompts": {},
+  "sessions": {
+    "s_6d8b8abd791059": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "00dee5e6-b254-4acb-b97b-6cd59b290ece",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
