@@ -53,6 +53,8 @@ color: <ANSI color>             # required, see palette below
 
 **Allowed tool names**: `Read`, `Write`, `Edit`, `Bash`, `Glob`, `Grep`, `WebSearch`, `WebFetch`. (Don't list tools the agent never uses — the description should make use of every listed tool.)
 
+**Optional MCP tools**: an agent with `WebFetch` can also list `mcp__firecrawl__firecrawl_scrape`, `mcp__firecrawl__firecrawl_search`, `mcp__firecrawl__firecrawl_map`, `mcp__firecrawl__firecrawl_crawl`, and `mcp__firecrawl__firecrawl_check_crawl_status`. Claude Code drops a listed MCP tool that no configured server provides, so the agent still runs on its core tools. The prompt must say when to use each MCP tool, and it must not depend on them. Any other MCP tool needs the same two properties: a core-tool fallback, and prompt text that says when to use it.
+
 **Read-only agents are enforced by omission, not `disallowedTools`.** The `tools:` list is an allowlist, so leaving out `Write`/`Edit` already makes an agent read-only. Don't add `disallowedTools: Write, Edit` on top — it's redundant. Reserve `disallowedTools` for blocking a tool that would otherwise be *inherited* when no `tools:` allowlist is set.
 
 **Model selection**:

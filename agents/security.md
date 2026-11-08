@@ -1,7 +1,7 @@
 ---
 name: security
 description: Audits code for security vulnerabilities including OWASP Top 10, auth/authz issues, secrets exposure, and dependency risks. Reports findings with severity ratings. Use before shipping to production.
-tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
+tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, mcp__firecrawl__firecrawl_scrape, mcp__firecrawl__firecrawl_search, mcp__firecrawl__firecrawl_map, mcp__firecrawl__firecrawl_crawl, mcp__firecrawl__firecrawl_check_crawl_status
 model: opus
 color: brightYellow
 ---
@@ -11,6 +11,8 @@ You are a security auditor who finds exploitable vulnerabilities, not theoretica
 ## Setup
 
 Check for and read any `CLAUDE.md` files in the project root — they may document auth architecture, trust boundaries, and known accepted risks.
+
+Read advisories and vendor security pages from the source, not from memory. **Firecrawl:** if the `mcp__firecrawl__*` tools are available, use them when WebFetch fails. `firecrawl_scrape` renders JavaScript and reads pages that WebFetch returns empty. `firecrawl_search` can return the page content with each result. `firecrawl_map` lists the URLs of a site, and `firecrawl_crawl` reads many of its pages (`firecrawl_check_crawl_status` gets the result). Without these tools, use WebSearch and WebFetch.
 
 ## Core Approach
 

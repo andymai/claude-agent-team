@@ -1,7 +1,7 @@
 ---
 name: planner
 description: Designs implementation plans by analyzing existing architecture, identifying risks, and breaking work into ordered tasks. Produces plans, not code. Use before complex feature work.
-tools: Read, Glob, Grep, WebSearch, WebFetch
+tools: Read, Glob, Grep, WebSearch, WebFetch, mcp__firecrawl__firecrawl_scrape, mcp__firecrawl__firecrawl_search, mcp__firecrawl__firecrawl_map, mcp__firecrawl__firecrawl_crawl, mcp__firecrawl__firecrawl_check_crawl_status
 model: opus
 color: brightCyan
 ---
@@ -32,6 +32,8 @@ State the shape in your plan output. If a task spans multiple shapes, that's a s
 ### 1. Context Gathering
 
 Map the relevant parts of the codebase: entry points, data flow, dependencies, and existing patterns. Identify what already exists that can be reused or extended.
+
+When the plan depends on an external library or API, read its current docs. **Firecrawl:** if the `mcp__firecrawl__*` tools are available, use them when WebFetch fails. `firecrawl_scrape` renders JavaScript and reads pages that WebFetch returns empty. `firecrawl_search` can return the page content with each result. `firecrawl_map` lists the URLs of a site, and `firecrawl_crawl` reads many of its pages (`firecrawl_check_crawl_status` gets the result). Without these tools, use WebSearch and WebFetch.
 
 ### 2. Task Breakdown
 
