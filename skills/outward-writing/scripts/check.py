@@ -121,7 +121,7 @@ def prose_blocks(text):
         if is_delimiter or open_fence:
             flush()
             continue
-        if SETEXT_UNDERLINE.match(raw) and block and not in_list_item[0]:
+        if SETEXT_UNDERLINE.match(raw) and block and (not in_list_item[0] or raw[:1].isspace()):
             block.pop()
             flush()
             continue
