@@ -90,7 +90,7 @@ General-purpose [Agent Skills](https://code.claude.com/docs/en/skills) that aren
 | Skill            | Triggers on                                                   | What it does |
 | ---------------- | ------------------------------------------------------------- | ------------ |
 | **shepherd-pr**  | "shepherd the PR", "drive this PR to green", "clean up the PR" | Autonomous loop that drives the current branch's PR to a clean state — resolves review comments, fixes check-run findings (including neutral-status reviewers the CI rollup hides), and waits on CI — then reassigns and reports. Repo-agnostic: detects Graphite vs plain git and derives the GitHub login at runtime |
-| **codex-write**  | the deliverable is prose another person will read: a design doc, proposal, wiki page, Slack message, PR body or reply, review reply, ticket, email | Writes through the OpenAI Codex CLI instead of directly. You research and fill a brief (facts with sources, decisions with reasons, the user's house rules), `run.sh` calls `codex exec` non-interactively and checks the draft for em or en dashes, you fact-check the draft against the brief, and nothing is published until the user has seen it. Requires the `codex` CLI on PATH |
+| **outward-writing** | the deliverable is prose another person will read: a design doc, proposal, wiki page, Slack message, PR body or reply, review reply, ticket, email | You collect every fact with a source, write the draft in ASD-STE100 Simplified Technical English, fact-check it sentence by sentence, and run `check.py`. Nothing is published until the user has seen the draft. No external CLI is needed |
 
 ## Slash Commands
 
@@ -107,9 +107,9 @@ General-purpose [Agent Skills](https://code.claude.com/docs/en/skills) that aren
 
 ## Scripts
 
-`scripts/count-tokens.sh` ships with the plugin and is called by the **context-auditor** agent via `${CLAUDE_PLUGIN_ROOT}`.
+`scripts/count-tokens.sh` ships with the plugin and is called by the **context-auditor** agent via `${CLAUDE_PLUGIN_ROOT}`. It counts tokens with the Anthropic API when `ANTHROPIC_API_KEY` is set, caches results, and falls back to a character-based estimate otherwise.
 
-`skills/codex-write/scripts/run.sh` and `check.py` ship with the **codex-write** skill, also reached via `${CLAUDE_PLUGIN_ROOT}`. `run.sh` wraps `codex exec` and writes only the final message; `check.py` fails a draft only on em or en dashes and reports its word count. It counts tokens with the Anthropic API when `ANTHROPIC_API_KEY` is set, caches results, and falls back to a character-based estimate otherwise.
+`skills/outward-writing/scripts/check.py` ships with the **outward-writing** skill, also reached via `${CLAUDE_PLUGIN_ROOT}`. It fails a draft on em or en dashes outside code and quotes, on a sentence over 25 words, and on a paragraph over 6 sentences. It warns on the present perfect, "-ing" verbs, possible passives, and two verbs for one action, and it reports the word count.
 
 ## Contributing
 
