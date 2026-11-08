@@ -108,18 +108,20 @@ def dash_findings(text):
 
 def prose_blocks(text):
     blocks, block, open_fence = [], [], None
+    in_list_item = [False]
 
     def flush():
         if block:
             blocks.append(list(block))
         block.clear()
+        in_list_item[0] = False
 
     for number, raw in enumerate(strip_comments(text).splitlines(), start=1):
         open_fence, is_delimiter = fence_step(raw, open_fence)
         if is_delimiter or open_fence:
             flush()
             continue
-        if SETEXT_UNDERLINE.match(raw) and block:
+        if SETEXT_UNDERLINE.match(raw) and block and not in_list_item[0]:
             block.pop()
             flush()
             continue
@@ -128,6 +130,7 @@ def prose_blocks(text):
             continue
         if LIST_ITEM.match(raw):
             flush()
+            in_list_item[0] = True
         line = LIST_ITEM.sub("", raw, count=1)
         line = INLINE_CODE.sub("CODE", line)
         line = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", line)
