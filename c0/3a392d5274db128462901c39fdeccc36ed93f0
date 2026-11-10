@@ -1,0 +1,45 @@
+AGENTS.md
+  s_7f61e65da7c982::t_275888b18416c5 131
+skills/outward-writing/tests/fail-curly-quotes.md
+  s_7f61e65da7c982::t_d1fb0bed41dcdc 1-3
+skills/outward-writing/tests/fail-dashes.md
+  s_7f61e65da7c982::t_2c68a8cb96f5fd 1-10
+skills/outward-writing/tests/fail-hard-wrap.md
+  s_7f61e65da7c982::t_1dfe3d42b6b7e1 1-5
+skills/outward-writing/tests/fail-list-before-rule.md
+  s_7f61e65da7c982::t_58c7ddd447cbf1 1-6
+skills/outward-writing/tests/fail-planted.md
+  s_7f61e65da7c982::t_5408fee4df0946 1-27
+skills/outward-writing/tests/fail-url-periods.md
+  s_7f61e65da7c982::t_f3d3d372b87c7f 1-3
+skills/outward-writing/tests/pass-clean.md
+  s_7f61e65da7c982::t_6fc663f8e8d2b6 1-11
+skills/outward-writing/tests/pass-code-and-quotes.md
+  s_7f61e65da7c982::t_26fec96dee96a3 1-9
+skills/outward-writing/tests/pass-inline-quotes.md
+  s_7f61e65da7c982::t_a90b592db29722 1-3
+skills/outward-writing/tests/pass-list-setext.md
+  s_7f61e65da7c982::t_dd75baf7c3af37 1-3
+skills/outward-writing/tests/pass-nested-fence.md
+  s_7f61e65da7c982::t_0bec41f29b82c9 1-9
+skills/outward-writing/tests/pass-possessive.md
+  s_7f61e65da7c982::t_b876e8a479e730 1-3
+skills/outward-writing/tests/pass-setext-heading.md
+  s_7f61e65da7c982::t_71128456c672e1 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c03a392d5274db128462901c39fdeccc36ed93f0",
+  "prompts": {},
+  "sessions": {
+    "s_7f61e65da7c982": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f9962706-138b-4c86-bbd6-ebff04da6694",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
