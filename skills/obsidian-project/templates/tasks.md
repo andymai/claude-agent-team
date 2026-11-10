@@ -10,6 +10,8 @@ tags: [task, draft]
 
 ## Backlog
 
+%% Tasks for later, as plain `- [ ]` lines. %%
+
 ## Completed
 
 %% Move each finished task here as `- [x]`. %%

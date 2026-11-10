@@ -42,10 +42,20 @@ say so in the report. The vault's rules win over this skill.
 ## 3. Name the project
 
 - `{title}`: the project name as the user writes it.
-- `{name}`: the file prefix. If the project has a repo, use the repo name. Otherwise,
-  write `{title}` in lowercase with a hyphen between words. Example: "Meal Planner"
-  gives `meal-planner`.
+- `{name}`: the file prefix. If the project has a repo, use the repo name in lowercase.
+  Otherwise, write `{title}` in lowercase. Change each space, and each character that
+  is not a letter, a digit, `-`, or `_`, to one hyphen. Example:
+  "CI/CD Dashboard" gives `ci-cd-dashboard`.
 - `{date}`: today, as `YYYY-MM-DD`.
+
+Gate: `{name}` becomes a folder name and part of each file name, so it must pass this
+check. Put the name in place of `<name>`:
+
+```bash
+printf '%s' '<name>' | grep -Eq '^[a-z0-9][a-z0-9_-]*$' && echo ok
+```
+
+If the check does not print `ok`, ask the user for a different name.
 
 Obsidian finds a wikilink's note by file name anywhere in the vault, so each file name
 must be unique. Check the five names before you write anything:
