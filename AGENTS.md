@@ -1,11 +1,11 @@
 # AGENTS.md
 
-A playbook for AI agents working on `claude-agent-team` itself. CLAUDE.md (when present) is shared human+agent guidance; this file is agent-specific.
+A playbook for AI agents working on `andymai/skills` itself. CLAUDE.md (when present) is shared human+agent guidance; this file is agent-specific.
 
 ## At a glance
 
 - **What this repo is**: a Claude Code plugin bundling agent definitions (`agents/*.md`), slash commands (`commands/*.md`), and workflow skills (`skills/*/SKILL.md`). It doubles as its own marketplace: `.claude-plugin/marketplace.json` lists one plugin, `team`, with `"source": "./"`.
-- **Distribution model**: users install with `/plugin marketplace add andymai/claude-agent-team` then `/plugin install team@claude-agent-team`. Claude Code auto-discovers `agents/`, `commands/`, and `skills/` at the plugin root, so adding a file is all it takes to ship it. Components are namespaced by the plugin name (`/team:commit`, `team:engineer`).
+- **Distribution model**: users install with `/plugin marketplace add andymai/skills` then `/plugin install team@andymai`. The marketplace name is `andymai`, because a user cannot add two marketplaces with the same name, and a generic name such as `skills` can collide. Claude Code auto-discovers `agents/`, `commands/`, and `skills/` at the plugin root, so adding a file is all it takes to ship it. Components are namespaced by the plugin name (`/team:commit`, `team:engineer`).
 - **Everything here runs across every project the user touches.** Agents, commands, and skills must be portable: stack-agnostic and free of repo-specific assumptions.
 - **Paths inside agent and skill bodies**: reference bundled files through `${CLAUDE_PLUGIN_ROOT}` (it resolves anywhere in agent and skill content), never through `~/.claude/...`. The install path is a versioned cache directory outside the repo, so a hardcoded path is never correct.
 - **The hard rule**: agents must not encode project-specific conventions. Read the local project's `CLAUDE.md`/`AGENTS.md` and follow *that*.

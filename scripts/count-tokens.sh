@@ -19,7 +19,7 @@ if [ "$FILE_SIZE" -gt 10485760 ]; then
   exit 1
 fi
 
-CACHE_FILE="${CLAUDE_PLUGIN_DATA:-$HOME/.cache/claude-agent-team}/token-cache.json"
+CACHE_FILE="${CLAUDE_PLUGIN_DATA:-$HOME/.cache/andymai-skills}/token-cache.json"
 if command -v md5sum &>/dev/null; then
   FILE_HASH=$(md5sum "$FILE_PATH" | cut -d' ' -f1)
 elif command -v md5 &>/dev/null; then

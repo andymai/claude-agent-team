@@ -1,8 +1,8 @@
 <div align="center">
 
-# Claude Agent Team
+# Skills
 
-A set of Claude Code subagents (planner, engineer, debugger, reviewer, and more), shipped as a plugin and designed to be composed into workflow recipes.
+Claude Code skills, subagents, slash commands, scripts, and templates, shipped as one plugin named `team`. The subagents (planner, engineer, debugger, reviewer, and more) compose into workflow recipes.
 
 [Agents](#agents) · [Workflow Skills](#workflow-skills) · [Workflow Recipes](#workflow-recipes) · [Quick Start](#quick-start)
 
@@ -10,22 +10,22 @@ A set of Claude Code subagents (planner, engineer, debugger, reviewer, and more)
 
 ---
 
-This repo is a [Claude Code plugin](https://code.claude.com/docs/en/plugins) containing agent definitions, slash commands, and workflow skills. It doubles as its own marketplace, so installing it registers the agents in every project you open.
+This repo is a [Claude Code plugin](https://code.claude.com/docs/en/plugins) containing agent definitions, slash commands, and workflow skills. It doubles as its own marketplace, named `andymai`, so installing it registers the agents in every project you open.
 
 ## Quick Start
 
 Requires [Claude Code](https://docs.claude.com/en/docs/claude-code). In any session:
 
 ```
-/plugin marketplace add andymai/claude-agent-team
-/plugin install team@claude-agent-team
+/plugin marketplace add andymai/skills
+/plugin install team@andymai
 ```
 
-To pull later changes, refresh the catalog with `/plugin marketplace update claude-agent-team`, then update from a shell with `claude plugin update team@claude-agent-team` (or pick Update from the `/plugin` menu). Remove everything with `/plugin uninstall team`.
+To pull later changes, refresh the catalog with `/plugin marketplace update andymai`, then update from a shell with `claude plugin update team@andymai` (or pick Update from the `/plugin` menu). Remove everything with `/plugin uninstall team`.
 
 Components are namespaced by the plugin name: commands and skills are `/team:commit`, `/team:shepherd-pr`, and so on; agents are `team:engineer`, `team:reviewer`, and so on.
 
-To work on the plugin itself, load a clone directly for one session: `claude --plugin-dir /path/to/claude-agent-team`. Installing reads from a copy in the plugin cache, so edits to a clone don't reach an installed copy.
+To work on the plugin itself, load a clone directly for one session: `claude --plugin-dir /path/to/skills`. Installing reads from a copy in the plugin cache, so edits to a clone don't reach an installed copy.
 
 ## Agents
 
