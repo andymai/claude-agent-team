@@ -1,0 +1,21 @@
+skills/outward-writing/tests/run.sh
+  s_7f61e65da7c982::t_d2c14ba3f1402a 1-35
+AGENTS.md
+  s_7f61e65da7c982::t_34568cf2ed89d2 131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "33bf8c5520c9c7b12caaa53084bd0b53bc785d6d",
+  "prompts": {},
+  "sessions": {
+    "s_7f61e65da7c982": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f9962706-138b-4c86-bbd6-ebff04da6694",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
