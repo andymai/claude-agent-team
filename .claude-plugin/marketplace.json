@@ -1,6 +1,6 @@
 {
-  "name": "claude-agent-team",
-  "description": "A composable subagent team for Claude Code, plus the slash commands and workflow skills that drive it.",
+  "name": "andymai",
+  "description": "Claude Code skills, subagents, slash commands, scripts, and templates, shipped as one plugin named team.",
   "owner": {
     "name": "Andy Aragon"
   },
