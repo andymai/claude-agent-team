@@ -128,7 +128,7 @@ Commands receive the raw user prompt via `{{RAW_PROMPT}}`. Document the supporte
 - **Commits**: conventional commits (`feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `ci`, `build`, `perf`, `style`, `revert`). Scope is optional and short.
 - **Branch naming**: `<type>/<kebab-description>` matching the commit type.
 - **One feature per PR.** Large agent rewrites that touch unrelated agents should be split.
-- **Checker tests**: after a change to `skills/outward-writing/scripts/check.py`, run it on each file in `skills/outward-writing/tests/`. Each `fail-*` file must fail, and each `pass-*` file must pass.
+- **Checker tests**: after a change to `skills/outward-writing/scripts/check.py`, run `skills/outward-writing/tests/run.sh`. It must print `PASS`. Each `fail-*` draft must fail, each `pass-*` draft must pass, and the `expect` and `reject` markers in a draft must match the checker's output.
 - **Never reply to or post PR comments.** Agents and commands must not post comments, reply to review threads, or resolve threads on a PR (`gh pr comment`, `gh api .../comments`, etc.). Address review feedback through commits and report the resolution back to the user; the user owns all PR conversation.
 
 ## When You're Stuck
