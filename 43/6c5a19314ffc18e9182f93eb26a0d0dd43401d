@@ -1,0 +1,31 @@
+.claude-plugin/plugin.json
+  s_7f61e65da7c982::t_db31cb10d4cc66 5
+.claude-plugin/marketplace.json
+  s_7f61e65da7c982::t_a1e62c76dff85a 2-3
+scripts/count-tokens.sh
+  s_7f61e65da7c982::t_4da19162169aa0 22
+README.md
+  s_7f61e65da7c982::t_7c9b7d393444ce 13
+  s_7f61e65da7c982::t_dc50c627aa7424 3,5
+  s_7f61e65da7c982::t_3e496a9b451206 20-21,24
+  s_7f61e65da7c982::t_80bbdc0f44e442 28
+AGENTS.md
+  s_7f61e65da7c982::t_e97376d51bfd65 8
+  s_7f61e65da7c982::t_dae94549f4bc55 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "436c5a19314ffc18e9182f93eb26a0d0dd43401d",
+  "prompts": {},
+  "sessions": {
+    "s_7f61e65da7c982": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f9962706-138b-4c86-bbd6-ebff04da6694",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
