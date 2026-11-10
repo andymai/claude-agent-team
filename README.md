@@ -51,7 +51,7 @@ To set expectations, this collection deliberately does not:
 - **Replace or install Claude Code**: assumes Claude Code is already installed and authenticated; this repo only adds agent definitions on top of it.
 - **Provide a runtime orchestration framework**: agents are static markdown definitions read by Claude Code; there is no daemon, scheduler, or inter-agent message bus.
 - **Make workflow recipes executable**: the recipes under [Workflow Recipes](#workflow-recipes) are documentation suggestions showing a useful invocation order, not automated pipelines you can run with a single command.
-- **Bootstrap new projects**: the plugin adds agents and commands for use in existing projects; it does not scaffold repos, generate boilerplate, or configure CI.
+- **Bootstrap new projects**: the plugin adds agents and commands for use in existing projects; it does not scaffold repos, generate code boilerplate, or configure CI. The **obsidian-project** skill creates planning notes in an Obsidian vault, not code.
 - **Work outside Claude Code**: the agent and slash-command formats are specific to Claude Code's subagent protocol and are not compatible with other LLM tooling without modification.
 
 ## Workflow Recipes
@@ -91,6 +91,7 @@ General-purpose [Agent Skills](https://code.claude.com/docs/en/skills) that aren
 | ---------------- | ------------------------------------------------------------- | ------------ |
 | **shepherd-pr**  | "shepherd the PR", "drive this PR to green", "clean up the PR" | Autonomous loop that drives the current branch's PR to a clean state — resolves review comments, fixes check-run findings (including neutral-status reviewers the CI rollup hides), and waits on CI — then reassigns and reports. Repo-agnostic: detects Graphite vs plain git and derives the GitHub login at runtime |
 | **outward-writing** | the deliverable is prose another person will read: a design doc, proposal, wiki page, Slack message, PR body or reply, review reply, ticket, email | You collect every fact with a source, write the draft in ASD-STE100 Simplified Technical English, fact-check it sentence by sentence, and run `check.py`. Nothing is published until the user has seen the draft. No external CLI is needed |
+| **obsidian-project** | "start a project in my vault", "set up project docs in Obsidian" | Creates one folder in an Obsidian vault with five linked notes: the overview, PRD, architecture, research, and tasks. It adds the project to the vault's index. It fills a section only from what you said or what it read, and the other sections keep a hidden prompt. A layout in the vault's own CLAUDE.md wins over the templates |
 
 ## Slash Commands
 
