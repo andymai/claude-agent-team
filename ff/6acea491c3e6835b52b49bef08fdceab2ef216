@@ -1,0 +1,40 @@
+skills/obsidian-project/templates/research.md
+  s_7f61e65da7c982::t_78cd67d7bd7346 1-22
+skills/obsidian-project/templates/prd.md
+  s_7f61e65da7c982::t_6949b49c89f9a4 1-31
+skills/obsidian-project/SKILL.md
+  s_7f61e65da7c982::t_80b20d12302669 108-111
+  s_7f61e65da7c982::t_0dfddf08e767c8 115-120
+  s_7f61e65da7c982::t_d647fd163ae072 137
+  s_7f61e65da7c982::t_aadf783b4cfbce 4-5
+  s_7f61e65da7c982::t_87f6e3fec8fe14 79-80
+  s_7f61e65da7c982::t_63788cb78ab16c 1-3,6-78,81-96,99-107,112-114,121-136,138-139
+  s_7f61e65da7c982::t_f9484ce5264bd5 97-98
+.claude-plugin/plugin.json
+  s_7f61e65da7c982::t_e6a5a27134c24d 5
+skills/obsidian-project/templates/overview.md
+  s_7f61e65da7c982::t_95887e8e7e32b8 1-19
+skills/obsidian-project/templates/tasks.md
+  s_7f61e65da7c982::t_228e15047a0e8e 1-15
+README.md
+  s_7f61e65da7c982::t_82ee8328dc7917 54
+  s_7f61e65da7c982::t_28737cb1048c61 94
+skills/obsidian-project/templates/architecture.md
+  s_7f61e65da7c982::t_8fa1a82d631186 1-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ff6acea491c3e6835b52b49bef08fdceab2ef216",
+  "prompts": {},
+  "sessions": {
+    "s_7f61e65da7c982": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f9962706-138b-4c86-bbd6-ebff04da6694",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
