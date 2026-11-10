@@ -58,17 +58,16 @@ color: <ANSI color>             # required, see palette below
 **Read-only agents are enforced by omission, not `disallowedTools`.** The `tools:` list is an allowlist, so leaving out `Write`/`Edit` already makes an agent read-only. Don't add `disallowedTools: Write, Edit` on top — it's redundant. Reserve `disallowedTools` for blocking a tool that would otherwise be *inherited* when no `tools:` allowlist is set.
 
 **Model selection**:
-- `opus` — reasoning-heavy work: planning, architecture, debugging, security, review, research, gap-finding.
-- `sonnet` — pattern-following work where speed matters: testing, optimization, documentation, context audits.
+- `opus` — reasoning-heavy work: implementation, debugging, review, research, gap-finding.
+- `sonnet` — pattern-following work where speed matters: optimization.
 - `haiku` — short, deterministic transforms only (currently unused here).
 
 **Color palette** (chosen for visual distinction in the agent picker):
-- `green` / `brightGreen` — building (engineer, documenter)
+- `green` / `brightGreen` — building (engineer)
 - `red` / `brightRed` — finding problems (reviewer, debugger)
-- `brightYellow` / `yellow` — testing/security (security, tester)
-- `cyan` / `brightCyan` / `brightBlue` / `blue` — planning/research/architecture (optimizer, planner, architect, researcher)
+- `cyan` / `brightCyan` / `brightBlue` / `blue` — refining and research (optimizer, researcher)
 - `magenta` — gap-finding (post-implementation verification)
-- `white` — auditing (context-auditor)
+- `brightYellow` / `yellow` / `white` — free for new roles
 
 Avoid duplicating colors across agents that the user might invoke in the same workflow.
 
@@ -118,13 +117,13 @@ Commands receive the raw user prompt via `{{RAW_PROMPT}}`. Document the supporte
 
 ## Decision frameworks
 
-- **Add a new agent vs. extend an existing one?** Extend when the new capability is a refinement (engineer learns a new convention, reviewer learns a new checklist). New agent when the role is fundamentally different (architect ≠ reviewer; security ≠ reviewer).
+- **Add a new agent vs. extend an existing one?** Extend when the new capability is a refinement (engineer learns a new convention, reviewer learns a new checklist). New agent when the role is fundamentally different (debugger ≠ reviewer). Before adding one, check that a Claude Code built-in (plan mode, the Plan agent, `/security-review`) does not already do the job. Do not split one job across two agents: tests belong to the agent that writes the code, because a separate test agent that nobody calls leaves changes without tests.
 - **Hardcoded rule vs. discovered rule?** If the rule is in *every* well-run project, hardcode it (e.g., "read CLAUDE.md before starting"). If the rule depends on the project's stack or style, the agent should *discover* it locally.
-- **Read-only vs. write-capable agent?** Read-only (omit `Write`/`Edit` from `tools:`) for analysis agents (reviewer, security, planner, gap-finder, architect, context-auditor, researcher). Write-capable for execution agents (engineer, debugger, tester, optimizer, documenter).
+- **Read-only vs. write-capable agent?** Read-only (omit `Write`/`Edit` from `tools:`) for analysis agents (reviewer, gap-finder, researcher). Write-capable for execution agents (engineer, debugger, optimizer).
 
 ## Conventions
 
-- **Cross-references carry the `team:` prefix.** When a command or agent tells the executor to *invoke* another component in this bundle, name it `team:documenter` or `/team:check`, never bare. A bare name can resolve to an unrelated user-scoped component or to nothing at all. Descriptive prose about scope boundaries ("that's the reviewer's job") stays unprefixed, and Claude Code built-ins like `/plugin` and `/reload-plugins` are never prefixed.
+- **Cross-references carry the `team:` prefix.** When a command or agent tells the executor to *invoke* another component in this bundle, name it `team:reviewer` or `/team:check`, never bare. A bare name can resolve to an unrelated user-scoped component or to nothing at all. Descriptive prose about scope boundaries ("that's the reviewer's job") stays unprefixed, and Claude Code built-ins like `/plugin` and `/reload-plugins` are never prefixed.
 - **Commits**: conventional commits (`feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `ci`, `build`, `perf`, `style`, `revert`). Scope is optional and short.
 - **Branch naming**: `<type>/<kebab-description>` matching the commit type.
 - **One feature per PR.** Large agent rewrites that touch unrelated agents should be split.

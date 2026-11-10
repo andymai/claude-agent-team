@@ -2,7 +2,7 @@
 
 # Skills
 
-Claude Code skills, subagents, slash commands, scripts, and templates, shipped as one plugin named `team`. The subagents (planner, engineer, debugger, reviewer, and more) compose into workflow recipes.
+Claude Code skills, subagents, slash commands, scripts, and templates, shipped as one plugin named `team`. The subagents (engineer, reviewer, debugger, and more) compose into workflow recipes.
 
 [Agents](#agents) · [Workflow Skills](#workflow-skills) · [Workflow Recipes](#workflow-recipes) · [Quick Start](#quick-start)
 
@@ -31,18 +31,14 @@ To work on the plugin itself, load a clone directly for one session: `claude --p
 
 | Agent              | Purpose                                                       | Model  | Features        |
 | ------------------ | ------------------------------------------------------------- | ------ | --------------- |
-| **planner**        | Design implementation plans, classify session shape, ordered tasks | Opus   | read-only       |
-| **architect**      | Audit layer boundaries, dependency directions, module coupling | Opus   | read-only       |
-| **engineer**       | Implement features following existing codebase patterns       | Opus   |                 |
+| **engineer**       | Implement features and their tests, following existing codebase patterns; test-first for bug fixes | Opus   |                 |
 | **debugger**       | Systematic bug investigation — reproduce, fix all layers, real deps only | Opus   |                 |
-| **tester**         | Write unit tests for new functionality                        | Sonnet |                 |
 | **reviewer**       | Code review with confidence-based filtering (≥60 threshold)   | Opus   | read-only       |
-| **security**       | Security audit — OWASP Top 10, auth flows, dependency risks  | Opus   | read-only       |
 | **researcher**     | Explore codebases, compare technologies, gather information   | Opus   | read-only       |
 | **gap-finder**     | Verify implementations match specs, find missing requirements | Opus   | read-only       |
 | **optimizer**      | Practical code improvements and refactoring                   | Sonnet |                 |
-| **documenter**     | Create and maintain documentation, diagrams, and guides       | Sonnet |                 |
-| **context-auditor**| Audit markdown docs for token efficiency and redundancy       | Sonnet | read-only       |
+
+For planning, use plan mode or Claude Code's built-in Plan agent. For a security review, use the built-in `/security-review`.
 
 ## Scope
 
@@ -58,27 +54,22 @@ To set expectations, this collection deliberately does not:
 
 **Bug fix**:
 ```
-debugger → engineer → tester → reviewer
+debugger → engineer → reviewer
 ```
 
-**New feature**:
+**New feature** (after plan mode):
 ```
-planner → engineer → tester → gap-finder → reviewer
-```
-
-**Security review**:
-```
-security → reviewer
+engineer → gap-finder → reviewer
 ```
 
-**Architecture audit** (for layered codebases):
+**Cleanup after a change**:
 ```
-architect → reviewer
+optimizer → reviewer
 ```
 
-**Documentation**:
+**Research before a decision**:
 ```
-documenter (standalone or after feature work)
+researcher (standalone)
 ```
 
 Each agent works autonomously and returns results. Claude Code decides which agent to invoke next.
@@ -108,9 +99,7 @@ General-purpose [Agent Skills](https://code.claude.com/docs/en/skills) that aren
 
 ## Scripts
 
-`scripts/count-tokens.sh` ships with the plugin and is called by the **context-auditor** agent via `${CLAUDE_PLUGIN_ROOT}`. It counts tokens with the Anthropic API when `ANTHROPIC_API_KEY` is set, caches results, and falls back to a character-based estimate otherwise.
-
-`skills/outward-writing/scripts/check.py` ships with the **outward-writing** skill, also reached via `${CLAUDE_PLUGIN_ROOT}`. It fails a draft on em or en dashes outside code and quotes, on a sentence over 25 words, and on a paragraph over 6 sentences. It warns on the present perfect, "-ing" verbs, possible passives, and two verbs for one action, and it reports the word count.
+`skills/outward-writing/scripts/check.py` ships with the **outward-writing** skill, reached via `${CLAUDE_PLUGIN_ROOT}`. It fails a draft on em or en dashes outside code and quotes, on a sentence over 25 words, and on a paragraph over 6 sentences. It warns on the present perfect, "-ing" verbs, possible passives, and two verbs for one action, and it reports the word count.
 
 ## Contributing
 
