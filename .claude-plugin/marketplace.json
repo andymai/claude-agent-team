@@ -8,7 +8,7 @@
     {
       "name": "team",
       "source": "./",
-      "description": "Subagents, slash commands, and workflow skills for Claude Code: a planner/engineer/debugger/reviewer team plus commands for commits, branches, worktrees, and PR shepherding.",
+      "description": "Subagents, slash commands, and workflow skills for Claude Code: an engineer/reviewer/debugger team plus commands for commits, branches, worktrees, and PR shepherding.",
       "category": "workflow",
       "tags": ["agents", "code-review", "git", "workflow"]
     }
